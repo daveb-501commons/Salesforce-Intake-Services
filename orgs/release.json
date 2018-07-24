@@ -1,0 +1,11 @@
+{
+  "orgName": "salesforce-intake-services - Release Test Org",
+  "edition": "Enterprise",
+  "orgPreferences" : {
+    "enabled": [
+      "S1DesktopEnabled",
+      "Translation",
+      "ChatterEnabled" 
+    ]
+  }
+}

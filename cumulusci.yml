@@ -1,0 +1,6 @@
+project:
+    name: salesforce-intake-services
+    package:
+        name: salesforce-intake-services
+    dependencies:
+        - github: https://github.com/SalesforceFoundation/Cumulus

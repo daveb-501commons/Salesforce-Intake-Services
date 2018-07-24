@@ -1,0 +1,18 @@
+.project
+.settings
+salesforce.schema
+Referenced Packages
+salesforce-intake-services.sublime-project
+salesforce-intake-services.sublime-settings
+salesforce-intake-services.sublime-workspace
+/resource-bundles/Angular.resource/mm.log
+/config/
+/apex-scripts/
+/.DS_Store
+/resource-bundles/.DS_Store
+/resource-bundles/Angular.resource/mmui.log
+/resource-bundles/Angular.resource/mmst.log
+/resource-bundles/Angular.resource/bower_components*
+.sfdx/
+.vscode/
+test_results*
