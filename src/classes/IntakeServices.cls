@@ -29,8 +29,8 @@ public with sharing class IntakeServices {
         for (Intake_Services_Checkin__c fbc : Intake_Services_Checkin__c.getAll().values()) {
             ClientCheckin cc = new ClientCheckin();
             cc.clientId = fbc.name;
-            cc.clientContactId = fbc.Visitor__c;
-            cc.name = String.format('{0} Household', new String[]{IntakeServices.getContactName(fbc.Visitor__c)});
+            cc.clientContactId = fbc.C501_IS_Visitor__c;
+            cc.name = String.format('{0} Household', new String[]{IntakeServices.getContactName(fbc.C501_IS_Visitor__c)});
             cc.pointsRemaining = fbc.Points_Remaining__c;
             cc.boxSize = fbc.Box_Size__c;
             cc.checkInTime = fbc.Check_In_Time__c;
@@ -55,36 +55,36 @@ public with sharing class IntakeServices {
     @RemoteAction
     public static Account getHouseholdDetail( Id hhid ) {
         Account hh =
-            [select Id, Name, CreatedDate, LastModifiedDate, First_Visit__c, Most_Recent_Visit__c,
-                Total_Visits__c, Homeless__c, Out_Of_Area__c, BillingStreet, BillingCity, BillingState, BillingPostalCode,
-                Inactive__c, Notes__c, Source__c, External_ID__c, Adults__c,
-                Children__c, Infants__c, Seniors__c, Tags__c,
-                Staff_Notes__c, Phone, Proof_of_Address__c, Proof_of_Address_Date__c,
-                (select Id, Name, FirstName, LastName, Age_Group__c, Age__c, Birthdate, Proof_of_Infant__c, Gender__c, Id_Number__c
+            [select Id, Name, CreatedDate, LastModifiedDate, C501_IS_First_Visit__c, C501_IS_Most_Recent_Visit__c,
+                C501_IS_Total_Visits__c, C501_IS_Homeless__c, C501_IS_Out_Of_Area__c, BillingStreet, BillingCity, BillingState, BillingPostalCode,
+                C501_IS_Inactive__c, C501_IS_Notes__c, C501_IS_Source__c, C501_IS_External_Id__c, C501_IS_Adults__c,
+                C501_IS_Children__c, C501_IS_Infants__c, C501_IS_Seniors__c, C501_IS_Tags__c,
+                C501_IS_Staff_Notes__c, Phone, C501_IS_Proof_of_Address__c, C501_IS_Proof_of_Address_Date__c,
+                (select Id, Name, FirstName, LastName, C501_IS_Age_Group__c, C501_IS_Age__c, Birthdate, C501_IS_Proof_of_Infant__c, C501_IS_Gender__c, C501_IS_Id_Number__c
                     from Contacts),
-                (select Points_Used__c, Commodity_Usage_JSON__c from Visits__r where Visit_Date__c = THIS_MONTH)
+                (select C501_IS_Points_Used__c, C501_IS_Commodity_Usage_JSON__c from Visits__r where C501_IS_Visit_Date__c = THIS_MONTH)
                 from Account where id = :hhid];
 
         if (IntakeServicesSettings.general.Track_Points__c)
-            hh.Monthly_Points_Available__c = getMonthlyPoints( hh );
+            hh.C501_IS_Monthly_Points_Available__c = getMonthlyPoints( hh );
 
         // Get any Checkin Commodities Pending
         Intake_Services_Checkin__c fbc = Intake_Services_Checkin__c.getInstance( hhid );
         if (fbc != null) {
-            hh.Pending_Commodity_Usage_JSON__c = fbc.Commodity_Usage_JSON__c; 
-            hh.Pending_Notes__c = fbc.Notes__c; 
+            hh.C501_IS_Pending_Commodity_Usage_JSON__c = fbc.C501_IS_Commodity_Usage_JSON__c; 
+            hh.C501_IS_Pending_Notes__c = fbc.C501_IS_Notes__c; 
         }
 
         /*
         // if last visit date is not this month, recalculate points
         if (IntakeServicesSettings.general.Track_Points__c) {
-            hh.Monthly_Points_Available__c = getMonthlyPoints( hh );
-            if (hh.Most_Recent_Visit__c == null) {
-                hh.Current_Points_Used__c = 0;
-            } else if (hh.Current_Points_Used__c == null || hh.Most_Recent_Visit__c.year() != system.today().year() || hh.Most_Recent_Visit__c.month() != system.today().month()) {
-                AggregateResult ar = [SELECT SUM(Points_Used__c) TotalPoints FROM Client_Visit__c WHERE Id = : hh.id AND Visit_Date__c = THIS_MONTH];
+            hh.C501_IS_Monthly_Points_Available__c = getMonthlyPoints( hh );
+            if (hh.C501_IS_Most_Recent_Visit__c == null) {
+                hh.C501_IS_Current_Points_Used__c = 0;
+            } else if (hh.C501_IS_Current_Points_Used__c == null || hh.C501_IS_Most_Recent_Visit__c.year() != system.today().year() || hh.C501_IS_Most_Recent_Visit__c.month() != system.today().month()) {
+                AggregateResult ar = [SELECT SUM(C501_IS_Points_Used__c) TotalPoints FROM Client_Visit__c WHERE Id = : hh.id AND C501_IS_Visit_Date__c = THIS_MONTH];
                 Decimal pu = (Decimal)(ar.get('TotalPoints'));
-                hh.Current_Points_Used__c = (pu == null) ? 0 : pu;
+                hh.C501_IS_Current_Points_Used__c = (pu == null) ? 0 : pu;
             }
         }
         */
@@ -94,10 +94,10 @@ public with sharing class IntakeServices {
     @RemoteAction
     public static list<Client_Visit__c> getVisitHistory( Id hhid ) {
         return
-            [select Id, Visit_Date__c, Box_Type__c, Points_Used__c, Checkout_Weight__c, Notes__c, Visitor__r.Name
+            [select Id, C501_IS_Visit_Date__c, C501_IS_Box_Type__c, C501_IS_Points_Used__c, C501_IS_Checkout_Weight__c, C501_IS_Notes__c, C501_IS_Visitor__r.Name
                 from Client_Visit__c
-                where Household__c = :hhid
-                order by Visit_Date__c DESC limit 20];
+                where C501_IS_Household__c = :hhid
+                order by C501_IS_Visit_Date__c DESC limit 20];
     }
 
     @RemoteAction
@@ -119,7 +119,7 @@ public with sharing class IntakeServices {
 
         hh.Name = IntakeServices.NPSPTriggerNameUpdate;
 
-        hh.Monthly_Points_Available__c = getMonthlyPoints( hh );  // is this by trigger?  how about the name?
+        hh.C501_IS_Monthly_Points_Available__c = getMonthlyPoints( hh );  // is this by trigger?  how about the name?
         if (hh.Id == null)
             insert hh;
         else
@@ -176,14 +176,14 @@ public with sharing class IntakeServices {
         if (hh != null) {
             if (IntakeServicesSettings.general.Monthly_Base_Points__c != null)
                 pts += IntakeServicesSettings.general.Monthly_Base_Points__c;
-            if (IntakeServicesSettings.general.Monthly_points_per_Adult__c != null && hh.Adults__c != null)
-                pts += (IntakeServicesSettings.general.Monthly_points_per_Adult__c * hh.Adults__c);
-            if (IntakeServicesSettings.general.Monthly_points_per_Adult__c != null && hh.Seniors__c != null)
-                pts += (IntakeServicesSettings.general.Monthly_points_per_Adult__c * hh.Seniors__c);
-            if (IntakeServicesSettings.general.Monthly_points_per_Child__c != null && hh.Children__c != null)
-                pts += (IntakeServicesSettings.general.Monthly_points_per_Child__c * hh.Children__c);
-            if (IntakeServicesSettings.general.Monthly_points_per_Child__c != null && hh.Infants__c != null)
-                pts += (IntakeServicesSettings.general.Monthly_points_per_Child__c * hh.Infants__c);
+            if (IntakeServicesSettings.general.Monthly_points_per_Adult__c != null && hh.C501_IS_Adults__c != null)
+                pts += (IntakeServicesSettings.general.Monthly_points_per_Adult__c * hh.C501_IS_Adults__c);
+            if (IntakeServicesSettings.general.Monthly_points_per_Adult__c != null && hh.C501_IS_Seniors__c != null)
+                pts += (IntakeServicesSettings.general.Monthly_points_per_Adult__c * hh.C501_IS_Seniors__c);
+            if (IntakeServicesSettings.general.Monthly_points_per_Child__c != null && hh.C501_IS_Children__c != null)
+                pts += (IntakeServicesSettings.general.Monthly_points_per_Child__c * hh.C501_IS_Children__c);
+            if (IntakeServicesSettings.general.Monthly_points_per_Child__c != null && hh.C501_IS_Infants__c != null)
+                pts += (IntakeServicesSettings.general.Monthly_points_per_Child__c * hh.C501_IS_Infants__c);
         }
         return pts;
     }
@@ -219,8 +219,8 @@ public with sharing class IntakeServices {
         Intake_Services_Checkin__c fbc = new Intake_Services_Checkin__c();
 
         Account hh =
-            [select id, Name, Adults__c, Seniors__c, Children__c, Infants__c,
-                (select Points_Used__c from Visits__r where Visit_Date__c = THIS_MONTH)
+            [select id, Name, C501_IS_Adults__c, C501_IS_Seniors__c, C501_IS_Children__c, C501_IS_Infants__c,
+                (select C501_IS_Points_Used__c from Visits__r where C501_IS_Visit_Date__c = THIS_MONTH)
                 from Account where id = :hhid];
 
         if (Intake_Services_Checkin__c.getInstance( hhid ) != null) {
@@ -229,15 +229,15 @@ public with sharing class IntakeServices {
             fbc.name = hhid;
             fbc.Points_Remaining__c = getMonthlyPoints( hh );
             for (Client_Visit__c cv : hh.Visits__r)
-                if (cv.Points_Used__c != null) fbc.Points_Remaining__c -= cv.Points_Used__c;
+                if (cv.C501_IS_Points_Used__c != null) fbc.Points_Remaining__c -= cv.C501_IS_Points_Used__c;
 
             fbc.Check_In_Time__c = system.now();
-            fbc.Visitor__c = contactid;
+            fbc.C501_IS_Visitor__c = contactid;
 
-            fbc.Notes__c = visitNotes;
+            fbc.C501_IS_Notes__c = visitNotes;
 
             if (commodityUsage != null && !commodityUsage.isEmpty()) {
-                fbc.Commodity_Usage_JSON__c = JSON.serializePretty(commodityUsage);
+                fbc.C501_IS_Commodity_Usage_JSON__c = JSON.serializePretty(commodityUsage);
             }
 
             insert fbc;
@@ -261,7 +261,7 @@ public with sharing class IntakeServices {
     @RemoteAction
     public static String getCustomLabel( String label ) {
 
-        if (label == 'Box_Type__c')
+        if (label == 'C501_IS_Box_Type__c')
             return System.Label.Intake_Services_Box_Type;
 
         return 'Undefined';
@@ -294,9 +294,9 @@ public with sharing class IntakeServices {
         List<List<SObject>> resultList =
             [FIND :(query + '* OR ' + halfquery + '*') 
                 RETURNING Contact( 
-                    Name, Id_Number__c, MailingStreet,
+                    Name, C501_IS_Id_Number__c, MailingStreet,
                     Account.Name, Account.Id
-                WHERE Account.Inactive__c != true 
+                WHERE Account.C501_IS_Inactive__c != true 
                 ORDER BY Name)];
 
 // TODO: should not need to translate here
@@ -311,7 +311,7 @@ public with sharing class IntakeServices {
             chh.addr = rec.MailingStreet;
 
             chh.value = 
-                ((rec.Id_Number__c != null) ? (' (' + rec.Id_Number__c + ')') : '')
+                ((rec.C501_IS_Id_Number__c != null) ? (' (' + rec.C501_IS_Id_Number__c + ')') : '')
                 + ((rec.MailingStreet != null) ? (' (' + rec.MailingStreet + ')') : '');
 
             hhRet.add( chh );
@@ -341,7 +341,7 @@ public with sharing class IntakeServices {
 
         // get the HH detail
         Account[] hhs =
-            [select Id, Name, Adults__c, Children__c, Infants__c, Seniors__c, Homeless__c, Out_Of_Area__c, Inactive__c
+            [select Id, Name, C501_IS_Adults__c, C501_IS_Children__c, C501_IS_Infants__c, C501_IS_Seniors__c, C501_IS_Homeless__c, C501_IS_Out_Of_Area__c, C501_IS_Inactive__c
                 from Account where id = :hhid];
 
         if ( hhs.isEmpty() ) {
@@ -361,29 +361,29 @@ public with sharing class IntakeServices {
         }
 
         Intake_Services_Checkin__c fbc = Intake_Services_Checkin__c.getInstance( hhid );
-        c = [select id from Contact where id = :fbc.Visitor__c];
+        c = [select id from Contact where id = :fbc.C501_IS_Visitor__c];
         if (c.isEmpty()) {
-            fbc.Visitor__c = null;
+            fbc.C501_IS_Visitor__c = null;
         }
 
         // log the visit
         Client_Visit__c cv = new Client_Visit__c(
-            Household__c = hh.Id,
-            Adults__c = hh.Adults__c,
-            Seniors__c = hh.Seniors__c,
-            Children__c = hh.Children__c,
-            Infants__c = hh.Infants__c,
-            Homeless__c = hh.Homeless__c,
-            Out_Of_Area__c = hh.Out_Of_Area__c,
-            Points_Used__c = pointsUsed,
-            Checkout_Weight__c = checkoutWeight,
-            Box_Type__c = boxType,
-            Notes__c = visitNotes,
-            Visit_Date__c = (fbc != null && fbc.Check_In_Time__c != null) ? fbc.Check_In_Time__c : system.now(),
-            Visitor__c = (fbc != null && fbc.Visitor__c != null) ? fbc.Visitor__c : contactid
+            C501_IS_Household__c = hh.Id,
+            C501_IS_Adults__c = hh.C501_IS_Adults__c,
+            C501_IS_Seniors__c = hh.C501_IS_Seniors__c,
+            C501_IS_Children__c = hh.C501_IS_Children__c,
+            C501_IS_Infants__c = hh.C501_IS_Infants__c,
+            C501_IS_Homeless__c = hh.C501_IS_Homeless__c,
+            C501_IS_Out_Of_Area__c = hh.C501_IS_Out_Of_Area__c,
+            C501_IS_Points_Used__c = pointsUsed,
+            C501_IS_Checkout_Weight__c = checkoutWeight,
+            C501_IS_Box_Type__c = boxType,
+            C501_IS_Notes__c = visitNotes,
+            C501_IS_Visit_Date__c = (fbc != null && fbc.Check_In_Time__c != null) ? fbc.Check_In_Time__c : system.now(),
+            C501_IS_Visitor__c = (fbc != null && fbc.C501_IS_Visitor__c != null) ? fbc.C501_IS_Visitor__c : contactid
         );
         if (commodityUsage != null && !commodityUsage.isEmpty())
-            cv.Commodity_Usage_JSON__c = JSON.serializePretty(commodityUsage);
+            cv.C501_IS_Commodity_Usage_JSON__c = JSON.serializePretty(commodityUsage);
 
         try {
             insert cv;

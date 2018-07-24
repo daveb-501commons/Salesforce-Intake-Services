@@ -1,7 +1,7 @@
 salesforce-intake-services
 ====================
 
-Intake Services Service built on Salesforce using Angular.js
+Intake Services built on Salesforce using Angular.js
 
 This is a Salesforce.com and AngularJS application that tracks clients and service delivery for intake services.
 

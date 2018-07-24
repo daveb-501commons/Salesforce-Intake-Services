@@ -7,7 +7,7 @@ public with sharing class IntakeServicesStatsTest {
 		// insert a household and a visit for today
         Account hh = new Account(
 			Name = 'Test Account',
-			Inactive__c = false
+			C501_IS_Inactive__c = false
 			);
 
 		// insert a contact

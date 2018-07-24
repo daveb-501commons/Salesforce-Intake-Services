@@ -34,7 +34,7 @@ angular.module('logVisitController')
       $scope.visitNotes = foundHousehold.pendingnotes;
     }
     
-    fbCustomLabel.get( 'Box_Type__c' ).then(
+    fbCustomLabel.get( 'C501_IS_Box_Type__c' ).then(
       function(result){
         $scope.Label_Box_Type = result;
       }

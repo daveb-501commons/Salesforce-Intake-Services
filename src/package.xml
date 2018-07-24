@@ -29,71 +29,71 @@
         <name>CustomApplication</name>
     </types>
     <types>
-        <members>Account.Adults__c</members>
-        <members>Account.Children__c</members>
-        <members>Account.Commodity_Usage_JSON__c</members>
-        <members>Account.Current_Points_Remaining__c</members>
-        <members>Account.Current_Points_Used__c</members>
-        <members>Account.External_Created_Date__c</members>
-        <members>Account.External_Id__c</members>
-        <members>Account.First_Visit__c</members>
-        <members>Account.Homeless__c</members>
-        <members>Account.Inactive__c</members>
-        <members>Account.Infant_Card_Expires__c</members>
-        <members>Account.Infants__c</members>
-        <members>Account.Monthly_Points_Available__c</members>
-        <members>Account.Most_Recent_Visit__c</members>
-        <members>Account.Notes__c</members>
-        <members>Account.Out_Of_Area__c</members>
-        <members>Account.Pending_Commodity_Usage_JSON__c</members>
-        <members>Account.Pending_Notes__c</members>
-        <members>Account.Proof_of_Address_Date__c</members>
-        <members>Account.Proof_of_Address__c</members>
-        <members>Account.Seniors__c</members>
-        <members>Account.Source__c</members>
-        <members>Account.Staff_Notes__c</members>
-        <members>Account.Tags__c</members>
-        <members>Account.Total_Visits__c</members>
-        <members>Client_Visit__c.Adults__c</members>
-        <members>Client_Visit__c.Box_Type__c</members>
-        <members>Client_Visit__c.Checkout_Weight__c</members>
-        <members>Client_Visit__c.Children__c</members>
-        <members>Client_Visit__c.Commodity_Usage_JSON__c</members>
-        <members>Client_Visit__c.External_Created_Date__c</members>
-        <members>Client_Visit__c.External_Household_Id__c</members>
-        <members>Client_Visit__c.External_Id__c</members>
-        <members>Client_Visit__c.First_Visit_This_Year__c</members>
-        <members>Client_Visit__c.Homeless_Counter__c</members>
-        <members>Client_Visit__c.Homeless__c</members>
-        <members>Client_Visit__c.Household__c</members>
-        <members>Client_Visit__c.Infants__c</members>
-        <members>Client_Visit__c.More_Than_One_Person__c</members>
-        <members>Client_Visit__c.Notes__c</members>
-        <members>Client_Visit__c.Out_Of_Area_Counter__c</members>
-        <members>Client_Visit__c.Out_Of_Area__c</members>
-        <members>Client_Visit__c.Points_Used__c</members>
-        <members>Client_Visit__c.Seniors__c</members>
-        <members>Client_Visit__c.Total_People__c</members>
-        <members>Client_Visit__c.Visit_Date__c</members>
-        <members>Client_Visit__c.Visit_Type__c</members>
-        <members>Client_Visit__c.Visitor__c</members>
-        <members>Contact.Age_Entry_Date__c</members>
-        <members>Contact.Age_Group__c</members>
-        <members>Contact.Age__c</members>
-        <members>Contact.External_Created_Date__c</members>
-        <members>Contact.External_Household_Id__c</members>
-        <members>Contact.External_Id__c</members>
-        <members>Contact.Gender__c</members>
-        <members>Contact.Id_Number__c</members>
-        <members>Contact.Id_Type__c</members>
-        <members>Contact.Proof_of_Infant__c</members>
+        <members>Account.C501_IS_Adults__c</members>
+        <members>Account.C501_IS_Children__c</members>
+        <members>Account.C501_IS_Commodity_Usage_JSON__c</members>
+        <members>Account.C501_IS_Current_Points_Remaining__c</members>
+        <members>Account.C501_IS_Current_Points_Used__c</members>
+        <members>Account.C501_IS_External_Created_Date__c</members>
+        <members>Account.C501_IS_External_Id__c</members>
+        <members>Account.C501_IS_First_Visit__c</members>
+        <members>Account.C501_IS_Homeless__c</members>
+        <members>Account.C501_IS_Inactive__c</members>
+        <members>Account.C501_IS_Infant_Card_Expires__c</members>
+        <members>Account.C501_IS_Infants__c</members>
+        <members>Account.C501_IS_Monthly_Points_Available__c</members>
+        <members>Account.C501_IS_Most_Recent_Visit__c</members>
+        <members>Account.C501_IS_Notes__c</members>
+        <members>Account.C501_IS_Out_Of_Area__c</members>
+        <members>Account.C501_IS_Pending_Commodity_Usage_JSON__c</members>
+        <members>Account.C501_IS_Pending_Notes__c</members>
+        <members>Account.C501_IS_Proof_of_Address_Date__c</members>
+        <members>Account.C501_IS_Proof_of_Address__c</members>
+        <members>Account.C501_IS_Seniors__c</members>
+        <members>Account.C501_IS_Source__c</members>
+        <members>Account.C501_IS_Staff_Notes__c</members>
+        <members>Account.C501_IS_Tags__c</members>
+        <members>Account.C501_IS_Total_Visits__c</members>
+        <members>Client_Visit__c.C501_IS_Adults__c</members>
+        <members>Client_Visit__c.C501_IS_Box_Type__c</members>
+        <members>Client_Visit__c.C501_IS_Checkout_Weight__c</members>
+        <members>Client_Visit__c.C501_IS_Children__c</members>
+        <members>Client_Visit__c.C501_IS_Commodity_Usage_JSON__c</members>
+        <members>Client_Visit__c.C501_IS_External_Created_Date__c</members>
+        <members>Client_Visit__c.C501_IS_External_Household_Id__c</members>
+        <members>Client_Visit__c.C501_IS_External_Id__c</members>
+        <members>Client_Visit__c.C501_IS_First_Visit_This_Year__c</members>
+        <members>Client_Visit__c.C501_IS_Homeless_Counter__c</members>
+        <members>Client_Visit__c.C501_IS_Homeless__c</members>
+        <members>Client_Visit__c.C501_IS_Household__c</members>
+        <members>Client_Visit__c.C501_IS_Infants__c</members>
+        <members>Client_Visit__c.C501_IS_More_Than_One_Person__c</members>
+        <members>Client_Visit__c.C501_IS_Notes__c</members>
+        <members>Client_Visit__c.C501_IS_Out_Of_Area_Counter__c</members>
+        <members>Client_Visit__c.C501_IS_Out_Of_Area__c</members>
+        <members>Client_Visit__c.C501_IS_Points_Used__c</members>
+        <members>Client_Visit__c.C501_IS_Seniors__c</members>
+        <members>Client_Visit__c.C501_IS_Total_People__c</members>
+        <members>Client_Visit__c.C501_IS_Visit_Date__c</members>
+        <members>Client_Visit__c.C501_IS_Visit_Type__c</members>
+        <members>Client_Visit__c.C501_IS_Visitor__c</members>
+        <members>Contact.C501_IS_Age_Entry_Date__c</members>
+        <members>Contact.C501_IS_Age_Group__c</members>
+        <members>Contact.C501_IS_Age__c</members>
+        <members>Contact.C501_IS_External_Created_Date__c</members>
+        <members>Contact.C501_IS_External_Household_Id__c</members>
+        <members>Contact.C501_IS_External_Id__c</members>
+        <members>Contact.C501_IS_Gender__c</members>
+        <members>Contact.C501_IS_Id_Number__c</members>
+        <members>Contact.C501_IS_Id_Type__c</members>
+        <members>Contact.C501_IS_Proof_of_Infant__c</members>
         <members>Intake_Services_Box_Settings__c.Minimum_Family_Size__c</members>
         <members>Intake_Services_Checkin__c.Box_Size__c</members>
         <members>Intake_Services_Checkin__c.Check_In_Time__c</members>
-        <members>Intake_Services_Checkin__c.Commodity_Usage_JSON__c</members>
-        <members>Intake_Services_Checkin__c.Notes__c</members>
+        <members>Intake_Services_Checkin__c.C501_IS_Commodity_Usage_JSON__c</members>
+        <members>Intake_Services_Checkin__c.C501_IS_Notes__c</members>
         <members>Intake_Services_Checkin__c.Points_Remaining__c</members>
-        <members>Intake_Services_Checkin__c.Visitor__c</members>
+        <members>Intake_Services_Checkin__c.C501_IS_Visitor__c</members>
         <members>Intake_Services_Commodity__c.Allow_Overage__c</members>
         <members>Intake_Services_Commodity__c.Monthly_Limit__c</members>
         <members>Intake_Services_Commodity__c.Sort_Order__c</members>
@@ -108,7 +108,7 @@
         <members>Intake_Services_Settings__c.Proof_of_Infant_Required__c</members>
         <members>Intake_Services_Settings__c.Require_Unique_Address__c</members>
         <members>Intake_Services_Settings__c.Show_Id__c</members>
-        <members>Intake_Services_Settings__c.Tags__c</members>
+        <members>Intake_Services_Settings__c.C501_IS_Tags__c</members>
         <members>Intake_Services_Settings__c.Track_Checkout_Weight__c</members>
         <members>Intake_Services_Settings__c.Track_Points__c</members>
         <members>Intake_Services_Settings__c.Visit_Frequency_Limit__c</members>
@@ -143,8 +143,8 @@
         <name>Layout</name>
     </types>
     <types>
-        <members>Account.Active</members>
-        <members>Account.AllHH</members>
+        <members>Account.C501_IS_Active_Households</members>
+        <members>Account.C501_IS_All_Households</members>
         <members>Client_Visit__c.All</members>
         <members>Client_Visit__c.All1</members>
         <members>Client_Visit__c.Past7</members>

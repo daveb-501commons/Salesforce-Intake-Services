@@ -48,12 +48,12 @@ public with sharing class IntakeServicesStats {
 	}
 
 	public void queryStats( String timeframe ) {
-		String q = 'SELECT First_Visit_This_Year__c Unduplicated, ' +
-					'COUNT(Id) HHVisits, SUM(Adults__c) Adults, SUM(Children__c) Children, SUM(Infants__c) Infants, ' +
-					'SUM(Seniors__c) Seniors, SUM(Total_People__c) TotalPeople, SUM(More_Than_One_Person__c) MoreThanOnePerson, ' +
-					'SUM(Homeless_Counter__c) Homeless, SUM(Out_Of_Area_Counter__c) OutOfArea, SUM(Points_Used__c) TotalPoints ' +
-					'FROM Client_Visit__c WHERE Visit_Date__c = ' + timeframe +
-			 		' GROUP BY ROLLUP(First_Visit_This_Year__c)';
+		String q = 'SELECT C501_IS_First_Visit_This_Year__c Unduplicated, ' +
+					'COUNT(Id) HHVisits, SUM(C501_IS_Adults__c) Adults, SUM(C501_IS_Children__c) Children, SUM(C501_IS_Infants__c) Infants, ' +
+					'SUM(C501_IS_Seniors__c) Seniors, SUM(C501_IS_Total_People__c) TotalPeople, SUM(C501_IS_More_Than_One_Person__c) MoreThanOnePerson, ' +
+					'SUM(C501_IS_Homeless_Counter__c) Homeless, SUM(C501_IS_Out_Of_Area_Counter__c) OutOfArea, SUM(C501_IS_Points_Used__c) TotalPoints ' +
+					'FROM Client_Visit__c WHERE C501_IS_Visit_Date__c = ' + timeframe +
+			 		' GROUP BY ROLLUP(C501_IS_First_Visit_This_Year__c)';
 
 		for (AggregateResult r : Database.query(q)) {
 			Boolean undup = (Boolean)(r.get('Unduplicated'));

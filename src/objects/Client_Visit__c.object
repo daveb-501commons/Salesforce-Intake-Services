@@ -53,7 +53,7 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
-        <fullName>Adults__c</fullName>
+        <fullName>C501_IS_Adults__c</fullName>
         <externalId>false</externalId>
         <label>Adults</label>
         <precision>2</precision>
@@ -64,7 +64,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Box_Type__c</fullName>
+        <fullName>C501_IS_Box_Type__c</fullName>
         <externalId>false</externalId>
         <label>Bag/Box Type</label>
         <required>false</required>
@@ -97,7 +97,7 @@
         </valueSet>
     </fields>
     <fields>
-        <fullName>Checkout_Weight__c</fullName>
+        <fullName>C501_IS_Checkout_Weight__c</fullName>
         <externalId>false</externalId>
         <label>Checkout Weight</label>
         <precision>6</precision>
@@ -108,7 +108,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Children__c</fullName>
+        <fullName>C501_IS_Children__c</fullName>
         <externalId>false</externalId>
         <label>Children</label>
         <precision>2</precision>
@@ -119,7 +119,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Commodity_Usage_JSON__c</fullName>
+        <fullName>C501_IS_Commodity_Usage_JSON__c</fullName>
         <description>JSON List showing amount of each commodity item used this visit.</description>
         <externalId>false</externalId>
         <inlineHelpText>JSON List showing amount of each commodity item used this visit.</inlineHelpText>
@@ -130,7 +130,7 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
-        <fullName>External_Created_Date__c</fullName>
+        <fullName>C501_IS_External_Created_Date__c</fullName>
         <description>Store the date the external entry was created.</description>
         <externalId>false</externalId>
         <label>External Created Date</label>
@@ -139,7 +139,7 @@
         <type>Date</type>
     </fields>
     <fields>
-        <fullName>External_Household_Id__c</fullName>
+        <fullName>C501_IS_External_Household_Id__c</fullName>
         <externalId>false</externalId>
         <label>External Household Id</label>
         <length>20</length>
@@ -149,7 +149,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>External_Id__c</fullName>
+        <fullName>C501_IS_External_Id__c</fullName>
         <caseSensitive>false</caseSensitive>
         <externalId>true</externalId>
         <label>External Id</label>
@@ -160,7 +160,7 @@
         <unique>true</unique>
     </fields>
     <fields>
-        <fullName>First_Visit_This_Year__c</fullName>
+        <fullName>C501_IS_First_Visit_This_Year__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <inlineHelpText>A trigger automatically checks this box for the household&apos;s first visit in the calendar year.</inlineHelpText>
@@ -169,10 +169,10 @@
         <type>Checkbox</type>
     </fields>
     <fields>
-        <fullName>Homeless_Counter__c</fullName>
+        <fullName>C501_IS_Homeless_Counter__c</fullName>
         <description>Allows us to summarize homeless visits.</description>
         <externalId>false</externalId>
-        <formula>IF(Homeless__c, 1, 0)</formula>
+        <formula>IF(C501_IS_Homeless__c, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <inlineHelpText>Allows us to summarize homeless visits.</inlineHelpText>
         <label>Homeless Counter</label>
@@ -184,7 +184,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Homeless__c</fullName>
+        <fullName>C501_IS_Homeless__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Homeless</label>
@@ -192,7 +192,7 @@
         <type>Checkbox</type>
     </fields>
     <fields>
-        <fullName>Household__c</fullName>
+        <fullName>C501_IS_Household__c</fullName>
         <externalId>false</externalId>
         <label>Household</label>
         <referenceTo>Account</referenceTo>
@@ -204,7 +204,7 @@
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <fields>
-        <fullName>Infants__c</fullName>
+        <fullName>C501_IS_Infants__c</fullName>
         <externalId>false</externalId>
         <label>Infants</label>
         <precision>18</precision>
@@ -215,10 +215,10 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>More_Than_One_Person__c</fullName>
+        <fullName>C501_IS_More_Than_One_Person__c</fullName>
         <description>If the household had one person, this is 0; if more than one person, it is 1.  Allows us to compile statistics for more than one person.</description>
         <externalId>false</externalId>
-        <formula>IF(Total_People__c &gt; 1, 1, 0)</formula>
+        <formula>IF(C501_IS_Total_People__c &gt; 1, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <inlineHelpText>If the household had one person, this is 0; if more than one person, it is 1.  Allows us to compile statistics for more than one person.</inlineHelpText>
         <label>More Than One Person</label>
@@ -230,7 +230,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Notes__c</fullName>
+        <fullName>C501_IS_Notes__c</fullName>
         <externalId>false</externalId>
         <label>Notes</label>
         <length>4096</length>
@@ -239,10 +239,10 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
-        <fullName>Out_Of_Area_Counter__c</fullName>
+        <fullName>C501_IS_Out_Of_Area_Counter__c</fullName>
         <description>Allows us to summarize out of area visits.</description>
         <externalId>false</externalId>
-        <formula>IF(Out_Of_Area__c, 1, 0)</formula>
+        <formula>IF(C501_IS_Out_Of_Area__c, 1, 0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <inlineHelpText>Allows us to summarize out of area visits.</inlineHelpText>
         <label>Out of Area Counter</label>
@@ -254,7 +254,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Out_Of_Area__c</fullName>
+        <fullName>C501_IS_Out_Of_Area__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Out of Area</label>
@@ -262,7 +262,7 @@
         <type>Checkbox</type>
     </fields>
     <fields>
-        <fullName>Points_Used__c</fullName>
+        <fullName>C501_IS_Points_Used__c</fullName>
         <externalId>false</externalId>
         <label>Points Used</label>
         <precision>3</precision>
@@ -273,7 +273,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Seniors__c</fullName>
+        <fullName>C501_IS_Seniors__c</fullName>
         <externalId>false</externalId>
         <label>Seniors</label>
         <precision>2</precision>
@@ -284,9 +284,9 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Total_People__c</fullName>
+        <fullName>C501_IS_Total_People__c</fullName>
         <externalId>false</externalId>
-        <formula>Adults__c + Children__c + Seniors__c + Infants__c</formula>
+        <formula>C501_IS_Adults__c + C501_IS_Children__c + C501_IS_Seniors__c + C501_IS_Infants__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Total People</label>
         <precision>18</precision>
@@ -297,7 +297,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Visit_Date__c</fullName>
+        <fullName>C501_IS_Visit_Date__c</fullName>
         <defaultValue>NOW()</defaultValue>
         <externalId>false</externalId>
         <label>Visit Date</label>
@@ -306,7 +306,7 @@
         <type>DateTime</type>
     </fields>
     <fields>
-        <fullName>Visit_Type__c</fullName>
+        <fullName>C501_IS_Visit_Type__c</fullName>
         <externalId>false</externalId>
         <label>Visit Type</label>
         <required>false</required>
@@ -334,7 +334,7 @@
         </valueSet>
     </fields>
     <fields>
-        <fullName>Visitor__c</fullName>
+        <fullName>C501_IS_Visitor__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Visitor</label>
@@ -349,12 +349,12 @@
     <listViews>
         <fullName>All</fullName>
         <columns>NAME</columns>
-        <columns>Household__c</columns>
-        <columns>Visitor__c</columns>
-        <columns>Visit_Date__c</columns>
-        <columns>Total_People__c</columns>
-        <columns>Points_Used__c</columns>
-        <columns>Checkout_Weight__c</columns>
+        <columns>C501_IS_Household__c</columns>
+        <columns>C501_IS_Visitor__c</columns>
+        <columns>C501_IS_Visit_Date__c</columns>
+        <columns>C501_IS_Total_People__c</columns>
+        <columns>C501_IS_Points_Used__c</columns>
+        <columns>C501_IS_Checkout_Weight__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
@@ -366,15 +366,15 @@
     <listViews>
         <fullName>Past7</fullName>
         <columns>NAME</columns>
-        <columns>Household__c</columns>
-        <columns>Visitor__c</columns>
-        <columns>Visit_Date__c</columns>
-        <columns>Total_People__c</columns>
-        <columns>Points_Used__c</columns>
-        <columns>Checkout_Weight__c</columns>
+        <columns>C501_IS_Household__c</columns>
+        <columns>C501_IS_Visitor__c</columns>
+        <columns>C501_IS_Visit_Date__c</columns>
+        <columns>C501_IS_Total_People__c</columns>
+        <columns>C501_IS_Points_Used__c</columns>
+        <columns>C501_IS_Checkout_Weight__c</columns>
         <filterScope>Everything</filterScope>
         <filters>
-            <field>Visit_Date__c</field>
+            <field>C501_IS_Visit_Date__c</field>
             <operation>equals</operation>
             <value>LAST_N_DAYS:7</value>
         </filters>
@@ -383,7 +383,7 @@
     <listViews>
         <fullName>Visits_Today</fullName>
         <columns>NAME</columns>
-        <columns>Household__c</columns>
+        <columns>C501_IS_Household__c</columns>
         <columns>CREATED_DATE</columns>
         <filterScope>Everything</filterScope>
         <label>Visits Today</label>
@@ -395,19 +395,19 @@
     </nameField>
     <pluralLabel>Client Visits</pluralLabel>
     <searchLayouts>
-        <customTabListAdditionalFields>Household__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>Visitor__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>Visit_Date__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>Total_People__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>Points_Used__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>Checkout_Weight__c</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>Visit_Date__c</lookupDialogsAdditionalFields>
-        <searchResultsAdditionalFields>Household__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Visitor__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Visit_Date__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Total_People__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Points_Used__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Checkout_Weight__c</searchResultsAdditionalFields>
+        <customTabListAdditionalFields>C501_IS_Household__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>C501_IS_Visitor__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>C501_IS_Visit_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>C501_IS_Total_People__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>C501_IS_Points_Used__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>C501_IS_Checkout_Weight__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>C501_IS_Visit_Date__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>C501_IS_Household__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>C501_IS_Visitor__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>C501_IS_Visit_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>C501_IS_Total_People__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>C501_IS_Points_Used__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>C501_IS_Checkout_Weight__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

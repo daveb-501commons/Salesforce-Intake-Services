@@ -13,11 +13,11 @@ public with sharing class IntakeServicesTrigger {
 
 		// set the proof of address date
 		for (Account hh : hhList) {
-			if (String.isBlank(hh.Proof_of_Address__c)) {
-				hh.Proof_of_Address_Date__c = null;
+			if (String.isBlank(hh.C501_IS_Proof_of_Address__c)) {
+				hh.C501_IS_Proof_of_Address_Date__c = null;
 			} else {
-				if (oldMap == null || hh.Proof_of_Address__c != oldMap.get(hh.id).Proof_of_Address__c ) {
-					hh.Proof_of_Address_Date__c = system.today();
+				if (oldMap == null || hh.C501_IS_Proof_of_Address__c != oldMap.get(hh.id).C501_IS_Proof_of_Address__c ) {
+					hh.C501_IS_Proof_of_Address_Date__c = system.today();
 				}
 			}
 		}
@@ -29,18 +29,18 @@ public with sharing class IntakeServicesTrigger {
 
 			// if we have a birthdate, use it to set the age
 			if ( c.Birthdate != null && getAge( c.Birthdate ) >= 0 ) {
-				c.Age__c = getAge( c.Birthdate );
-				c.Age_Entry_Date__c = null;
+				c.C501_IS_Age__c = getAge( c.Birthdate );
+				c.C501_IS_Age_Entry_Date__c = null;
 
 			// if age just got set, set age entry date
-			} else if ( c.Age__c != null && ( oldMap == null || c.Age__c != oldMap.get(c.Id).Age__c ) ) {
-				c.Age_Entry_Date__c = system.today();
+			} else if ( c.C501_IS_Age__c != null && ( oldMap == null || c.C501_IS_Age__c != oldMap.get(c.Id).C501_IS_Age__c ) ) {
+				c.C501_IS_Age_Entry_Date__c = system.today();
 
 			// if age entry date is over 1 year ago, update age and age entry date
-			} else if ( c.Age__c != null && c.Age_Entry_Date__c != null ) {
-				while ( c.Age_Entry_Date__c <= system.today().addYears(-1) ) {
-					c.Age__c += 1;
-					c.Age_Entry_Date__c = c.Age_Entry_Date__c.addYears(1);
+			} else if ( c.C501_IS_Age__c != null && c.C501_IS_Age_Entry_Date__c != null ) {
+				while ( c.C501_IS_Age_Entry_Date__c <= system.today().addYears(-1) ) {
+					c.C501_IS_Age__c += 1;
+					c.C501_IS_Age_Entry_Date__c = c.C501_IS_Age_Entry_Date__c.addYears(1);
 				}
 			}
 		}
@@ -77,10 +77,10 @@ public with sharing class IntakeServicesTrigger {
 		list<Account> hhToUpdate = new list<Account>();
 
 		for ( Account hh : 
-				[select Id, Name, Adults__c, Seniors__c, Children__c, Infants__c,
-					(select Id, Name, FirstName, LastName, Age__c, Age_Entry_Date__c, Birthdate, 
-						AccountId, Id_Number__c from Contacts
-						where Id not in : clientList order by createdDate, Id, Age__c desc)
+				[select Id, Name, C501_IS_Adults__c, C501_IS_Seniors__c, C501_IS_Children__c, C501_IS_Infants__c,
+					(select Id, Name, FirstName, LastName, C501_IS_Age__c, C501_IS_Age_Entry_Date__c, Birthdate, 
+						AccountId, C501_IS_Id_Number__c from Contacts
+						where Id not in : clientList order by createdDate, Id, C501_IS_Age__c desc)
 					from Account where id in : triggerHHMap.keyset()] ) {
 
 			list<Contact> allMembers = new list<Contact>();
@@ -105,7 +105,7 @@ public with sharing class IntakeServicesTrigger {
 			setClientCountsByAge( newHH, allMembers );
 
 			// if anything has changed, update this household
-			if ( hh.Name != newHH.Name || hh.Adults__c != newHH.Adults__c || hh.Seniors__c != newHH.Seniors__c || hh.Children__c != newHH.Children__c || hh.Infants__c != newHH.Infants__c )
+			if ( hh.Name != newHH.Name || hh.C501_IS_Adults__c != newHH.C501_IS_Adults__c || hh.C501_IS_Seniors__c != newHH.C501_IS_Seniors__c || hh.C501_IS_Children__c != newHH.C501_IS_Children__c || hh.C501_IS_Infants__c != newHH.C501_IS_Infants__c )
 				hhToUpdate.add( newHH );
 		}
 
@@ -117,11 +117,11 @@ public with sharing class IntakeServicesTrigger {
 	public void updateContactAgeIfOlder( list<Contact> clients ) {
 		list<Contact> updatedMembers = new list<Contact>();
 		for ( Contact c : clients ) {
-			if ( c.Birthdate == null && c.Age__c != null && c.Age_Entry_Date__c != null ) {
+			if ( c.Birthdate == null && c.C501_IS_Age__c != null && c.C501_IS_Age_Entry_Date__c != null ) {
 				Boolean dateMoved = false;
-				while ( c.Age_Entry_Date__c <= system.today().addYears(-1) ) {
-					c.Age__c += 1;
-					c.Age_Entry_Date__c = c.Age_Entry_Date__c.addYears(1);
+				while ( c.C501_IS_Age_Entry_Date__c <= system.today().addYears(-1) ) {
+					c.C501_IS_Age__c += 1;
+					c.C501_IS_Age_Entry_Date__c = c.C501_IS_Age_Entry_Date__c.addYears(1);
 					dateMoved = true;
 				}
 				if (dateMoved) 
@@ -136,25 +136,25 @@ public with sharing class IntakeServicesTrigger {
 		// don't set hh client counts if all client ages are null
 		Boolean weHaveAges = false;
 		for ( Contact c : clist ) {
-			if (c.Age__c != null) {
+			if (c.C501_IS_Age__c != null) {
 				weHaveAges = true;
 				break;
 			}
 		}
 		if (!weHaveAges) return;
 
-		hh.Adults__c = 0;
-		hh.Seniors__c = 0;
-		hh.Children__c = 0;
-		hh.Infants__c = 0;
+		hh.C501_IS_Adults__c = 0;
+		hh.C501_IS_Seniors__c = 0;
+		hh.C501_IS_Children__c = 0;
+		hh.C501_IS_Infants__c = 0;
 
 		// add up the clients by age
 		for ( Contact c : clist ) {				
-			if ( c.Age__c == null )	  hh.Adults__c += 1;
-			else if ( c.Age__c > 60 ) hh.Seniors__c += 1;
-			else if ( c.Age__c < 2 )  hh.Infants__c += 1;
-			else if ( c.Age__c < 13 ) hh.Children__c += 1;
-			else                      hh.Adults__c += 1;
+			if ( c.C501_IS_Age__c == null )	  hh.C501_IS_Adults__c += 1;
+			else if ( c.C501_IS_Age__c > 60 ) hh.C501_IS_Seniors__c += 1;
+			else if ( c.C501_IS_Age__c < 2 )  hh.C501_IS_Infants__c += 1;
+			else if ( c.C501_IS_Age__c < 13 ) hh.C501_IS_Children__c += 1;
+			else                      hh.C501_IS_Adults__c += 1;
 		}		
 	}
 
@@ -176,29 +176,29 @@ public with sharing class IntakeServicesTrigger {
 		if (visitList == null) {
 			visitList = new list<Client_Visit__c>();
 			for (Client_Visit__c cv : oldMap.values()) {
-				if (cv.Visit_Date__c != null) {
-					hhSet.add(cv.Household__c);
-					yearSet.add(cv.Visit_Date__c.year());
+				if (cv.C501_IS_Visit_Date__c != null) {
+					hhSet.add(cv.C501_IS_Household__c);
+					yearSet.add(cv.C501_IS_Visit_Date__c.year());
 				}				
 			}			
 		}
 
 		// collect visit years
 		for (Client_Visit__c cv : visitList) {
-			hhSet.add(cv.Household__c);
-			Integer visitYear = (cv.Visit_Date__c == null) ? system.today().year() : cv.Visit_Date__c.year();
+			hhSet.add(cv.C501_IS_Household__c);
+			Integer visitYear = (cv.C501_IS_Visit_Date__c == null) ? system.today().year() : cv.C501_IS_Visit_Date__c.year();
 			yearSet.add(visitYear);
 		}
 
 		// query for all existing visits for those HHs this year and add them to the map
 		set<Id> visitIdsOutsideTriggerSet = new set<Id>();
-		for (Client_Visit__c cv : [select id, Household__c, Visit_Date__c, First_Visit_This_Year__c from Client_Visit__c 
-												where Household__c in : hhSet and CALENDAR_YEAR(Visit_Date__c) in : yearSet 
+		for (Client_Visit__c cv : [select id, C501_IS_Household__c, C501_IS_Visit_Date__c, C501_IS_First_Visit_This_Year__c from Client_Visit__c 
+												where C501_IS_Household__c in : hhSet and CALENDAR_YEAR(C501_IS_Visit_Date__c) in : yearSet 
 												and Id not in : visitList order by Id]) {
 
-			Integer visitYear = (cv.Visit_Date__c == null) ? system.today().year() : cv.Visit_Date__c.year();
+			Integer visitYear = (cv.C501_IS_Visit_Date__c == null) ? system.today().year() : cv.C501_IS_Visit_Date__c.year();
 			visitIdsOutsideTriggerSet.add(cv.Id);
-			String mapKey = String.valueOf(visitYear) + cv.Household__c;
+			String mapKey = String.valueOf(visitYear) + cv.C501_IS_Household__c;
 			if (cvMap.containsKey(mapKey))
 				cvMap.get(mapKey).add(cv);
 			else
@@ -207,8 +207,8 @@ public with sharing class IntakeServicesTrigger {
 
 		// add visits being updated
 		for (Client_Visit__c cv : visitList) {
-			Integer visitYear = (cv.Visit_Date__c == null) ? system.today().year() : cv.Visit_Date__c.year();
-			String mapKey = String.valueOf(visitYear) + cv.Household__c;
+			Integer visitYear = (cv.C501_IS_Visit_Date__c == null) ? system.today().year() : cv.C501_IS_Visit_Date__c.year();
+			String mapKey = String.valueOf(visitYear) + cv.C501_IS_Household__c;
 			if (cvMap.containsKey(mapKey))
 				cvMap.get(mapKey).add(cv);
 			else
@@ -216,9 +216,9 @@ public with sharing class IntakeServicesTrigger {
 
 			if (oldMap != null) {
 				Client_Visit__c oldCv = oldMap.get(cv.Id);
-				hhSet.add(oldCv.Household__c);
-				if (oldCv.Visit_Date__c != null)
-					yearSet.add(oldCv.Visit_Date__c.year());
+				hhSet.add(oldCv.C501_IS_Household__c);
+				if (oldCv.C501_IS_Visit_Date__c != null)
+					yearSet.add(oldCv.C501_IS_Visit_Date__c.year());
 			}
 		}
 
@@ -227,13 +227,13 @@ public with sharing class IntakeServicesTrigger {
 			list<Client_Visit__c> cvListThisYear = cvMap.get(mapKey);
 			Client_Visit__c firstVisit;
 			for (Client_Visit__c cv : cvListThisYear) {
-				if (firstVisit == null || firstVisit.Visit_Date__c == null || cv.Visit_Date__c < firstVisit.Visit_Date__c)
+				if (firstVisit == null || firstVisit.C501_IS_Visit_Date__c == null || cv.C501_IS_Visit_Date__c < firstVisit.C501_IS_Visit_Date__c)
 					firstVisit = cv;
 			}
 			for (Client_Visit__c cv : cvListThisYear) {
 				// if the checkbox has the wrong value for this record, update it
-				if ((cv == firstVisit && !cv.First_Visit_This_Year__c) || (cv != firstVisit && cv.First_Visit_This_Year__c)) {
-					cv.First_Visit_This_Year__c = (cv == firstVisit);
+				if ((cv == firstVisit && !cv.C501_IS_First_Visit_This_Year__c) || (cv != firstVisit && cv.C501_IS_First_Visit_This_Year__c)) {
+					cv.C501_IS_First_Visit_This_Year__c = (cv == firstVisit);
 					// only records not in the trigger set actually need to be updated
 					if (visitIdsOutsideTriggerSet.contains(cv.Id))
 						visitsToUpdate.add(cv);

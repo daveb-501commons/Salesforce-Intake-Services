@@ -40,287 +40,287 @@
     <custom>true</custom>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Adults__c</field>
+        <field>Account.C501_IS_Adults__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Children__c</field>
+        <field>Account.C501_IS_Children__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Commodity_Usage_JSON__c</field>
+        <field>Account.C501_IS_Commodity_Usage_JSON__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Current_Points_Remaining__c</field>
+        <field>Account.C501_IS_Current_Points_Remaining__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Current_Points_Used__c</field>
+        <field>Account.C501_IS_Current_Points_Used__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.External_Created_Date__c</field>
+        <field>Account.C501_IS_External_Created_Date__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.External_Id__c</field>
+        <field>Account.C501_IS_External_Id__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.First_Visit__c</field>
+        <field>Account.C501_IS_First_Visit__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Homeless__c</field>
+        <field>Account.C501_IS_Homeless__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Inactive__c</field>
+        <field>Account.C501_IS_Inactive__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Infant_Card_Expires__c</field>
+        <field>Account.C501_IS_Infant_Card_Expires__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Infants__c</field>
+        <field>Account.C501_IS_Infants__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Monthly_Points_Available__c</field>
+        <field>Account.C501_IS_Monthly_Points_Available__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Most_Recent_Visit__c</field>
+        <field>Account.C501_IS_Most_Recent_Visit__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Notes__c</field>
+        <field>Account.C501_IS_Notes__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Out_Of_Area__c</field>
+        <field>Account.C501_IS_Out_Of_Area__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Pending_Commodity_Usage_JSON__c</field>
+        <field>Account.C501_IS_Pending_Commodity_Usage_JSON__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Pending_Notes__c</field>
+        <field>Account.C501_IS_Pending_Notes__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Proof_of_Address_Date__c</field>
+        <field>Account.C501_IS_Proof_of_Address_Date__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Proof_of_Address__c</field>
+        <field>Account.C501_IS_Proof_of_Address__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Seniors__c</field>
+        <field>Account.C501_IS_Seniors__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Source__c</field>
+        <field>Account.C501_IS_Source__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Staff_Notes__c</field>
+        <field>Account.C501_IS_Staff_Notes__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Tags__c</field>
+        <field>Account.C501_IS_Tags__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Total_Visits__c</field>
+        <field>Account.C501_IS_Total_Visits__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Adults__c</field>
+        <field>Client_Visit__c.C501_IS_Adults__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Box_Type__c</field>
+        <field>Client_Visit__c.C501_IS_Box_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Checkout_Weight__c</field>
+        <field>Client_Visit__c.C501_IS_Checkout_Weight__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Children__c</field>
+        <field>Client_Visit__c.C501_IS_Children__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Commodity_Usage_JSON__c</field>
+        <field>Client_Visit__c.C501_IS_Commodity_Usage_JSON__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.External_Created_Date__c</field>
+        <field>Client_Visit__c.C501_IS_External_Created_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.External_Household_Id__c</field>
+        <field>Client_Visit__c.C501_IS_External_Household_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.External_Id__c</field>
+        <field>Client_Visit__c.C501_IS_External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.First_Visit_This_Year__c</field>
+        <field>Client_Visit__c.C501_IS_First_Visit_This_Year__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Client_Visit__c.Homeless_Counter__c</field>
+        <field>Client_Visit__c.C501_IS_Homeless_Counter__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Homeless__c</field>
+        <field>Client_Visit__c.C501_IS_Homeless__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Infants__c</field>
+        <field>Client_Visit__c.C501_IS_Infants__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Client_Visit__c.More_Than_One_Person__c</field>
+        <field>Client_Visit__c.C501_IS_More_Than_One_Person__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Notes__c</field>
+        <field>Client_Visit__c.C501_IS_Notes__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Client_Visit__c.Out_Of_Area_Counter__c</field>
+        <field>Client_Visit__c.C501_IS_Out_Of_Area_Counter__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Out_Of_Area__c</field>
+        <field>Client_Visit__c.C501_IS_Out_Of_Area__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Points_Used__c</field>
+        <field>Client_Visit__c.C501_IS_Points_Used__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Seniors__c</field>
+        <field>Client_Visit__c.C501_IS_Seniors__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Client_Visit__c.Total_People__c</field>
+        <field>Client_Visit__c.C501_IS_Total_People__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Visit_Date__c</field>
+        <field>Client_Visit__c.C501_IS_Visit_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Visit_Type__c</field>
+        <field>Client_Visit__c.C501_IS_Visit_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Client_Visit__c.Visitor__c</field>
+        <field>Client_Visit__c.C501_IS_Visitor__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Age_Entry_Date__c</field>
+        <field>Contact.C501_IS_Age_Entry_Date__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Age_Group__c</field>
+        <field>Contact.C501_IS_Age_Group__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Age__c</field>
+        <field>Contact.C501_IS_Age__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.External_Created_Date__c</field>
+        <field>Contact.C501_IS_External_Created_Date__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.External_Household_Id__c</field>
+        <field>Contact.C501_IS_External_Household_Id__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.External_Id__c</field>
+        <field>Contact.C501_IS_External_Id__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Gender__c</field>
+        <field>Contact.C501_IS_Gender__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Id_Number__c</field>
+        <field>Contact.C501_IS_Id_Number__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Id_Type__c</field>
+        <field>Contact.C501_IS_Id_Type__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Proof_of_Infant__c</field>
+        <field>Contact.C501_IS_Proof_of_Infant__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>
@@ -336,6 +336,24 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Client_Visit__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Account</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Contact</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <pageAccesses>

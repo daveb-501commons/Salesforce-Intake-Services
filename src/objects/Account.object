@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <fields>
-        <fullName>Adults__c</fullName>
+        <fullName>C501_IS_Adults__c</fullName>
         <externalId>false</externalId>
         <label>Adults</label>
         <precision>2</precision>
@@ -13,7 +13,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Children__c</fullName>
+        <fullName>C501_IS_Children__c</fullName>
         <externalId>false</externalId>
         <label>Children</label>
         <precision>2</precision>
@@ -25,7 +25,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Commodity_Usage_JSON__c</fullName>
+        <fullName>C501_IS_Commodity_Usage_JSON__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>JSON data that records the total usage of commodities in the month of the most recent visit.</inlineHelpText>
         <label>Commodity Usage JSON</label>
@@ -36,10 +36,10 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
-        <fullName>Current_Points_Remaining__c</fullName>
+        <fullName>C501_IS_Current_Points_Remaining__c</fullName>
         <description>Total points remaining in the month of the most recent visit.</description>
         <externalId>false</externalId>
-        <formula>Monthly_Points_Available__c - Current_Points_Used__c</formula>
+        <formula>C501_IS_Monthly_Points_Available__c - C501_IS_Current_Points_Used__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <inlineHelpText>Total points remaining in the month of the most recent visit.</inlineHelpText>
         <label>Current Points Remaining</label>
@@ -51,7 +51,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Current_Points_Used__c</fullName>
+        <fullName>C501_IS_Current_Points_Used__c</fullName>
         <description>Total number of points used in month of most recent visit.</description>
         <externalId>false</externalId>
         <inlineHelpText>Total number of points used in month of most recent visit.</inlineHelpText>
@@ -65,7 +65,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>External_Created_Date__c</fullName>
+        <fullName>C501_IS_External_Created_Date__c</fullName>
         <description>Store the date the external entry was created.</description>
         <externalId>false</externalId>
         <label>External Created Date</label>
@@ -75,7 +75,7 @@
         <type>Date</type>
     </fields>
     <fields>
-        <fullName>External_Id__c</fullName>
+        <fullName>C501_IS_External_Id__c</fullName>
         <caseSensitive>false</caseSensitive>
         <externalId>true</externalId>
         <label>External Id</label>
@@ -87,17 +87,17 @@
         <unique>true</unique>
     </fields>
     <fields>
-        <fullName>First_Visit__c</fullName>
+        <fullName>C501_IS_First_Visit__c</fullName>
         <externalId>false</externalId>
         <label>First Visit</label>
-        <summarizedField>Client_Visit__c.Visit_Date__c</summarizedField>
-        <summaryForeignKey>Client_Visit__c.Household__c</summaryForeignKey>
+        <summarizedField>Client_Visit__c.C501_IS_Visit_Date__c</summarizedField>
+        <summaryForeignKey>Client_Visit__c.C501_IS_Household__c</summaryForeignKey>
         <summaryOperation>min</summaryOperation>
         <trackHistory>false</trackHistory>
         <type>Summary</type>
     </fields>
     <fields>
-        <fullName>Homeless__c</fullName>
+        <fullName>C501_IS_Homeless__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Homeless</label>
@@ -106,7 +106,7 @@
         <type>Checkbox</type>
     </fields>
     <fields>
-        <fullName>Inactive__c</fullName>
+        <fullName>C501_IS_Inactive__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Inactive</label>
@@ -115,7 +115,7 @@
         <type>Checkbox</type>
     </fields>
     <fields>
-        <fullName>Infant_Card_Expires__c</fullName>
+        <fullName>C501_IS_Infant_Card_Expires__c</fullName>
         <externalId>false</externalId>
         <label>Infant Card Expires</label>
         <required>false</required>
@@ -124,7 +124,7 @@
         <type>Date</type>
     </fields>
     <fields>
-        <fullName>Infants__c</fullName>
+        <fullName>C501_IS_Infants__c</fullName>
         <externalId>false</externalId>
         <label>Infants</label>
         <precision>2</precision>
@@ -136,7 +136,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Monthly_Points_Available__c</fullName>
+        <fullName>C501_IS_Monthly_Points_Available__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>Number of points allowed per month, set automatically based on intake services settings.</inlineHelpText>
         <label>Monthly Points Available</label>
@@ -149,17 +149,17 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Most_Recent_Visit__c</fullName>
+        <fullName>C501_IS_Most_Recent_Visit__c</fullName>
         <externalId>false</externalId>
         <label>Most Recent Visit</label>
-        <summarizedField>Client_Visit__c.Visit_Date__c</summarizedField>
-        <summaryForeignKey>Client_Visit__c.Household__c</summaryForeignKey>
+        <summarizedField>Client_Visit__c.C501_IS_Visit_Date__c</summarizedField>
+        <summaryForeignKey>Client_Visit__c.C501_IS_Household__c</summaryForeignKey>
         <summaryOperation>max</summaryOperation>
         <trackHistory>false</trackHistory>
         <type>Summary</type>
     </fields>
     <fields>
-        <fullName>Notes__c</fullName>
+        <fullName>C501_IS_Notes__c</fullName>
         <externalId>false</externalId>
         <label>Notes</label>
         <length>4096</length>
@@ -169,7 +169,7 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
-        <fullName>Out_Of_Area__c</fullName>
+        <fullName>C501_IS_Out_Of_Area__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Out of Area</label>
@@ -178,7 +178,7 @@
         <type>Checkbox</type>
     </fields>
     <fields>
-        <fullName>Pending_Commodity_Usage_JSON__c</fullName>
+        <fullName>C501_IS_Pending_Commodity_Usage_JSON__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>JSON data that records the pending usage of commodities related to checkin queue.</inlineHelpText>
         <label>Pending Commodity Usage JSON</label>
@@ -188,7 +188,7 @@
         <type>TextArea</type>
     </fields>
     <fields>
-        <fullName>Pending_Notes__c</fullName>
+        <fullName>C501_IS_Pending_Notes__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>Pending notes related to checkin queue.</inlineHelpText>
         <label>Notes</label>
@@ -198,7 +198,7 @@
         <type>TextArea</type>
     </fields>
     <fields>
-        <fullName>Proof_of_Address_Date__c</fullName>
+        <fullName>C501_IS_Proof_of_Address_Date__c</fullName>
         <externalId>false</externalId>
         <label>Proof of Address Date</label>
         <required>false</required>
@@ -207,7 +207,7 @@
         <type>Date</type>
     </fields>
     <fields>
-        <fullName>Proof_of_Address__c</fullName>
+        <fullName>C501_IS_Proof_of_Address__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>Type of address proof provided and/or initials of user who verified the address</inlineHelpText>
         <label>Proof of Address</label>
@@ -219,7 +219,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Seniors__c</fullName>
+        <fullName>C501_IS_Seniors__c</fullName>
         <externalId>false</externalId>
         <label>Seniors</label>
         <precision>2</precision>
@@ -231,7 +231,7 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Source__c</fullName>
+        <fullName>C501_IS_Source__c</fullName>
         <externalId>false</externalId>
         <label>Source</label>
         <required>false</required>
@@ -290,7 +290,7 @@
         </valueSet>
     </fields>
     <fields>
-        <fullName>Staff_Notes__c</fullName>
+        <fullName>C501_IS_Staff_Notes__c</fullName>
         <externalId>false</externalId>
         <label>Staff Notes</label>
         <length>4096</length>
@@ -300,7 +300,7 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
-        <fullName>Tags__c</fullName>
+        <fullName>C501_IS_Tags__c</fullName>
         <externalId>false</externalId>
         <label>Tags</label>
         <required>false</required>
@@ -335,38 +335,38 @@
         <visibleLines>4</visibleLines>
     </fields>
     <fields>
-        <fullName>Total_Visits__c</fullName>
+        <fullName>C501_IS_Total_Visits__c</fullName>
         <externalId>false</externalId>
         <label>Total Visits</label>
-        <summaryForeignKey>Client_Visit__c.Household__c</summaryForeignKey>
+        <summaryForeignKey>Client_Visit__c.C501_IS_Household__c</summaryForeignKey>
         <summaryOperation>count</summaryOperation>
         <trackHistory>false</trackHistory>
         <type>Summary</type>
     </fields>
     <listViews>
-        <fullName>Active</fullName>
+        <fullName>C501_IS_Active_Households</fullName>
         <columns>ACCOUNT.NAME</columns>
         <columns>ACCOUNT.ADDRESS1_STREET</columns>
         <columns>ACCOUNT.ADDRESS1_CITY</columns>
-        <columns>First_Visit__c</columns>
-        <columns>Most_Recent_Visit__c</columns>
+        <columns>C501_IS_First_Visit__c</columns>
+        <columns>C501_IS_Most_Recent_Visit__c</columns>
         <filterScope>Everything</filterScope>
         <filters>
-            <field>Inactive__c</field>
+            <field>C501_IS_Inactive__c</field>
             <operation>notEqual</operation>
             <value>1</value>
         </filters>
-        <label>Active Households</label>
+        <label>Active Households (Intake Service)</label>
     </listViews>
     <listViews>
-        <fullName>AllHH</fullName>
+        <fullName>C501_IS_All_Households</fullName>
         <columns>ACCOUNT.NAME</columns>
         <columns>ACCOUNT.ADDRESS1_STREET</columns>
         <columns>ACCOUNT.ADDRESS1_CITY</columns>
-        <columns>First_Visit__c</columns>
-        <columns>Most_Recent_Visit__c</columns>
-        <columns>Inactive__c</columns>
+        <columns>C501_IS_First_Visit__c</columns>
+        <columns>C501_IS_Most_Recent_Visit__c</columns>
+        <columns>C501_IS_Inactive__c</columns>
         <filterScope>Everything</filterScope>
-        <label>All Households</label>
+        <label>All Households (Intake Services)</label>
     </listViews>
 </CustomObject>

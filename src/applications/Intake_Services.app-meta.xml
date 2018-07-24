@@ -4,9 +4,9 @@
         <headerColor>#0070D2</headerColor>
         <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
     </brand>
-    <description>Intake Services Service Application</description>
+    <description>Intake Services Application</description>
     <formFactors>Large</formFactors>
-    <label>Intake Services Service</label>
+    <label>Intake Services</label>
     <navType>Standard</navType>
     <tabs>standard-Event</tabs>
     <tabs>Intake_Services_App</tabs>

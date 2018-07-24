@@ -114,7 +114,7 @@
         <type>Checkbox</type>
     </fields>
     <fields>
-        <fullName>Tags__c</fullName>
+        <fullName>C501_IS_Tags__c</fullName>
         <description>Semi-colon delimited list of tags for client households.</description>
         <externalId>false</externalId>
         <inlineHelpText>Semi-colon delimited list of tags for client households. Example:  Special Diet; Spanish Speaker</inlineHelpText>

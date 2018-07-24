@@ -1,18 +1,18 @@
 <!--
-- Visualforce landing page for the Intake Services Service app
+- Visualforce landing page for the Intake Services app
 -
 - Loads the Angular.js libraries and our app code from a static resource
 - Uses Javascript remoting to query and save data from Salesforce
 -
 - If you open in a Salesforce tab or specify param header=1, you get the salesforce UI
 -->
-<apex:page controller="IntakeServices" title="Intake Services Service"
+<apex:page controller="IntakeServices" title="Intake Services"
     standardStylesheets="false" sidebar="false" docType="html-5.0"
     showHeader="{!OR(NOT(ISBLANK($CurrentPage.parameters.sfdc.tabName)), AND(NOT(ISBLANK($CurrentPage.parameters.header)),$CurrentPage.parameters.header != '0'))}" >
 
     <html ng-app="intakeServicesApp">
         <head>
-            <title>Intake Services Service</title>
+            <title>Intake Services</title>
 
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -63,7 +63,7 @@
                     <h1 style="margin-bottom: 5px;">
                         <img style="margin: 0 3px 7px 2px;" height="32" width="32"
                             ng-src="{{basePath}}/img/shoppingCart32.png" />
-                        Intake Services Service
+                        Intake Services
                     </h1>
                 </div>
 

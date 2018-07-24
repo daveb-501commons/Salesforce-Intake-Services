@@ -32,7 +32,7 @@ public with sharing class IntakeServicesSettings {
                     general.Proof_of_Infant_Required__c = true;
                     general.Track_Checkout_Weight__c = true;
                     general.Track_Points__c = true;
-                    general.Tags__c = 'Special Diet; Spanish Speaker';
+                    general.C501_IS_Tags__c = 'Special Diet; Spanish Speaker';
                     general.Welcome_Alert__c = 'Hello!';
                     general.Welcome_Message__c = 'Welcome to the intake services.';
                 }

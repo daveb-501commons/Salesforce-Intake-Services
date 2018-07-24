@@ -9,25 +9,25 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>Household__c</field>
+                <field>C501_IS_Household__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Visit_Date__c</field>
+                <field>C501_IS_Visit_Date__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Visit_Type__c</field>
+                <field>C501_IS_Visit_Type__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Checkout_Weight__c</field>
+                <field>C501_IS_Checkout_Weight__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Notes__c</field>
+                <field>C501_IS_Notes__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -44,7 +44,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Commodity_Usage_JSON__c</field>
+                <field>C501_IS_Commodity_Usage_JSON__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

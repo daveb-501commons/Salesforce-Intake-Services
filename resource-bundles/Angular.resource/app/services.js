@@ -149,7 +149,7 @@ angular.module('appServices')
         settings.general.welcomeAlert = result.general.Welcome_Alert__c;
         settings.general.welcomeMessage = result.general.Welcome_Message__c;
 
-        settings.tags = (result.general.Tags__c) ? (_.map(result.general.Tags__c.split(';'), _.trim)) : [];
+        settings.tags = (result.general.C501_IS_Tags__c) ? (_.map(result.general.C501_IS_Tags__c.split(';'), _.trim)) : [];
 
         settings.commodities = [];
         _.forEach(result.commodities, function(c){
@@ -183,30 +183,30 @@ angular.module('appServices')
       getSObject: function( hh ) {
         var sobj = {
           Name: hh.name,
-          Total_Visits__c: hh.totalVisits,
-          Monthly_Points_Available__c: hh.monthlyPointsAvailable,
-          Tags__c: hh.tags ? hh.tags.join(';') : undefined,
+          C501_IS_Total_Visits__c: hh.totalVisits,
+          C501_IS_Monthly_Points_Available__c: hh.monthlyPointsAvailable,
+          C501_IS_Tags__c: hh.tags ? hh.tags.join(';') : undefined,
           BillingStreet: hh.address,
           BillingCity: hh.city,
           BillingState: hh.state,
           BillingPostalCode: hh.postalCode,
           Phone: hh.phone,
-          Homeless__c: hh.homeless,
-          Out_Of_Area__c: hh.outofarea,
-          Notes__c: hh.notes,
-          Source__c: hh.source,
-          External_ID__c: hh.externalId,
-          Adults__c: hh.adults,
-          Children__c: hh.children,
-          Infants__c: hh.infants,
-          Seniors__c: hh.seniors,
+          C501_IS_Homeless__c: hh.homeless,
+          C501_IS_Out_Of_Area__c: hh.outofarea,
+          C501_IS_Notes__c: hh.notes,
+          C501_IS_Source__c: hh.source,
+          C501_IS_External_Id__c: hh.externalId,
+          C501_IS_Adults__c: hh.adults,
+          C501_IS_Children__c: hh.children,
+          C501_IS_Infants__c: hh.infants,
+          C501_IS_Seniors__c: hh.seniors,
           CreatedDate: hh.createdDate,
-          First_Visit__c: hh.firstVisitDate,
-          Most_Recent_Visit__c: hh.mostRecentVisitDate,
-          Proof_of_Address__c: hh.proofOfAddress,
-          Inactive__c: hh.inactive,
-          Pending_Commodity_Usage_JSON__c: hh.Pending_Commodity_Usage_JSON__c,
-          Pending_Notes__c: hh.Pending_Notes__c
+          C501_IS_First_Visit__c: hh.firstVisitDate,
+          C501_IS_Most_Recent_Visit__c: hh.mostRecentVisitDate,
+          C501_IS_Proof_of_Address__c: hh.proofOfAddress,
+          C501_IS_Inactive__c: hh.inactive,
+          C501_IS_Pending_Commodity_Usage_JSON__c: hh.C501_IS_Pending_Commodity_Usage_JSON__c,
+          C501_IS_Pending_Notes__c: hh.C501_IS_Pending_Notes__c
         };
         if (hh.id) sobj.Id = hh.id;
         return sobj;
@@ -216,12 +216,12 @@ angular.module('appServices')
         var sobj = {
           FirstName: mobj.firstName,
           LastName: mobj.lastName,
-          Age_Group__c: mobj.ageGroup,
-          Id_Number__c: mobj.Id_Number,
-          Gender__c: mobj.gender,
-          Age__c: mobj.age,
+          C501_IS_Age_Group__c: mobj.ageGroup,
+          C501_IS_Id_Number__c: mobj.Id_Number,
+          C501_IS_Gender__c: mobj.gender,
+          C501_IS_Age__c: mobj.age,
           birthdate: (mobj.birthdate) ? mobj.birthdate.getTime() : Date.MIN_BIRTHDATE,
-          Proof_of_Infant__c: mobj.proofOfInfant
+          C501_IS_Proof_of_Infant__c: mobj.proofOfInfant
         };
         if (mobj.id) sobj.Id = mobj.id;
         return sobj;
@@ -236,31 +236,31 @@ angular.module('appServices')
             (result.BillingCity != null) ? result.BillingCity : '',
             (result.BillingState != null) ? result.BillingState : '',
             (result.BillingPostalCode != null) ? result.BillingPostalCode : ''),
-          totalVisits: result.Total_Visits__c,
-          monthlyPointsAvailable: result.Monthly_Points_Available__c,
-          tags: (result.Tags__c) ? (_.map(result.Tags__c.split(';'), _.trim)) : null,
+          totalVisits: result.C501_IS_Total_Visits__c,
+          monthlyPointsAvailable: result.C501_IS_Monthly_Points_Available__c,
+          tags: (result.C501_IS_Tags__c) ? (_.map(result.C501_IS_Tags__c.split(';'), _.trim)) : null,
           address: result.BillingStreet,
           city: result.BillingCity,
           state: result.BillingState,
           postalCode: result.BillingPostalCode,
           phone: result.Phone,
-          homeless: result.Homeless__c,
-          outofarea: result.Out_Of_Area__c,
-          notes: result.Notes__c,
-          source: result.Source__c,
-          externalId: result.External_ID__c,
-          adults: result.Adults__c,
-          children: result.Children__c,
-          infants: result.Infants__c,
-          seniors: result.Seniors__c,
+          homeless: result.C501_IS_Homeless__c,
+          outofarea: result.C501_IS_Out_Of_Area__c,
+          notes: result.C501_IS_Notes__c,
+          source: result.C501_IS_Source__c,
+          externalId: result.C501_IS_External_Id__c,
+          adults: result.C501_IS_Adults__c,
+          children: result.C501_IS_Children__c,
+          infants: result.C501_IS_Infants__c,
+          seniors: result.C501_IS_Seniors__c,
           createdDate: result.CreatedDate,
-          firstVisitDate: result.First_Visit__c,
-          mostRecentVisitDate: result.Most_Recent_Visit__c,
-          proofOfAddressDate: result.Proof_of_Address_Date__c,
-          proofOfAddress: result.Proof_of_Address__c,
-          inactive: result.Inactive__c,
-          pendingcommodityusage: result.Pending_Commodity_Usage_JSON__c,
-          pendingnotes: result.Pending_Notes__c
+          firstVisitDate: result.C501_IS_First_Visit__c,
+          mostRecentVisitDate: result.C501_IS_Most_Recent_Visit__c,
+          proofOfAddressDate: result.C501_IS_Proof_of_Address_Date__c,
+          proofOfAddress: result.C501_IS_Proof_of_Address__c,
+          inactive: result.C501_IS_Inactive__c,
+          pendingcommodityusage: result.C501_IS_Pending_Commodity_Usage_JSON__c,
+          pendingnotes: result.C501_IS_Pending_Notes__c
         };
 
         // add up the household members
@@ -278,13 +278,13 @@ angular.module('appServices')
             name: v.Name,
             firstName: v.FirstName,
             lastName: v.LastName,
-            ageGroup: v.Age_Group__c,
-            Id_Number: v.Id_Number__c,
-            gender: v.Gender__c,
-            age: v.Age__c,
+            ageGroup: v.C501_IS_Age_Group__c,
+            Id_Number: v.C501_IS_Id_Number__c,
+            gender: v.C501_IS_Gender__c,
+            age: v.C501_IS_Age__c,
             // v.Birthdate + 12 hours to make sure rounding to correct day since Date parses the value as GMT then converts to Browser Time Zone (Pacific)
             birthdate: (v.Birthdate) ? new Date(v.Birthdate + (12 * 60 * 60 * 1000)) : Date.MIN_BIRTHDATE,
-            proofOfInfant: v.Proof_of_Infant__c
+            proofOfInfant: v.C501_IS_Proof_of_Infant__c
           });
         });
 
@@ -293,13 +293,13 @@ angular.module('appServices')
         client.commodityUsage = {};
         client.visitsThisMonth = (result.Visits__r ? result.Visits__r.length : 0);
         _.forEach( result.Visits__r, function(v) {
-          if (v.Points_Used__c) {
-            pointsUsed += v.Points_Used__c;
+          if (v.C501_IS_Points_Used__c) {
+            pointsUsed += v.C501_IS_Points_Used__c;
           }
 
           // TODO: try catch? json could be bogus
-          if (v.Commodity_Usage_JSON__c) {
-            _.forEach( angular.fromJson( v.Commodity_Usage_JSON__c ), function(v, k) {
+          if (v.C501_IS_Commodity_Usage_JSON__c) {
+            _.forEach( angular.fromJson( v.C501_IS_Commodity_Usage_JSON__c ), function(v, k) {
               if (k in client.commodityUsage) {
                 client.commodityUsage[k] += v;
               } else {
@@ -415,12 +415,12 @@ angular.module('appServices')
         var visits = [];
         _.forEach(result, function(result){
           visits.push({
-            'date': result.Visit_Date__c,
-            'visitor': (result.Visitor__r) ? result.Visitor__r.Name : '',
-            'boxType': result.Box_Type__c,
-            'ptsUsed': result.Points_Used__c,
-            'checkoutWeight' : result.Checkout_Weight__c,
-            'notes': result.Notes__c
+            'date': result.C501_IS_Visit_Date__c,
+            'visitor': (result.C501_IS_Visitor__r) ? result.C501_IS_Visitor__r.Name : '',
+            'boxType': result.C501_IS_Box_Type__c,
+            'ptsUsed': result.C501_IS_Points_Used__c,
+            'checkoutWeight' : result.C501_IS_Checkout_Weight__c,
+            'notes': result.C501_IS_Notes__c
           });
         });
         return visits;

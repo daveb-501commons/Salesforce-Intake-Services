@@ -40,7 +40,7 @@ public with sharing class IntakeServicesTest {
     private static void testSaveHouseHold() {
         Account cHh = new Account(
             Name = 'Test Account',
-            Inactive__c = false
+            C501_IS_Inactive__c = false
         );
         
         // Check insert of Household
@@ -51,7 +51,7 @@ public with sharing class IntakeServicesTest {
         // Check update of Household
         cHh.BillingStreet = '101 1st St';
         cHh0 = IntakeServices.saveHousehold(cHh);
-        System.assert(cHh0.BillingStreet == cHh.BillingStreet, 'Method did not update Household: ' + cHh0.Children__c);
+        System.assert(cHh0.BillingStreet == cHh.BillingStreet, 'Method did not update Household: ' + cHh0.C501_IS_Children__c);
 
         // Insert Client
         Contact c1 = new Contact( AccountId = null, LastName = 'Test1', Birthdate = System.today().addyears(-50) );
@@ -63,7 +63,7 @@ public with sharing class IntakeServicesTest {
         cHh0 = IntakeServices.saveHouseholdMembers(cHh.Id, new List<Contact> { c1 });
         System.assert(cHh0.Name != null, 'Method did not update Household: ' + cHh0.Name);
         System.debug('***** Client Name: ' + cHh0.Name);
-        System.debug('***** Inactive: ' + cHh0.Inactive__c);
+        System.debug('***** Inactive: ' + cHh0.C501_IS_Inactive__c);
 
         List<IntakeServices.ClientHousehold> cHs = IntakeServices.queryHouseholds(cHh0.Name);
 // TODO     // System.assertEquals(1, cHs.size(), 'Could not find: ' + cHh0.Name);   
@@ -85,7 +85,7 @@ public with sharing class IntakeServicesTest {
 	private static void testCheckInsVisits() {
 		Account household1 = new Account(
             Name = 'Test Account',
-			Inactive__c = false
+			C501_IS_Inactive__c = false
 		);
 		
 		// insert a contact
@@ -98,7 +98,7 @@ public with sharing class IntakeServicesTest {
 
 		Intake_Services_Checkin__c checkin1 = new Intake_Services_Checkin__c(
 			Name = household1.Id,
-			Visitor__c = contact.Id,
+			C501_IS_Visitor__c = contact.Id,
             Points_Remaining__c = 15,
             Box_Size__c = 'small',
             Check_In_Time__c = Datetime.now()
@@ -108,7 +108,7 @@ public with sharing class IntakeServicesTest {
 
 		Account household2 = new Account(
             Name = 'Test Account',
-			Inactive__c = false
+			C501_IS_Inactive__c = false
 		);
 		
 		// Check insert of Household
@@ -116,7 +116,7 @@ public with sharing class IntakeServicesTest {
 
 		Intake_Services_Checkin__c checkin2 = new Intake_Services_Checkin__c(
 			Name = household2.Id,
-			Visitor__c = contact.Id,
+			C501_IS_Visitor__c = contact.Id,
             Points_Remaining__c = 15,
             Box_Size__c = 'small',
             Check_In_Time__c = Datetime.now()
