@@ -45,6 +45,7 @@ angular.module('clientController')
     }
     
     $scope.data.visitNotes = '';
+    $scope.data.visitType = 'Other';
 
     $scope.data.boxType = foundHousehold.defaultBox;
     if (foundHousehold.commodityAvailability && foundHousehold.commodityAvailability.length > 0) {
@@ -226,7 +227,7 @@ angular.module('clientController')
       });
 
       $scope.saveAll().then(function() {
-        fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false);
+        fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false, $scope.data.visitType);
         $window.scrollTo(0,0);
         $alert({
           title: 'Checked in!',

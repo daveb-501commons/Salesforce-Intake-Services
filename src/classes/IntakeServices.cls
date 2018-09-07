@@ -13,9 +13,11 @@ public with sharing class IntakeServices {
         public Id clientContactId { get; private set; }
         public String name { get; private set; }
         public Decimal pointsRemaining { get; private set; }
+        public String visitType { get; private set; }
         public String boxSize { get; private set; }
         public DateTime checkInTime { get; private set; }
         public Boolean checkinNotToday { get; private set; }
+        public DateTime checkInTimeWithStaff { get; private set; }
         public Boolean withStaff { get; private set; }
     }
 
@@ -36,8 +38,10 @@ public with sharing class IntakeServices {
             cc.clientContactId = fbc.C501_IS_Visitor__c;
             cc.name = String.format('{0} Household', new String[]{IntakeServices.getContactName(fbc.C501_IS_Visitor__c)});
             cc.pointsRemaining = fbc.Points_Remaining__c;
+            cc.visitType = fbc.C501_IS_Visit_Type__c;
             cc.boxSize = fbc.Box_Size__c;
             cc.checkInTime = fbc.Check_In_Time__c;
+            cc.checkInTimeWithStaff = fbc.Check_In_Time_With_Staff__c;
             cc.checkinNotToday = (cc.checkInTime != null && cc.checkInTime.date() != system.today());
             cc.withStaff = fbc.C501_With_Staff__c;
 
@@ -45,12 +49,24 @@ public with sharing class IntakeServices {
         }
 
         // Sort List
-        for (Integer i =0; i < chkList.size(); i++) {
-            for (Integer j = i; j > 0; j--) {
-                if (chkList[j-1].checkInTime < chkList[j].checkInTime){
-                    ClientCheckin temp = chkList[j];
-                    chkList[j] = chkList[j-1];
-                    chkList[j-1] = temp;
+        if (with_staff) {
+            for (Integer i =0; i < chkList.size(); i++) {
+                for (Integer j = i; j > 0; j--) {
+                    if (chkList[j-1].checkInTimeWithStaff < chkList[j].checkInTimeWithStaff){
+                        ClientCheckin temp = chkList[j];
+                        chkList[j] = chkList[j-1];
+                        chkList[j-1] = temp;
+                    }
+                }
+            }
+        } else {
+            for (Integer i =0; i < chkList.size(); i++) {
+                for (Integer j = i; j > 0; j--) {
+                    if (chkList[j-1].checkInTime < chkList[j].checkInTime){
+                        ClientCheckin temp = chkList[j];
+                        chkList[j] = chkList[j-1];
+                        chkList[j-1] = temp;
+                    }
                 }
             }
         }
@@ -230,7 +246,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff) {
+    public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff, String visitType) {
 
         Intake_Services_Checkin__c fbc = new Intake_Services_Checkin__c();
 
@@ -242,7 +258,9 @@ public with sharing class IntakeServices {
         Intake_Services_Checkin__c intake = Intake_Services_Checkin__c.getInstance( hhid );
         if (intake != null) {
 
+            intake.Check_In_Time_With_Staff__c = system.now();
             intake.C501_With_Staff__c = withStaff;
+
             update intake;
         } else {
             fbc.name = hhid;
@@ -252,6 +270,7 @@ public with sharing class IntakeServices {
 
             fbc.Check_In_Time__c = system.now();
             fbc.C501_IS_Visitor__c = contactid;
+            fbc.C501_IS_Visit_Type__c = visitType;
 
             fbc.C501_IS_Notes__c = visitNotes;
             fbc.C501_With_Staff__c = withStaff;
@@ -399,6 +418,7 @@ public with sharing class IntakeServices {
             C501_IS_Checkout_Weight__c = checkoutWeight,
             C501_IS_Box_Type__c = boxType,
             C501_IS_Notes__c = visitNotes,
+            C501_IS_Visit_Type__c = fbc.C501_IS_Visit_Type__c,
             C501_IS_Visit_Date__c = (fbc != null && fbc.Check_In_Time__c != null) ? fbc.Check_In_Time__c : system.now(),
             C501_IS_Visitor__c = (fbc != null && fbc.C501_IS_Visitor__c != null) ? fbc.C501_IS_Visitor__c : contactid
         );

@@ -316,19 +316,9 @@
             <valueSetDefinition>
                 <sorted>true</sorted>
                 <value>
-                    <fullName>Baby Pantry</fullName>
-                    <default>false</default>
-                    <label>Baby Pantry</label>
-                </value>
-                <value>
-                    <fullName>Intake Services</fullName>
+                    <fullName>Other</fullName>
                     <default>true</default>
-                    <label>Intake Services</label>
-                </value>
-                <value>
-                    <fullName>Mobile</fullName>
-                    <default>false</default>
-                    <label>Mobile</label>
+                    <label>Other</label>
                 </value>
             </valueSetDefinition>
         </valueSet>

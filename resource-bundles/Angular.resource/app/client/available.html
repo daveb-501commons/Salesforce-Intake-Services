@@ -6,10 +6,12 @@
                     <div class="col-md-5">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Visit Notes
+                                Visit Reason
                             </div>
                             <div class="panel-body" ng-show="data.household">
-                                <textarea class="form-control" style="height:7em;" ng-model="data.visitNotes"></textarea>
+                                <select ng-model="data.visitType" class="form-control input-sm"
+                                    name="visitType" ng-options="g for g in ['Other']">
+                                </select>
                             </div>
                         </div>
                     </div>

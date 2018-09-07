@@ -55,7 +55,7 @@
                     <thead>
                         <tr class="text-center" >
                             <th>Name</th>
-                            <th class="text-center">Points</th>
+                            <th class="text-center">Visit Reason</th>
                             <th class="text-center">Check-In Time</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -63,14 +63,14 @@
                     <tbody>
                         <tr ng-repeat="client in checkedInClients">
                             <td class="text-left" style="vertical-align:middle;">{{client.name}}</td>
-                            <td style="vertical-align:middle;">{{client.pointsRemaining}}</td>
+                            <td style="vertical-align:middle;">{{client.visitType}}</td>
                             <td style="vertical-align:middle;">{{client.checkInTime | date:'shortTime'}}
                                 <span ng-show="client.checkinNotToday">
                                     ({{client.checkInTime | date:'MMM d'}})
                                 </span>
                             </td>
                             <td ng-controller="checkInController" >
-                                <a ng-click="process(client.clientId,client.clientContactId)" class="btn btn-primary">Process</a>
+                                <a ng-click="process(client.clientId, client.clientContactId, client.visitType)" class="btn btn-primary">Process</a>
                                 <a ng-href="#/log_visit/{{client.clientId}}/{{client.clientContactId}}" class="btn btn-sm btn-success">Check Out</a>
                                 <a ng-click="cancelCheckIn()" class="btn btn-sm">Cancel</a>
                             </td>
@@ -96,18 +96,24 @@
                     <thead>
                         <tr class="text-center" >
                             <th>Name</th>
-                            <th class="text-center">Points</th>
+                            <th class="text-center">Visit Reason</th>
                             <th class="text-center">Check-In Time</th>
+                            <th class="text-center">Process Time</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="client in checkedInClientsWithStaff">
                             <td class="text-left" style="vertical-align:middle;">{{client.name}}</td>
-                            <td style="vertical-align:middle;">{{client.pointsRemaining}}</td>
+                            <td style="vertical-align:middle;">{{client.visitType}}</td>
                             <td style="vertical-align:middle;">{{client.checkInTime | date:'shortTime'}}
+                                    <span ng-show="client.checkinNotToday">
+                                        ({{client.checkInTime | date:'MMM d'}})
+                                    </span>
+                                </td>
+                                <td style="vertical-align:middle;">{{client.checkInTimeWithStaff | date:'shortTime'}}
                                 <span ng-show="client.checkinNotToday">
-                                    ({{client.checkInTime | date:'MMM d'}})
+                                    ({{client.checkInTimeWithStaff | date:'MMM d'}})
                                 </span>
                             </td>
                             <td ng-controller="checkInController" >

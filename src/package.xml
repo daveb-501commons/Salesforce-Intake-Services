@@ -90,11 +90,13 @@
         <members>Intake_Services_Box_Settings__c.Minimum_Family_Size__c</members>
         <members>Intake_Services_Checkin__c.Box_Size__c</members>
         <members>Intake_Services_Checkin__c.Check_In_Time__c</members>
+        <members>Intake_Services_Checkin__c.Check_In_Time_With_Staff__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Commodity_Usage_JSON__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Notes__c</members>
         <members>Intake_Services_Checkin__c.Points_Remaining__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Visitor__c</members>
         <members>Intake_Services_Checkin__c.C501_With_Staff__c</members>
+        <members>Intake_Services_Checkin__c.C501_IS_Visit_Type__c</members>
         <members>Intake_Services_Commodity__c.Allow_Overage__c</members>
         <members>Intake_Services_Commodity__c.Monthly_Limit__c</members>
         <members>Intake_Services_Commodity__c.Sort_Order__c</members>

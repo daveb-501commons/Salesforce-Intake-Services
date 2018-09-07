@@ -27,12 +27,12 @@ angular.module('homeController')
       }
     };
 
-    $scope.process = function(hhId, clientId) {
+    $scope.process = function(hhId, clientId, visitType) {
 
       $scope.callingOut = true;
       var comms = {};
 
-      fbCheckIn(hhId, clientId, comms, '', true).then(
+      fbCheckIn(hhId, clientId, comms, '', true, visitType).then(
         function(result){
           $scope.refresh();
           $timeout(function(){ $scope.callingOut = false; }, 2000);

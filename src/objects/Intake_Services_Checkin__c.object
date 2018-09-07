@@ -21,6 +21,14 @@
         <type>DateTime</type>
     </fields>
     <fields>
+        <fullName>Check_In_Time_With_Staff__c</fullName>
+        <externalId>false</externalId>
+        <label>Check In Time With Staff</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
         <fullName>C501_IS_Commodity_Usage_JSON__c</fullName>
         <externalId>false</externalId>
         <label>Commodity Usage JSON</label>
@@ -52,6 +60,16 @@
         <externalId>false</externalId>
         <label>Vistor</label>
         <length>32</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>C501_IS_Visit_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Vistor</label>
+        <length>64</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Text</type>

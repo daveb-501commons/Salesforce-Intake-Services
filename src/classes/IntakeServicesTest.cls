@@ -20,12 +20,12 @@ public with sharing class IntakeServicesTest {
         commU.put('Bread', 1);
 
         // Test CheckIn & CheckOut
-        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false);
+        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other');
         System.assert(Intake_Services_Checkin__c.getInstance(cHh.Id) != null);
 
         // Attempt to CheckIn again should throw error
         try {
-            IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false);
+            IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other');
             System.assert(false, 'Error should have occured');
         } catch (Exception ex) {
             // Nothing to see here
