@@ -9,8 +9,8 @@ angular.module('homeController', [
 ]);
 
 angular.module('homeController')
-  .controller('homeController', ['$scope', '$location', '$timeout', '$interval', 'fbCheckInList', 'fbHouseholdSearch', 'foundSettings', '$alert',
-  function($scope, $location, $timeout, $interval, fbCheckInList, fbHouseholdSearch, foundSettings, $alert) {
+  .controller('homeController', ['$scope', '$location', '$timeout', '$interval', 'fbCheckIn', 'fbCheckInList', 'fbCheckInListWithStaff', 'fbHouseholdSearch', 'foundSettings', '$alert',
+  function($scope, $location, $timeout, $interval, fbCheckIn, fbCheckInList, fbCheckInListWithStaff, fbHouseholdSearch, foundSettings, $alert) {
 
     $scope.settings = foundSettings;
 
@@ -25,6 +25,28 @@ angular.module('homeController')
       if (cid) {
         $location.url('/client/' + cid + '/' + contactid);
       }
+    };
+
+    $scope.process = function(hhId, clientId) {
+
+      $scope.callingOut = true;
+      var comms = {};
+
+      fbCheckIn(hhId, clientId, comms, '', true).then(
+        function(result){
+          $scope.refresh();
+          $timeout(function(){ $scope.callingOut = false; }, 2000);
+        },
+        function(reason){
+          $scope.callingOut = false;
+          $alert({
+            title: 'Checked in With Staff!',
+            type: 'success',
+            duration: 2
+          });
+        }
+      );
+
     };
 
     $scope.refresh = function() {
@@ -44,6 +66,22 @@ angular.module('homeController')
           });
         }
       );
+
+      fbCheckInListWithStaff.get().then(
+        function(result){
+          $scope.checkedInClientsWithStaff = result;
+          $timeout(function(){ $scope.callingOut = false; }, 750);
+        },
+        function(reason){
+          $scope.callingOut = false;
+          $alert({
+            title: 'Failed.',
+            content: reason.message,
+            type: 'danger'
+          });
+        }
+      );
+
     };
 
     $scope.$on('$destroy', function() {

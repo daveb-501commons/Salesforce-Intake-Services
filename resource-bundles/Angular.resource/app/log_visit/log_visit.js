@@ -52,7 +52,7 @@ angular.module('logVisitController')
 
       $scope.logging = true;
 
-      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, $scope.visitNotes ).then(
+      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, $scope.visitNotes).then(
         function(result){
           $scope.logging = false;
           $window.scrollTo(0,0);

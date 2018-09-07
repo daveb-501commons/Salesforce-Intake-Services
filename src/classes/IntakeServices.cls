@@ -16,17 +16,21 @@ public with sharing class IntakeServices {
         public String boxSize { get; private set; }
         public DateTime checkInTime { get; private set; }
         public Boolean checkinNotToday { get; private set; }
+        public Boolean withStaff { get; private set; }
     }
 
-    @RemoteAction
-    public static list<ClientCheckin> getCheckedInList() {
-        list<ClientCheckin> chkList = new list<ClientCheckin>();
+    public static list<ClientCheckin> getCheckedInListCollection(boolean with_staff) {
 
-        //for (Intake_Services_Checkin__c fbc : Intake_Services_Checkin__c.getAll().values()) {
+        list<ClientCheckin> chkList = new list<ClientCheckin>();
         //    delete fbc;
         //}
 
         for (Intake_Services_Checkin__c fbc : Intake_Services_Checkin__c.getAll().values()) {
+
+            if (fbc.C501_With_Staff__c != with_staff) {
+                continue;
+            }
+
             ClientCheckin cc = new ClientCheckin();
             cc.clientId = fbc.name;
             cc.clientContactId = fbc.C501_IS_Visitor__c;
@@ -35,6 +39,8 @@ public with sharing class IntakeServices {
             cc.boxSize = fbc.Box_Size__c;
             cc.checkInTime = fbc.Check_In_Time__c;
             cc.checkinNotToday = (cc.checkInTime != null && cc.checkInTime.date() != system.today());
+            cc.withStaff = fbc.C501_With_Staff__c;
+
             chkList.add( cc );
         }
 
@@ -50,6 +56,16 @@ public with sharing class IntakeServices {
         }
 
         return chkList;
+    }
+
+    @RemoteAction
+    public static list<ClientCheckin> getCheckedInList() {
+        return getCheckedInListCollection(false);
+    }
+
+    @RemoteAction
+    public static list<ClientCheckin> getCheckedInListWithStaff() {
+        return getCheckedInListCollection(true);
     }
 
     @RemoteAction
@@ -214,7 +230,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes) {
+    public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff) {
 
         Intake_Services_Checkin__c fbc = new Intake_Services_Checkin__c();
 
@@ -223,8 +239,11 @@ public with sharing class IntakeServices {
                 (select C501_IS_Points_Used__c from Visits__r where C501_IS_Visit_Date__c = THIS_MONTH)
                 from Account where id = :hhid];
 
-        if (Intake_Services_Checkin__c.getInstance( hhid ) != null) {
-            throw new IntakeServicesException('Already checked in.');
+        Intake_Services_Checkin__c intake = Intake_Services_Checkin__c.getInstance( hhid );
+        if (intake != null) {
+
+            intake.C501_With_Staff__c = withStaff;
+            update intake;
         } else {
             fbc.name = hhid;
             fbc.Points_Remaining__c = getMonthlyPoints( hh );
@@ -235,6 +254,7 @@ public with sharing class IntakeServices {
             fbc.C501_IS_Visitor__c = contactid;
 
             fbc.C501_IS_Notes__c = visitNotes;
+            fbc.C501_With_Staff__c = withStaff;
 
             if (commodityUsage != null && !commodityUsage.isEmpty()) {
                 fbc.C501_IS_Commodity_Usage_JSON__c = JSON.serializePretty(commodityUsage);
@@ -337,7 +357,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitNotes ) {
+    public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitNotes) {
 
         // get the HH detail
         Account[] hhs =

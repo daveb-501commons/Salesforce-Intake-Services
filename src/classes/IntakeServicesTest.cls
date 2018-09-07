@@ -20,12 +20,12 @@ public with sharing class IntakeServicesTest {
         commU.put('Bread', 1);
 
         // Test CheckIn & CheckOut
-        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes');
+        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false);
         System.assert(Intake_Services_Checkin__c.getInstance(cHh.Id) != null);
 
         // Attempt to CheckIn again should throw error
         try {
-            IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes');
+            IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false);
             System.assert(false, 'Error should have occured');
         } catch (Exception ex) {
             // Nothing to see here
@@ -123,8 +123,29 @@ public with sharing class IntakeServicesTest {
         );
 		insert checkin2;
 
+		Account household3 = new Account(
+            Name = 'Test Account',
+			C501_IS_Inactive__c = false
+		);
+		
+		// Check insert of Household
+		household3 = IntakeServices.saveHousehold(household3);
+
+		Intake_Services_Checkin__c checkin3 = new Intake_Services_Checkin__c(
+			Name = household2.Id,
+			C501_IS_Visitor__c = contact.Id,
+            Points_Remaining__c = 15,
+            Box_Size__c = 'small',
+            Check_In_Time__c = Datetime.now(),
+            C501_With_Staff__c = true
+        );
+		insert checkin3;
+
 		List<IntakeServices.ClientCheckin> cc = IntakeServices.getCheckedInList();
 		System.assertEquals(2, cc.size(), 'Two households are currently checked in');
+
+		List<IntakeServices.ClientCheckin> ccWithStaff = IntakeServices.getCheckedInListWithStaff();
+		System.assertEquals(1, ccWithStaff.size(), 'One household is currently with staff');
 
 		Map<String, Integer> commU = new Map<String, Integer>();
 		commU.put('Meat', 2);

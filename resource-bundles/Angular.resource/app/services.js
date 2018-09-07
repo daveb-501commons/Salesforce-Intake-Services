@@ -98,6 +98,15 @@ angular.module('appServices')
   }]);
 
 angular.module('appServices')
+  .factory('fbCheckInListWithStaff', ['jsRemoting', function(jsRemoting) {
+    return {
+      get : function() {
+        return jsRemoting.invoke('getCheckedInListWithStaff');
+      }
+    };
+  }]);
+
+angular.module('appServices')
   .factory('fbStats', ['jsRemoting', function(jsRemoting) {
     return {
       get : function( timeframe ) {
@@ -403,8 +412,8 @@ angular.module('appServices')
 
 angular.module('appServices')
   .factory('fbCheckIn', ['jsRemoting', function(jsRemoting) {
-      return function( hhid, contactid, commodities, notes ) {
-        return jsRemoting.invoke('checkIn', [hhid, contactid, commodities, notes]);
+      return function( hhid, contactid, commodities, notes, withStaff ) {
+        return jsRemoting.invoke('checkIn', [hhid, contactid, commodities, notes, withStaff]);
       };
   }]);
 

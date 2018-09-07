@@ -30,7 +30,10 @@ var Visualforce = {
         { result: {'adults':[257,126,383],'boxTotals':{},'children':[137,68,205],'hhVisits':[189,133,322],'homeless':[14,5,19],'infants':[8,2,10],'onePerson':[79,56,135],'overOnePerson':[110,77,187],'pointsUsed':8,'seniors':[60,95,155],'total':[462,291,753]}  }
       ],
       'IntakeServices.getCheckedInList': [
-        { result: [{'checkinNotToday':true,'checkInTime':1394865903000,'clientId':'a00i000000DzX4eAAF','name':'Evan Callahan','pointsRemaining':72}] }
+        { result: [{'checkinNotToday':true,'checkInTime':1394865903000,'clientId':'a00i000000DzX4eAAF','name':'Evan Callahan','pointsRemaining':72, 'withStaff':false}] }
+      ],
+      'IntakeServices.getCheckedInListWithStaff': [
+        { result: [{'checkinNotToday':true,'checkInTime':1394865903000,'clientId':'a00i000000DzX4eAAF','name':'Evan Callahan','pointsRemaining':72, 'withStaff':true}] }
       ],
       'IntakeServices.queryHouseholds': [
         { result: [{'addr':'3540 Quade Rd, Clinton, WA 98236','id':'a00i000000DzX4eAAF','name':'Evan Callahan','value':'Evan Callahan (3540 Quade Rd)'},{'addr':'Homeless, Langley, WA 98260','id':'a00i000000GOrlsAAD','name':'J J and B Evans','value':'J J and B Evans (Homeless)'},{'addr':'1334 Bercot Rd., Freeland, WA 98236','id':'a00i000000GOrjSAAT','name':'Jason, Jr and Evan Smith','value':'Jason, Jr and Evan Smith (1334 Plumcot Rd.)'}]  }

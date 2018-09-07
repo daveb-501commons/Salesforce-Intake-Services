@@ -31,6 +31,24 @@ describe('services', function() {
     });
   });
 
+  describe('fbCheckInListWithStaff', function() {
+    var svc;
+    beforeEach(inject(function(fbCheckInListWithStaff) {
+      svc = fbCheckInListWithStaff;
+    }));
+
+    it('should get checkin list with staff', function() {
+      var resultData;
+      svc.get().then( function(result) {
+        resultData = result;
+      });
+      /* wait for timeout so promise gets resolved */
+      jasmine.clock().tick(1);
+      expect(resultData).toBeDefined();
+      expect(resultData[0].clientId).toBeDefined();
+    });
+  });
+
   describe('fbStats', function() {
     var svc;
     beforeEach(inject(function(fbStats) {

@@ -94,6 +94,7 @@
         <members>Intake_Services_Checkin__c.C501_IS_Notes__c</members>
         <members>Intake_Services_Checkin__c.Points_Remaining__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Visitor__c</members>
+        <members>Intake_Services_Checkin__c.C501_With_Staff__c</members>
         <members>Intake_Services_Commodity__c.Allow_Overage__c</members>
         <members>Intake_Services_Commodity__c.Monthly_Limit__c</members>
         <members>Intake_Services_Commodity__c.Sort_Order__c</members>

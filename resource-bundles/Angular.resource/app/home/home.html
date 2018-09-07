@@ -47,7 +47,7 @@
             <div class="pull-right">
                 <a class="btn btn-default" ng-click="refresh()"><i ng-class="{'fa': true, 'fa-refresh': true, 'fa-spin': callingOut}"></i></a>
             </div>
-            <h4>Current Visitors</h4>
+            <h4>Waiting Room</h4>
         </div>
         <div class="panel-body">
             <div ng-show="checkedInClients.length">
@@ -70,6 +70,7 @@
                                 </span>
                             </td>
                             <td ng-controller="checkInController" >
+                                <a ng-click="process(client.clientId,client.clientContactId)" class="btn btn-primary">Process</a>
                                 <a ng-href="#/log_visit/{{client.clientId}}/{{client.clientContactId}}" class="btn btn-sm btn-success">Check Out</a>
                                 <a ng-click="cancelCheckIn()" class="btn btn-sm">Cancel</a>
                             </td>
@@ -78,6 +79,46 @@
                 </table>
             </div>
             <div ng-show="checkedInClients && !checkedInClients.length">
+                <i>No clients are checked in.</i>
+            </div>
+        </div>
+    </div>
+    <div ng-show="settings.general.checkInRequired" class="panel panel-default">
+        <div class="panel-heading">
+            <div class="pull-right">
+                <a class="btn btn-default" ng-click="refresh()"><i ng-class="{'fa': true, 'fa-refresh': true, 'fa-spin': callingOut}"></i></a>
+            </div>
+            <h4>With Staff</h4>
+        </div>
+        <div class="panel-body">
+            <div ng-show="checkedInClientsWithStaff.length">
+                <table class="table table-condensed text-center">
+                    <thead>
+                        <tr class="text-center" >
+                            <th>Name</th>
+                            <th class="text-center">Points</th>
+                            <th class="text-center">Check-In Time</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="client in checkedInClientsWithStaff">
+                            <td class="text-left" style="vertical-align:middle;">{{client.name}}</td>
+                            <td style="vertical-align:middle;">{{client.pointsRemaining}}</td>
+                            <td style="vertical-align:middle;">{{client.checkInTime | date:'shortTime'}}
+                                <span ng-show="client.checkinNotToday">
+                                    ({{client.checkInTime | date:'MMM d'}})
+                                </span>
+                            </td>
+                            <td ng-controller="checkInController" >
+                                <a ng-href="#/log_visit/{{client.clientId}}/{{client.clientContactId}}" class="btn btn-sm btn-success">Check Out</a>
+                                <a ng-click="cancelCheckIn()" class="btn btn-sm">Cancel</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-show="checkedInClientsWithStaff && !checkedInClientsWithStaff.length">
                 <i>No clients are checked in.</i>
             </div>
         </div>

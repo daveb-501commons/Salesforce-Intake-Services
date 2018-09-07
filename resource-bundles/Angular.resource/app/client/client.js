@@ -226,7 +226,7 @@ angular.module('clientController')
       });
 
       $scope.saveAll().then(function() {
-        fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes);
+        fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false);
         $window.scrollTo(0,0);
         $alert({
           title: 'Checked in!',

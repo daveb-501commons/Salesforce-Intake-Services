@@ -57,6 +57,15 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>C501_With_Staff__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, means the client is meeting with staff.</inlineHelpText>
+        <label>With Staff</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
     <label>Intake Services Current Checkins</label>
     <visibility>Protected</visibility>
 </CustomObject>
