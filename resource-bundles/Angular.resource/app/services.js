@@ -177,6 +177,8 @@ angular.module('appServices')
           });
         });
 
+        settings.user_email = '';
+
         return settings;
       }
     };
@@ -433,6 +435,22 @@ angular.module('appServices')
           });
         });
         return visits;
+      });
+    };
+  }]);
+
+  angular.module('appServices')
+  .factory('fbServiceHistory', ['jsRemoting', function(jsRemoting) {
+    return function( hhid ) {
+      return jsRemoting.invoke('getServiceHistory', hhid, function(result){
+        var services = [];
+        _.forEach(result, function(result){
+          services.push({
+            'date': result.C501_Start_Date__c,
+            'name': result.Name
+          });
+        });
+        return services;
       });
     };
   }]);

@@ -24,9 +24,9 @@ angular.module('clientController', [
 angular.module('clientController')
   .controller('clientController', ['$scope', '$location', '$timeout', '$window', '$routeParams', '$alert', '$q',
     'foundSettings', 'foundHousehold', 'fbHouseholdDetail', 'fbSaveHousehold', 'fbSaveHouseholdMembers',
-    'fbSaveHouseholdAndMembers', 'fbCheckIn', 'fbVisitHistory',
+    'fbSaveHouseholdAndMembers', 'fbCheckIn', 'fbVisitHistory', 'fbServiceHistory',
   function($scope, $location, $timeout, $window, $routeParams, $alert, $q, foundSettings, foundHousehold,
-    fbHouseholdDetail, fbSaveHousehold, fbSaveHouseholdMembers, fbSaveHouseholdAndMembers, fbCheckIn, fbVisitHistory) {
+    fbHouseholdDetail, fbSaveHousehold, fbSaveHouseholdMembers, fbSaveHouseholdAndMembers, fbCheckIn, fbVisitHistory, fbServiceHistory) {
 
     $scope.contactid = $routeParams.clientContactId;
 
@@ -53,6 +53,8 @@ angular.module('clientController')
     }
     $scope.data.visits = [];
     $scope.status.queriedVisits = false;
+    $scope.data.services = [];
+    $scope.status.queriedServices = false;
 
     $scope.data.memberList = [];
     _.forEach(foundHousehold.members, function(v) {
@@ -275,6 +277,25 @@ angular.module('clientController')
               type: 'danger'
             });
             $scope.status.queriedVisits = true;
+          }
+        );
+      }
+    };
+
+    $scope.queryServices = function() {
+      if (!$scope.status.queriedServices) {
+        fbServiceHistory($scope.data.household.id).then(
+          function(result) {
+            $scope.data.services = result;
+            $scope.status.queriedServices = true;
+          },
+          function(reason) {
+            $alert({
+              title: 'Failed to retrieve service history.',
+              content: reason.message,
+              type: 'danger'
+            });
+            $scope.status.queriedServices = true;
           }
         );
       }

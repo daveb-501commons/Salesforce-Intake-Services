@@ -15,6 +15,42 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-5">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Program
+                                </div>
+                                <div class="panel-body" ng-show="data.household">
+                                    <select ng-model="data.visitType" class="form-control input-sm"
+                                        name="visitType" ng-options="g for g in ['Other', 'Energy Assistance', 'Early Learning']">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Service
+                                </div>
+                                <div class="panel-body" ng-show="data.household">
+                                    <select ng-model="data.visitType" class="form-control input-sm"
+                                        name="visitType" ng-options="g for g in ['Other', 'PSE HELP', 'LIHEAP', 'Early Head Start', 'Head Start']">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Sub Service
+                                </div>
+                                <div class="panel-body" ng-show="data.household">
+                                    <select ng-model="data.visitType" class="form-control input-sm"
+                                        name="visitType" ng-options="g for g in ['Other', 'Furnace Repair', 'Furance Replace', 'Evicition Prevention']">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-7" ng-if="data.commodities">
                             <div class="panel panel-default">
                                 <div class="panel-heading">Commodities</div>

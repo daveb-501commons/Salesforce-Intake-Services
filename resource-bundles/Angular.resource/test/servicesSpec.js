@@ -229,6 +229,24 @@ describe('services', function() {
     });
   });
 
+  describe('fbServiceHistory', function() {
+    var svc;
+    beforeEach(inject(function(fbServiceHistory) {
+      svc = fbServiceHistory;
+    }));
+
+    it('should list service history', function() {
+      var resultData;
+      svc( 'some-household-id' ).then( function(result) {
+        resultData = result;
+      });
+      /* wait for timeout so promise gets resolved */
+      jasmine.clock().tick(1);
+      expect(resultData).toBeDefined();
+      expect(resultData[0].date).toBeDefined();
+    });
+  });
+
   describe('fbCancelCheckIn', function() {
     var svc;
     beforeEach(inject(function(fbCancelCheckIn) {

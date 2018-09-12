@@ -2,6 +2,27 @@
 <div class="col-md-7">
     <div class="panel panel-default">
         <div class="panel-heading">
+            <h4>Login</h4>
+        </div>
+        <div class="panel-body">
+            <div ng-if="!settings.user_email" class="form-group">
+                <p>Please enter your email address to login.</p>
+                <form class="form-horizontal" role="form">
+                    <input type="text" class="form-control" name="user" 
+                        ng-model="user.email"
+                        placeholder="Email Address"
+                        autocomplete="off">                    
+                </form>
+            </div>
+            <div class="form-group text-center">
+                <a ng-if="!settings.user_email" class="btn btn-primary" ng-click="login()">Login</a>
+                <p ng-if="settings.user_email">Logged in user: {{user.email}}</p>
+            </div>
+        </div>
+    </div>
+                
+    <div class="panel panel-default">
+        <div class="panel-heading">
             <h4>Search</h4>
         </div>
         <div class="panel-body">
@@ -28,15 +49,16 @@
                         typeahead-loading="loadingClients" 
                         autofocus="true"
                         ng-enter="checkIn(selected.id, selected.contactid)"
+                        ng-disabled="!settings.user_email"
                          />
                         <!-- typeahead-on-select="checkIn(selected.id)" -->
 
                 </div>
               </div>
               <div class="form-group text-center">
-                <a ng-if="settings.general.checkInRequired" class="btn btn-primary" href="#/client/{{selected.id}}/{{selected.contactid}}" ng-disabled="!(selected.id)">Check In</a>
-                <a ng-if="!settings.general.checkInRequired" class="btn btn-primary" href="#/client/{{selected.id}}/{{selected.contactid}}" ng-disabled="!(selected.id)">Record Visit</a>
-                <a class="btn btn-success" href="#/new_client/">New Client</a>
+                <a ng-if="settings.general.checkInRequired" class="btn btn-primary" href="#/client/{{selected.id}}/{{selected.contactid}}" ng-disabled="!(selected.id) || !settings.user_email">Check In</a>
+                <a ng-if="!settings.general.checkInRequired" ng-required="settings.user_email" class="btn btn-primary" href="#/client/{{selected.id}}/{{selected.contactid}}" ng-disabled="!(selected.id) || !settings.user_email">Record Visit</a>
+                <a class="btn btn-success" ng-disabled="!settings.user_email" href="#/new_client/">New Client</a>
               </div>
             </form>
         </div>
@@ -70,9 +92,9 @@
                                 </span>
                             </td>
                             <td ng-controller="checkInController" >
-                                <a ng-click="process(client.clientId, client.clientContactId, client.visitType)" class="btn btn-primary">Process</a>
-                                <a ng-href="#/log_visit/{{client.clientId}}/{{client.clientContactId}}" class="btn btn-sm btn-success">Check Out</a>
-                                <a ng-click="cancelCheckIn()" class="btn btn-sm">Cancel</a>
+                                <a ng-click="process(client.clientId, client.clientContactId, client.visitType)" ng-disabled="!settings.user_email" class="btn btn-primary">Process</a>
+                                <a ng-href="#/log_visit/{{client.clientId}}/{{client.clientContactId}}" ng-disabled="!settings.user_email" class="btn btn-sm btn-success">Check Out</a>
+                                <a ng-click="cancelCheckIn()" ng-disabled="!settings.user_email" class="btn btn-sm">Cancel</a>
                             </td>
                         </tr>
                     </tbody>
@@ -117,8 +139,8 @@
                                 </span>
                             </td>
                             <td ng-controller="checkInController" >
-                                <a ng-href="#/log_visit/{{client.clientId}}/{{client.clientContactId}}" class="btn btn-sm btn-success">Check Out</a>
-                                <a ng-click="cancelCheckIn()" class="btn btn-sm">Cancel</a>
+                                <a ng-href="#/log_visit/{{client.clientId}}/{{client.clientContactId}}" ng-disabled="!settings.user_email" class="btn btn-sm btn-success">Check Out</a>
+                                <a ng-click="cancelCheckIn()" ng-disabled="!settings.user_email" class="btn btn-sm">Cancel</a>
                             </td>
                         </tr>
                     </tbody>

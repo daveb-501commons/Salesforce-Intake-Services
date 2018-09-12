@@ -55,6 +55,9 @@ var Visualforce = {
       'IntakeServices.logVisit':  [ { result: 'a01i000000Gqdt4AAB' } ],
       'IntakeServices.getVisitHistory': [
         { result: [{'C501_IS_Points_Used__c':1,'C501_IS_Visit_Date__c':1400474328000,'C501_IS_Notes__c':'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ','Id':'a01i000000Gqdt4AAB'},{'C501_IS_Points_Used__c':60,'C501_IS_Visit_Date__c':1400363517000,'Id':'a01i000000Gq32vAAB'},{'C501_IS_Points_Used__c':5,'C501_IS_Visit_Date__c':1400363291000,'Id':'a01i000000Gq30GAAR'},{'C501_IS_Points_Used__c':4,'C501_IS_Visit_Date__c':1326188100000,'C501_IS_Notes__c':'This is a test.','Id':'a01i0000009FS2vAAG'}] }
+      ],
+      'IntakeServices.getServiceHistory': [
+        { result: [{'C501_Start_Date__c':1400474328000,'Name':'Service 1','Id':'a01i000000Gqdt4AAB'},{'C501_Start_Date__c':1400363517000,'Name':'Service 2','Id':'a01i000000Gq32vAAB'}] }
       ]
     }
   }

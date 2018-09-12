@@ -1,0 +1,15 @@
+<form class="form-horizontal" ng-submit="saveContact($event)">
+		<div class="modal-body">
+		  <div class="row">
+			<div class="col-md-6">
+			  <label for="user">User</label>
+			  <input type="text" class="form-control" name="user" ng-model="user.user" autocomplete="off">
+			</div>
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <i class="fa fa-spinner fa-spin fa-2x" ng-show="userSaving"></i>
+		  <button class="btn btn-primary" type="submit" ng-disabled="contactSaving">Save Contact</button>
+		  <button class="btn btn-warning" type="button" ng-click="modalInstance.dismiss('cancel')">Cancel</button>
+		</div>
+	  </form>

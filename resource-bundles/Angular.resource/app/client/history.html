@@ -2,6 +2,35 @@
     <div style="margin-bottom:8px;">
         <accordion-group is-open="status.historyOpen">
             <accordion-heading>
+                <div style="padding-top:4px; padding-bottom: 6px;" ng-click="queryServices();">
+                    Service History <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.historyOpen, 'glyphicon-chevron-right': !status.historyOpen}"></i>
+                </div>
+            </accordion-heading>
+            <span ng-show="!status.queriedServices">
+                <i class="fa fa-refresh fa-spin"></i> Loading...
+            </span>
+            <span ng-show="status.queriedServices && data.services.length == 0">
+                <em>No services.</em>
+            </span>
+            <table class="table table-condensed" ng-show="status.queriedServices && data.services.length > 0">
+                <thead>
+                    <tr>
+                        <th style="min-width:148px;">Date</th>
+                        <th class="text-center" >Service</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="service in data.services" >
+                        <td>{{service.date | date:'MMMM dd, yyyy' }}</td>
+                        <td class="text-center">{{service.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </accordion-group>
+    </div>
+    <div style="margin-bottom:8px;">
+        <accordion-group is-open="status.historyOpen">
+            <accordion-heading>
                 <div style="padding-top:4px; padding-bottom: 6px;" ng-click="queryVisits();">
                     Visit History <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.historyOpen, 'glyphicon-chevron-right': !status.historyOpen}"></i>
                 </div>
