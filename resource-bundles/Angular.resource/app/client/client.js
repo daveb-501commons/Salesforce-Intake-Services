@@ -45,7 +45,7 @@ angular.module('clientController')
     }
     
     $scope.data.visitNotes = '';
-    $scope.data.visitType = 'Other';
+    $scope.data.visitType = 'Select Option';
 
     $scope.data.boxType = foundHousehold.defaultBox;
     if (foundHousehold.commodityAvailability && foundHousehold.commodityAvailability.length > 0) {
@@ -220,6 +220,16 @@ angular.module('clientController')
 
     $scope.checkIn = function() {
 
+      if ($scope.data.visitType = 'Select Option') {
+        $alert({
+          title: 'Visit Reason field required!',
+          type: 'danger',
+          duration: 5
+        });
+
+        return;
+      }
+
       // gather the commodity usage for this visit        
       var comms = {};
       _.forEach( $scope.data.commodities, function(v) {
@@ -243,6 +253,17 @@ angular.module('clientController')
     };
 
     $scope.recordVisit = function() {
+
+      if ($scope.data.visitType = 'Select Option') {
+        $alert({
+          title: 'Visit Reason field required!',
+          type: 'danger',
+          duration: 5
+        });
+
+        return;
+      }
+
       $scope.saveAll().then(function() {
         $location.url('/log_visit/' + $scope.data.household.id + '/' + $scope.contactid);
       });
@@ -459,8 +480,8 @@ angular.module('clientController')
   }]);
 
 angular.module('clientController')
-  .controller('memberListController', ['$scope', '$alert', '$modal', 'basePath', 'fbSaveHouseholdMembers',
-  function($scope, $alert, $modal, basePath, fbSaveHouseholdMembers) {
+  .controller('memberListController', ['$scope', '$alert', 'fbSaveHouseholdMembers',
+  function($scope, $alert, fbSaveHouseholdMembers) {
 
     $scope.status.editingMembers = false;
     $scope.status.savingMembers = false;

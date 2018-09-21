@@ -39,12 +39,13 @@
                                 <tr>
                                     <th>First</th>
                                     <th>Last</th>
-                                    <th>Gender</th>
-                                    <th ng-show="settings.general.showIdNumber">Id</th>
-                                    <th>Group</th>
-                                    <th>Age</th>
                                     <th>Birthdate</th>
-                                    <th></th>
+                                    <th>Gender</th>
+                                    <th>Ethnicity</th>
+                                    <th>Race</th>
+                                    <th>Veteran</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,31 +61,43 @@
                                             ng-maxlength="50" ng-required required>
                                     </td>
                                     <td>
-                                        <select ng-model="person.memberData.gender" class="form-control input-sm"
-                                            name="gender" ng-options="g for g in ['Male','Female','Other','Unknown']">
-                                            <option value="">-</option>
-                                        </select>
-                                    </td>
-                                    <td ng-show="settings.general.showIdNumber">
-                                        <input ng-model="person.memberData.Id_Number" type="text"
-                                            class="form-control input-sm" 
-                                            name="Id_Number" ng-maxlength="50" >
-                                    </td>
-                                    <td>
-                                        <select ng-model="person.memberData.ageGroup" class="form-control input-sm"
-                                            name="ageGroup" ng-options="g for g in ['Adult','Senior','Child','Infant']">
-                                            <option value="">-</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input ng-model="person.memberData.age" type="number"
-                                            class="form-control input-sm"
-                                            name="age">
-                                    </td>
-                                    <td>
                                         <input type="date"
                                             ng-model="person.memberData.birthdate"
                                             placeholder="M/dd/yyyy" min="1900-01-01" />
+                                    </td>
+                                    <td>
+                                        <select ng-model="person.memberData.gender" class="form-control input-sm"
+                                            name="gender" ng-options="g for g in ['Male','Female','Other','Unknown/Not Reported']">
+                                            <option value="">-</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select ng-model="person.memberData.ethnicity" class="form-control input-sm"
+                                            name="ethnicity" ng-options="e for e in ['Hispanic, Latino, or Spanish Origins','Not Hispanic, Latino, or Spanish Origins','Unknown/Not Reported']">
+                                            <option value="">-</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select ng-model="person.memberData.race" class="form-control input-sm"
+                                            name="race" ng-options="r for r in ['American Indian or Alaska Native','Asian','Black or African American','Native Hawaiian and Other Pacific Islander', 'White', 'Other', 'Multi-race', 'Unknown/Not Reported']">
+                                            <option value="">-</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select ng-model="person.memberData.veteran" class="form-control input-sm"
+                                            name="veteran" ng-options="v for v in ['Veteran','Active Military','Unknown/Not Reported']">
+                                            <option value="">-</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input ng-model="person.memberData.email" type="text"
+                                            class="form-control input-sm" name="email"
+                                            ng-maxlength="50" ng-required required>
+                                    </td>
+                                    <td>
+                                        <input ng-model="person.memberData.phone" type="text"
+                                            class="form-control input-sm" name="phone"
+                                            ng-maxlength="50" ng-required required>
                                     </td>
 
                                     <td class="text-right" ng-show="data.memberList.length > 1">

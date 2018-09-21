@@ -36,7 +36,7 @@ public with sharing class IntakeServices {
             ClientCheckin cc = new ClientCheckin();
             cc.clientId = fbc.name;
             cc.clientContactId = fbc.C501_IS_Visitor__c;
-            cc.name = String.format('{0} Household', new String[]{IntakeServices.getContactName(fbc.C501_IS_Visitor__c)});
+            cc.name = IntakeServices.getContactName(fbc.C501_IS_Visitor__c);
             cc.pointsRemaining = fbc.Points_Remaining__c;
             cc.visitType = fbc.C501_IS_Visit_Type__c;
             cc.boxSize = fbc.Box_Size__c;
@@ -52,7 +52,7 @@ public with sharing class IntakeServices {
         if (with_staff) {
             for (Integer i =0; i < chkList.size(); i++) {
                 for (Integer j = i; j > 0; j--) {
-                    if (chkList[j-1].checkInTimeWithStaff < chkList[j].checkInTimeWithStaff){
+                    if (chkList[j-1].checkInTimeWithStaff > chkList[j].checkInTimeWithStaff){
                         ClientCheckin temp = chkList[j];
                         chkList[j] = chkList[j-1];
                         chkList[j-1] = temp;
@@ -62,7 +62,7 @@ public with sharing class IntakeServices {
         } else {
             for (Integer i =0; i < chkList.size(); i++) {
                 for (Integer j = i; j > 0; j--) {
-                    if (chkList[j-1].checkInTime < chkList[j].checkInTime){
+                    if (chkList[j-1].checkInTime > chkList[j].checkInTime){
                         ClientCheckin temp = chkList[j];
                         chkList[j] = chkList[j-1];
                         chkList[j-1] = temp;
