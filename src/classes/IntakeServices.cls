@@ -136,7 +136,7 @@ public with sharing class IntakeServices {
     @RemoteAction
     public static list<C501_Service_Household__c> getServiceHistory( Id hhid ) {
         return
-            [select C501_Start_Date__c, Id, Name
+            [select C501_Start_Date__c, Id, Name, C501_Case_Worker__c
                 from C501_Service_Household__c
                 where C501_Household__c = :hhid
                 order by C501_Start_Date__c DESC limit 20];

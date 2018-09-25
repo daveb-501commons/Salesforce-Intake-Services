@@ -452,7 +452,8 @@ angular.module('appServices')
         _.forEach(result, function(result){
           services.push({
             'date': result.C501_Start_Date__c,
-            'name': result.Name
+            'name': result.Name,
+            'caseworker': result.C501_Case_Worker__c
           });
         });
         return services;

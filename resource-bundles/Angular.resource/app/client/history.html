@@ -17,12 +17,14 @@
                     <tr>
                         <th style="min-width:148px;">Date</th>
                         <th class="text-center" >Service</th>
+                        <th class="text-center" >Case Worker</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="service in data.services" >
                         <td>{{service.date | date:'MMMM dd, yyyy' }}</td>
                         <td class="text-center">{{service.name}}</td>
+                        <td class="text-center">{{service.caseworker}}</td>
                     </tr>
                 </tbody>
             </table>
