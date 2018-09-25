@@ -293,6 +293,11 @@ angular.module('appServices')
             Id_Number: v.C501_IS_Id_Number__c,
             gender: v.C501_IS_Gender__c,
             age: v.C501_IS_Age__c,
+            ethnicity: v.C501_Ethnicity__c,
+            race: v.C501_Race__c,
+            veteran: v.C501_Military_Status__c,
+            email: v.Email,
+            phone: v.Phone,
             // v.Birthdate + 12 hours to make sure rounding to correct day since Date parses the value as GMT then converts to Browser Time Zone (Pacific)
             birthdate: (v.Birthdate) ? new Date(v.Birthdate + (12 * 60 * 60 * 1000)) : Date.MIN_BIRTHDATE,
             proofOfInfant: v.C501_IS_Proof_of_Infant__c

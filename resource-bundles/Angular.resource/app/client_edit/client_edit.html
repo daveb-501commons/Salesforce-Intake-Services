@@ -73,19 +73,19 @@
                                     </td>
                                     <td>
                                         <select ng-model="person.memberData.ethnicity" class="form-control input-sm"
-                                            name="ethnicity" ng-options="e for e in ['Hispanic, Latino, or Spanish Origins','Not Hispanic, Latino, or Spanish Origins','Unknown/Not Reported']">
+                                            name="ethnicity" ng-options="e for e in ['Hispanic/Latino','Not Hispanic/Latino','Unknown/Not Reported','Refused']">
                                             <option value="">-</option>
                                         </select>
                                     </td>
                                     <td>
                                         <select ng-model="person.memberData.race" class="form-control input-sm"
-                                            name="race" ng-options="r for r in ['American Indian or Alaska Native','Asian','Black or African American','Native Hawaiian and Other Pacific Islander', 'White', 'Other', 'Multi-race', 'Unknown/Not Reported']">
+                                            name="race" ng-options="r for r in ['American Indian/Alaska Native','Asian','Bi/Multi-Racial','Black/African American','Native Hawaiian/Pacific Islander', 'White', 'Unspecified','Other', 'Unknown/Not Reported']">
                                             <option value="">-</option>
                                         </select>
                                     </td>
                                     <td>
                                         <select ng-model="person.memberData.veteran" class="form-control input-sm"
-                                            name="veteran" ng-options="v for v in ['Veteran','Active Military','Unknown/Not Reported']">
+                                            name="veteran" ng-options="v for v in ['Veteran','Active Military','No Military Service','Unknown/Not Reported']">
                                             <option value="">-</option>
                                         </select>
                                     </td>

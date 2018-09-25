@@ -43,7 +43,7 @@ angular.module('clientController')
       $scope.data.ptsMonthly = foundHousehold.monthlyPointsAvailable;
       $scope.data.ratio =  Math.floor(foundHousehold.currentPointsRemaining * 100 / foundHousehold.monthlyPointsAvailable);
     }
-    
+
     $scope.data.visitNotes = '';
     $scope.data.visitType = 'Select Option';
 
@@ -422,10 +422,12 @@ angular.module('clientController')
 
     $scope.status.editingTags = false;
     $scope.status.savingTags = false;
+    $scope.status.acknowledgeTags = false;
 
     $scope.data.tagsData = {
       id: $scope.data.household.id,
-      tags: $scope.data.household.tags
+      tags: $scope.data.household.tags,
+      acknowledgeTags: $scope.status.acknowledgeTags
     };
 
     $scope.updateTags = function() {

@@ -1,13 +1,14 @@
 <div class="panel" ng-class="{ 'panel-default': !status.editingTags, 'panel-warning': status.editingTags }" 
     ng-controller="tagsController">
 
-    <div class="panel-heading">
+    <div class="panel-heading" ng-disabled="!data.tagsData.acknowledgeTags && data.tagsData.tags && data.tagsData.tags.length != 0">
         <div class="row">
             <div class="col-sm-6">
                 Tags
             </div>
             <div class="col-sm-6 text-right">
                 <button class="btn btn-success btn-sm panel-button"
+                    ng-disabled="!data.tagsData.acknowledgeTags && data.tagsData.tags && data.tagsData.tags.length != 0"
                     ng-click="editTags();" ng-show="!status.editingTags"><i class="fa fa-pencil" style="line-height: 1.3em;"></i></button>
 
                 <button class="btn btn-success btn-sm panel-button"
@@ -22,7 +23,7 @@
         </div>
     </div>
     <div class="panel-body">
-        <div class="pull-right" ng-show="status.editingTags">
+        <div class="pull-right" ng-show="status.editingTags" ng-disabled="!data.tagsData.acknowledgeTags && data.tagsData.tags && data.tagsData.tags.length != 0">
             <div ng-dropdown-multiselect="" 
                     options="tagDropdown.options" 
                     selected-model="tagDropdown.selected" 
@@ -30,7 +31,21 @@
                     extra-settings="tagDropdown.settings"></div>
         </div>
 
-        <div ng-show="data.tagsData.tags && data.tagsData.tags.length != 0">
+        <div class="panel panel-default" ng-if="!data.tagsData.acknowledgeTags && data.tagsData.tags && data.tagsData.tags.length != 0">
+            <div class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                <span class="sr-only">Warning:</span>
+                Tag Alert
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <input type="checkbox" name="acknowledgeTags" ng-model="data.tagsData.acknowledgeTags"></input>
+                    <label>Click to acknowledge review of tags</label>
+                </div>
+            </div>
+        </div>
+        
+        <div ng-show="data.tagsData.tags && data.tagsData.tags.length != 0" ng-disabled="!data.tagsData.acknowledgeTags && data.tagsData.tags && data.tagsData.tags.length != 0">
             <span ng-repeat="tag in data.tagsData.tags">
                 <span class="label label-primary label-large">{{tag}}</span>
             </span>

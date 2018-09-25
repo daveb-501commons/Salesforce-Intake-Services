@@ -25,74 +25,86 @@
         </div>
     </div>
     <div class="panel-body">
-        <table class="table table-condensed" style="margin-bottom:12px;">
+        <table class="table table-condensed" style="margin-bottom:12px;table-layout: fixed; width: 100%">
             <thead>
                 <tr>
-                    <th ng-if="!status.editingMembers">Name</th>
-                    <th ng-if="status.editingMembers">First</th>
-                    <th ng-if="status.editingMembers">Last</th>
-                    <th>Gender</th>
-                    <th ng-if="status.editingMembers" ng-show="settings.general.showIdNumber">Id</th>
-                    <th>Group</th>
-                    <th ng-if="status.editingMembers && status.hasInfant()">Proof of Infant</th>
-                    <th>Age</th>
-                    <th>Birthdate</th>
-                    <th></th>
+                    <th style="width:180px" ng-if="!status.editingMembers">Name</th>
+                    <th style="width:90px" ng-if="status.editingMembers">First</th>
+                    <th style="width:90px" ng-if="status.editingMembers">Last</th>
+                    <th style="width:90px">Birthdate</th>
+                    <th style="width:90px">Gender</th>
+                    <th style="width:75px">Ethnicity</th>
+                    <th style="width:75px">Race</th>
+                    <th style="width:75px">Veteran</th>
+                    <th style="width:100px">Email</th>
+                    <th style="width:100px">Phone</th>
+                    <th  style="width:40px" ng-if="status.editingMembers"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="{success: person.memberData.age >= 18, warning: person.memberData.age < 18}"
-                        ng-repeat="person in data.memberList" >
+                <tr ng-repeat="person in data.memberList" >
 
-                    <td ng-if="!status.editingMembers">{{person.memberData.name}}</td>
-                    <td ng-if="!status.editingMembers">{{person.memberData.gender}}</td>
-                    <td ng-if="!status.editingMembers">{{person.memberData.ageGroup}}</td>
-                    <td ng-if="!status.editingMembers">{{person.memberData.age}}</td>
-                    <td ng-if="!status.editingMembers">
+                    <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.name}}</td>
+                    <td style="word-wrap: break-word" ng-if="!status.editingMembers">
                         {{checkBirthdate(person.memberData.birthdate) | date:'M/dd/yyyy'}}</td>
+                    <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.gender}}</td>
+                    <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.ethnicity}}</td>
+                    <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.race}}</td>
+                    <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.veteran}}</td>
+                    <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.email}}</td>
+                    <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.phone}}</td>
 
                     <td ng-if="status.editingMembers">
                         <input ng-model="person.memberDataEditable.firstName" type="text" class="form-control input-sm"
-                            name="firstname" ng-maxlength="50" ng-setfocus="$last">
+                            name="firstname" ng-setfocus="$last">
                     </td>
                     <td ng-if="status.editingMembers">
                         <input ng-model="person.memberDataEditable.lastName" type="text" class="form-control input-sm"
-                            name="lastname" ng-maxlength="50" ng-required>
-                    </td>
-                    <td ng-if="status.editingMembers">
-                        <select ng-model="person.memberDataEditable.gender" class="form-control input-sm"
-                            name="gender" ng-options="g for g in ['Male','Female','Other','Unknown']">
-                            <option value="">-</option>
-                        </select>
-                    </td>
-                    <td ng-if="status.editingMembers" ng-show="settings.general.showIdNumber">
-                        <input ng-model="person.memberDataEditable.Id_Number" type="text" class="form-control input-sm"
-                            name="Id_Number" ng-maxlength="50" ng-required>
-                    </td>
-                    <td ng-if="status.editingMembers">
-                        <select ng-model="person.memberDataEditable.ageGroup" style="width:80px" class="form-control input-sm"
-                            name="ageGroup" ng-options="g for g in ['Adult','Senior','Child','Infant']">
-                            <option value="">-</option>
-                        </select>
-                    </td>
-                    <td ng-if="status.editingMembers && status.hasInfant()" ng-class="{'has-error': status.proofOfInfantNeeded()}">
-                        <input ng-if="person.memberDataEditable.ageGroup === 'Infant'"
-                          ng-model="person.memberDataEditable.proofOfInfant"
-                          type="text" class="form-control input-sm" name="proofOfInfant" ng-maxlength="50">
-                    </td>
-                    <td ng-if="status.editingMembers">
-                        <input ng-model="person.memberDataEditable.age" type="number" style="width:55px" class="form-control input-sm"
-                            name="age">
+                            name="lastname" ng-required>
                     </td>
                     <td ng-if="status.editingMembers">
                         <input class="form-control input-sm"
                             type="date"
                             ng-model="person.memberDataEditable.birthdate"
-                            placeholder="M/dd/yyyy" min="1900-01-01" style="width:135px" required />
+                            placeholder="M/dd/yyyy" min="1900-01-01"required />
                     </td>
+                    <td ng-if="status.editingMembers">
+                        <select ng-model="person.memberData.gender" class="form-control input-sm"
+                            name="gender" ng-options="g for g in ['Male','Female','Other','Unknown/Not Reported']">
+                            <option value="">-</option>
+                        </select>
+                    </td>
+                    <td ng-if="status.editingMembers">
+                        <select ng-model="person.memberData.ethnicity" class="form-control input-sm"
+                            name="ethnicity" ng-options="e for e in ['Hispanic/Latino','Not Hispanic/Latino','Unknown/Not Reported','Refused']">
+                            <option value="">-</option>
+                        </select>
+                    </td>
+                    <td ng-if="status.editingMembers">
+                        <select ng-model="person.memberData.race" class="form-control input-sm"
+                            name="race" ng-options="r for r in ['American Indian/Alaska Native','Asian','Bi/Multi-Racial','Black/African American','Native Hawaiian/Pacific Islander', 'White', 'Unspecified','Other', 'Unknown/Not Reported']">
+                            <option value="">-</option>
+                        </select>
+                    </td>
+                    <td ng-if="status.editingMembers">
+                        <select ng-model="person.memberData.veteran" class="form-control input-sm"
+                            name="veteran" ng-options="v for v in ['Veteran','Active Military','No Military Service','Unknown/Not Reported']">
+                            <option value="">-</option>
+                        </select>
+                    </td>
+                    <td ng-if="status.editingMembers">
+                        <input ng-model="person.memberData.email" type="text"
+                            class="form-control input-sm" name="email"
+                            ng-maxlength="50" ng-required required>
+                    </td>
+                    <td ng-if="status.editingMembers">
+                        <input ng-model="person.memberData.phone" type="text"
+                            class="form-control input-sm" name="phone"
+                            ng-maxlength="50" ng-required required>
+                    </td>
+
                     <td ng-if="status.editingMembers && data.memberList.length > 1" class="text-right">
                         <button class="btn btn-danger btn-sm"
-                            style="font-size: 12px; padding: 6px 4px 4px 6px; position: relative; right: -15px;"
                             ng-click="deleteMember( $index );"
                             ng-if="status.editingMembers"><i class="fa fa-minus"></i></button>
                     </td>

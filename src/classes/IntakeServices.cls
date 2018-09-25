@@ -92,7 +92,8 @@ public with sharing class IntakeServices {
                 C501_IS_Inactive__c, C501_IS_Notes__c, C501_IS_Source__c, C501_IS_External_Id__c, C501_IS_Adults__c,
                 C501_IS_Children__c, C501_IS_Infants__c, C501_IS_Seniors__c, C501_IS_Tags__c,
                 C501_IS_Staff_Notes__c, Phone, C501_IS_Proof_of_Address__c, C501_IS_Proof_of_Address_Date__c,
-                (select Id, Name, FirstName, LastName, C501_IS_Age_Group__c, C501_IS_Age__c, Birthdate, C501_IS_Proof_of_Infant__c, C501_IS_Gender__c, C501_IS_Id_Number__c
+                (select Id, Name, FirstName, LastName, C501_IS_Age_Group__c, C501_IS_Age__c, Birthdate, C501_IS_Proof_of_Infant__c, C501_IS_Gender__c, C501_IS_Id_Number__c,
+                C501_Ethnicity__c, C501_Race__c, C501_Military_Status__c, Email, Phone
                     from Contacts),
                 (select C501_IS_Points_Used__c, C501_IS_Commodity_Usage_JSON__c from Visits__r where C501_IS_Visit_Date__c = THIS_MONTH)
                 from Account where id = :hhid];
