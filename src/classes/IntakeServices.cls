@@ -256,7 +256,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff, String visitType) {
+    public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff, String visitType, String[] services, String[] referrals) {
 
         Intake_Services_Checkin__c fbc = new Intake_Services_Checkin__c();
 
@@ -290,6 +290,46 @@ public with sharing class IntakeServices {
             }
 
             insert fbc;
+        }
+
+        // Create new Service records for Services and Referrals
+        for (String service : services) {
+
+            String cleanService = service
+                .replace('_FORWARDSLASH_', '/')
+                .replace('_', ' ');
+            C501_Service_Household__c sh = new C501_Service_Household__c(
+                Name = 'Information Referral (' + cleanService + ')',
+                C501_Service_Id__c = 'Information Referral' + cleanService + Date.Today().format(),
+                C501_Household__c = hh.id,
+                C501_Program__c = 'Information Referral',
+                C501_Service__c = cleanService,
+                C501_Start_Date__c = Date.Today(),
+                C501_End_Date__c = Date.Today(),
+                C501_IsActive__c = false
+            );
+
+            insert sh;
+        }
+
+        // Create new Service records for Services and Referrals
+        for (String service : referrals) {
+
+            String cleanService = service
+                .replace('_FORWARDSLASH_', '/')
+                .replace('_', ' ');
+            C501_Service_Household__c sh = new C501_Service_Household__c(
+                Name = 'Information Referral (' + cleanService + ')',
+                C501_Service_Id__c = 'Information Referral' + cleanService + Date.Today().format(),
+                C501_Household__c = hh.id,
+                C501_Program__c = 'Information Referral',
+                C501_Service__c = cleanService,
+                C501_Start_Date__c = Date.Today(),
+                C501_End_Date__c = Date.Today(),
+                C501_IsActive__c = false
+            );
+
+            insert sh;
         }
     }
 

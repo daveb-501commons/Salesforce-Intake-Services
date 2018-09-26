@@ -57,40 +57,39 @@ angular.module('clientController')
     $scope.status.queriedServices = false;
 
     $scope.data.new_services = {
-      basicFoodApplications: false,
-      evictionPreventionScreening: false,
-      ferryPass: false,
-      healthPlanFinder: false,
-      housingIntake: false,
-      landlordTenantEducation: false,
-      salvationArmyVoucher: false
+      Basic_Food_Applications: false,
+      Eviction_Prevention_Screening: false,
+      Ferry_Pass: false,
+      Health_Plan_Finder: false,
+      Housing_Intake: false,
+      Landlord_Tenant_Education: false,
+      Salvation_Army_Voucher: false
     };
     $scope.data.new_referrals = {
-      adultEducation: false,
-      adultEducation: false,
-      childcare: false,
-      coordinatedEntry: false,
-      domesticViolenceServices: false,
-      dshs: false,
-      earlyHeadStart: false,
-      emergencyChildCareVoucher: false,
-      employment: false,
-      energyAssistance: false,
-      financialLiteracy: false,
-      foodResources: false,
-      headStartEceap: false,
-      healthcare: false,
-      homeImprovement: false,
-      housing: false,
-      kinship: false,
-      landlordTenant: false,
-      mentalHealth: false,
-      otherEarlyLearning: false,
-      otherLegal: false,
-      otherUtility: false,
-      seas: false,
-      veteransServices: false,
-      youthPrograms: false
+      Adult_Education: false,
+      Childcare: false,
+      Coordinated_Entry: false,
+      Domestic_Violence_Services: false,
+      DSHS: false,
+      Early_Head_Start: false,
+      Emergency_Child_Care_Voucher: false,
+      Employment: false,
+      Energy_Assistance: false,
+      Financial_Literacy: false,
+      Food_Resources: false,
+      Head_Start_FORWARDSLASH_ECEAP: false,
+      Healthcare: false,
+      Home_Improvement: false,
+      Housing: false,
+      Kinship: false,
+      Landlord_Tenant: false,
+      Mental_Health: false,
+      Other_Early_Learning: false,
+      Other_Legal: false,
+      Other_Utility: false,
+      SEAS: false,
+      Veterans_Services: false,
+      Youth_Programs: false
     };
 
     $scope.data.memberList = [];
@@ -257,7 +256,7 @@ angular.module('clientController')
 
     $scope.checkIn = function() {
 
-      if ($scope.data.visitType = 'Select Option') {
+      if ($scope.data.visitType == 'Select Option') {
         $alert({
           title: 'Visit Reason field required!',
           type: 'danger',
@@ -266,6 +265,33 @@ angular.module('clientController')
 
         return;
       }
+
+      // Get Services and Referrals
+      var index = 0;
+      var keys = Object.keys($scope.data.new_services);
+      var services = [];
+
+      _.forEach($scope.data.new_services, function(v) {
+
+        if (v === true) {
+          services.push(keys[index]);
+        }
+
+        index++;
+      });
+
+      index = 0;
+      keys = Object.keys($scope.data.new_referrals);
+      var referrals = [];
+
+      _.forEach($scope.data.new_referrals, function(v) {
+
+        if (v === true) {
+          referrals.push(keys[index]);
+        }
+
+        index++;
+      });
 
       // gather the commodity usage for this visit        
       var comms = {};
@@ -276,7 +302,7 @@ angular.module('clientController')
       });
 
       $scope.saveAll().then(function() {
-        fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false, $scope.data.visitType);
+        fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false, $scope.data.visitType, services, referrals);
         $window.scrollTo(0,0);
         $alert({
           title: 'Checked in!',

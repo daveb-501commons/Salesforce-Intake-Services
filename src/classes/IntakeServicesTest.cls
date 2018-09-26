@@ -20,11 +20,11 @@ public with sharing class IntakeServicesTest {
         commU.put('Bread', 1);
 
         // Test CheckIn & CheckOut
-        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other');
+        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other', null, null);
         System.assert(Intake_Services_Checkin__c.getInstance(cHh.Id) != null);
 
         // Attempt to CheckIn again should not throw error and just update existing record
-        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other');
+        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other', null, null);
 
         IntakeServices.cancelCheckIn(cHh.Id);
         System.assert(Intake_Services_Checkin__c.getInstance(cHh.Id) == null);
