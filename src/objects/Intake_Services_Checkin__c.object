@@ -13,22 +13,6 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Check_In_Time__c</fullName>
-        <externalId>false</externalId>
-        <label>Check In Time</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>DateTime</type>
-    </fields>
-    <fields>
-        <fullName>Check_In_Time_With_Staff__c</fullName>
-        <externalId>false</externalId>
-        <label>Check In Time With Staff</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>DateTime</type>
-    </fields>
-    <fields>
         <fullName>C501_IS_Commodity_Usage_JSON__c</fullName>
         <externalId>false</externalId>
         <label>Commodity Usage JSON</label>
@@ -45,14 +29,13 @@
         <type>TextArea</type>
     </fields>
     <fields>
-        <fullName>Points_Remaining__c</fullName>
+        <fullName>C501_IS_Visit_Type__c</fullName>
         <externalId>false</externalId>
-        <label>Points Remaining</label>
-        <precision>18</precision>
+        <label>Vistor</label>
+        <length>64</length>
         <required>false</required>
-        <scale>0</scale>
         <trackTrending>false</trackTrending>
-        <type>Number</type>
+        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
@@ -66,16 +49,6 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>C501_IS_Visit_Type__c</fullName>
-        <externalId>false</externalId>
-        <label>Vistor</label>
-        <length>64</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
         <fullName>C501_With_Staff__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
@@ -83,6 +56,33 @@
         <label>With Staff</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Check_In_Time_With_Staff__c</fullName>
+        <externalId>false</externalId>
+        <label>Check In Time With Staff</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Check_In_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Check In Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Points_Remaining__c</fullName>
+        <externalId>false</externalId>
+        <label>Points Remaining</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
     </fields>
     <label>Intake Services Current Checkins</label>
     <visibility>Protected</visibility>

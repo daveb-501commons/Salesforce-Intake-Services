@@ -89,19 +89,20 @@
         <members>Contact.C501_IS_Proof_of_Infant__c</members>
         <members>Intake_Services_Box_Settings__c.Minimum_Family_Size__c</members>
         <members>Intake_Services_Checkin__c.Box_Size__c</members>
-        <members>Intake_Services_Checkin__c.Check_In_Time__c</members>
-        <members>Intake_Services_Checkin__c.Check_In_Time_With_Staff__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Commodity_Usage_JSON__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Notes__c</members>
-        <members>Intake_Services_Checkin__c.Points_Remaining__c</members>
+        <members>Intake_Services_Checkin__c.C501_IS_Visit_Type__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Visitor__c</members>
         <members>Intake_Services_Checkin__c.C501_With_Staff__c</members>
-        <members>Intake_Services_Checkin__c.C501_IS_Visit_Type__c</members>
+        <members>Intake_Services_Checkin__c.Check_In_Time_With_Staff__c</members>
+        <members>Intake_Services_Checkin__c.Check_In_Time__c</members>
+        <members>Intake_Services_Checkin__c.Points_Remaining__c</members>
         <members>Intake_Services_Commodity__c.Allow_Overage__c</members>
         <members>Intake_Services_Commodity__c.Monthly_Limit__c</members>
         <members>Intake_Services_Commodity__c.Sort_Order__c</members>
         <members>Intake_Services_Settings__c.Allow_Box_Size_Override__c</members>
         <members>Intake_Services_Settings__c.Allow_Overage__c</members>
+        <members>Intake_Services_Settings__c.C501_IS_Tags__c</members>
         <members>Intake_Services_Settings__c.Check_in_Required__c</members>
         <members>Intake_Services_Settings__c.Monthly_Base_Points__c</members>
         <members>Intake_Services_Settings__c.Monthly_Points_Per_Adult__c</members>
@@ -111,7 +112,6 @@
         <members>Intake_Services_Settings__c.Proof_of_Infant_Required__c</members>
         <members>Intake_Services_Settings__c.Require_Unique_Address__c</members>
         <members>Intake_Services_Settings__c.Show_Id__c</members>
-        <members>Intake_Services_Settings__c.C501_IS_Tags__c</members>
         <members>Intake_Services_Settings__c.Track_Checkout_Weight__c</members>
         <members>Intake_Services_Settings__c.Track_Points__c</members>
         <members>Intake_Services_Settings__c.Visit_Frequency_Limit__c</members>

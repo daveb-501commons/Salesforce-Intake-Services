@@ -22,6 +22,18 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>C501_IS_Tags__c</fullName>
+        <description>Semi-colon delimited list of tags for client households.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Semi-colon delimited list of tags for client households. Example:  Special Diet; Spanish Speaker</inlineHelpText>
+        <label>Tags</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Check_in_Required__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
@@ -112,18 +124,6 @@
         <label>Show Id</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
-    </fields>
-    <fields>
-        <fullName>C501_IS_Tags__c</fullName>
-        <description>Semi-colon delimited list of tags for client households.</description>
-        <externalId>false</externalId>
-        <inlineHelpText>Semi-colon delimited list of tags for client households. Example:  Special Diet; Spanish Speaker</inlineHelpText>
-        <label>Tags</label>
-        <length>255</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Track_Checkout_Weight__c</fullName>
