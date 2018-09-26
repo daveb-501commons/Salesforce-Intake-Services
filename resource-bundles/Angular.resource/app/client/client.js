@@ -56,6 +56,43 @@ angular.module('clientController')
     $scope.data.services = [];
     $scope.status.queriedServices = false;
 
+    $scope.data.new_services = {
+      basicFoodApplications: false,
+      evictionPreventionScreening: false,
+      ferryPass: false,
+      healthPlanFinder: false,
+      housingIntake: false,
+      landlordTenantEducation: false,
+      salvationArmyVoucher: false
+    };
+    $scope.data.new_referrals = {
+      adultEducation: false,
+      adultEducation: false,
+      childcare: false,
+      coordinatedEntry: false,
+      domesticViolenceServices: false,
+      dshs: false,
+      earlyHeadStart: false,
+      emergencyChildCareVoucher: false,
+      employment: false,
+      energyAssistance: false,
+      financialLiteracy: false,
+      foodResources: false,
+      headStartEceap: false,
+      healthcare: false,
+      homeImprovement: false,
+      housing: false,
+      kinship: false,
+      landlordTenant: false,
+      mentalHealth: false,
+      otherEarlyLearning: false,
+      otherLegal: false,
+      otherUtility: false,
+      seas: false,
+      veteransServices: false,
+      youthPrograms: false
+    };
+
     $scope.data.memberList = [];
     _.forEach(foundHousehold.members, function(v) {
       $scope.data.memberList.push({
