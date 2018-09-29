@@ -32,6 +32,9 @@ angular.module('clientController')
 
     $scope.settings = foundSettings;
 
+    $scope.isFirstOpen = true;
+    $scope.isOpen = false;
+  
     $scope.data = {};
     $scope.data.household = foundHousehold;
 
@@ -318,13 +321,7 @@ angular.module('clientController')
     $scope.recordVisit = function() {
 
       if ($scope.data.visitType = 'Select Option') {
-        $alert({
-          title: 'Visit Reason field required!',
-          type: 'danger',
-          duration: 5
-        });
-
-        return;
+        $scope.data.visitType = '';
       }
 
       $scope.saveAll().then(function() {
@@ -384,6 +381,10 @@ angular.module('clientController')
         );
       }
     };
+
+
+    // Populate Services History list for default open state
+    $scope.queryServices();
 
   }]);
 
@@ -480,8 +481,8 @@ angular.module('clientController')
   }]);
 
 angular.module('clientController')
-  .controller('tagsController', ['$scope', 'fbSaveHousehold', '$alert',
-  function($scope, fbSaveHousehold, $alert) {
+  .controller('tagsController', ['$scope', 'fbSaveHousehold', '$alert', '$window',
+  function($scope, fbSaveHousehold, $alert, $window) {
 
     $scope.status.editingTags = false;
     $scope.status.savingTags = false;
@@ -492,6 +493,10 @@ angular.module('clientController')
       tags: $scope.data.household.tags,
       acknowledgeTags: $scope.status.acknowledgeTags
     };
+
+    if ($scope.data.household.tags.length > 0) {
+      $window.confirm('Tag Alert!  Review tags (' + $scope.data.household.tags.toString() + ') for special handling and service restrictions.');
+    }
 
     $scope.updateTags = function() {
       $scope.data.tagsData.tags = _.intersection(

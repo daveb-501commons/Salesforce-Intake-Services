@@ -28,17 +28,17 @@
         <table class="table table-condensed" style="margin-bottom:12px;table-layout: fixed; width: 100%">
             <thead>
                 <tr>
-                    <th style="width:180px" ng-if="!status.editingMembers">Name</th>
-                    <th style="width:90px" ng-if="status.editingMembers">First</th>
-                    <th style="width:90px" ng-if="status.editingMembers">Last</th>
-                    <th style="width:90px">Birthdate</th>
-                    <th style="width:90px">Gender</th>
-                    <th style="width:75px">Ethnicity</th>
-                    <th style="width:75px">Race</th>
-                    <th style="width:75px">Veteran</th>
-                    <th style="width:100px">Email</th>
-                    <th style="width:100px">Phone</th>
-                    <th  style="width:40px" ng-if="status.editingMembers"></th>
+                    <th style="width:25%" ng-if="!status.editingMembers">Name</th>
+                    <th style="width:14%" ng-if="status.editingMembers">First</th>
+                    <th style="width:14%" ng-if="status.editingMembers">Last</th>
+                    <th style="width:20%">Birthdate</th>
+                    <th style="width:14%">Gender</th>
+                    <th style="width:12%">Ethnicity</th>
+                    <th style="width:12%">Race</th>
+                    <th style="width:12%">Veteran</th>
+                    <th style="width:15%">Email</th>
+                    <th style="width:15%">Phone</th>
+                    <th  style="width:6%" ng-if="status.editingMembers"></th>
                 </tr>
             </thead>
             <tbody>
@@ -66,7 +66,7 @@
                         <input class="form-control input-sm"
                             type="date"
                             ng-model="person.memberDataEditable.birthdate"
-                            placeholder="M/dd/yyyy" min="1900-01-01"required />
+                            placeholder="M/dd/yyyy" min="1900-01-01" required />
                     </td>
                     <td ng-if="status.editingMembers">
                         <select ng-model="person.memberData.gender" class="form-control input-sm"

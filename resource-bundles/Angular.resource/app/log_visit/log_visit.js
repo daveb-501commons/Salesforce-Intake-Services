@@ -89,7 +89,42 @@ angular.module('logVisitController')
 
       $scope.logging = true;
 
-      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, $scope.visitNotes).then(
+      // Get Services and Referrals
+      var index = 0;
+      var keys = Object.keys($scope.data.new_services);
+      var services = [];
+
+      _.forEach($scope.data.new_services, function(v) {
+
+        if (v === true) {
+          services.push(keys[index]);
+        }
+
+        index++;
+      });
+
+      index = 0;
+      keys = Object.keys($scope.data.new_referrals);
+      var referrals = [];
+
+      _.forEach($scope.data.new_referrals, function(v) {
+
+        if (v === true) {
+          referrals.push(keys[index]);
+        }
+
+        index++;
+      });
+
+      // gather the commodity usage for this visit        
+      var comms = {};
+      _.forEach( $scope.data.commodities, function(v) {
+        if (v.ptsUsed > 0) {
+          comms[v.name] = v.ptsUsed;
+        }
+      });
+
+      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, $scope.visitNotes, services, referrals).then(
         function(result){
           $scope.logging = false;
           $window.scrollTo(0,0);

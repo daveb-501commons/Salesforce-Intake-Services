@@ -292,44 +292,52 @@ public with sharing class IntakeServices {
             insert fbc;
         }
 
-        // Create new Service records for Services and Referrals
-        for (String service : services) {
+        try {
+            // Create new Service records for Services and Referrals
+            if (services != null) {
+                for (String service : services) {
 
-            String cleanService = service
-                .replace('_FORWARDSLASH_', '/')
-                .replace('_', ' ');
-            C501_Service_Household__c sh = new C501_Service_Household__c(
-                Name = 'Information Referral (' + cleanService + ')',
-                C501_Service_Id__c = 'Information Referral' + cleanService + Date.Today().format(),
-                C501_Household__c = hh.id,
-                C501_Program__c = 'Information Referral',
-                C501_Service__c = cleanService,
-                C501_Start_Date__c = Date.Today(),
-                C501_End_Date__c = Date.Today(),
-                C501_IsActive__c = false
-            );
+                    String cleanService = service
+                        .replace('_FORWARDSLASH_', '/')
+                        .replace('_', ' ');
+                    C501_Service_Household__c sh = new C501_Service_Household__c(
+                        Name = 'Information & Referral (' + cleanService + ')',
+                        C501_Service_Id__c = 'Information & Referral' + cleanService + Date.Today().format(),
+                        C501_Household__c = hh.id,
+                        C501_Program__c = 'Information & Referral',
+                        C501_Service__c = cleanService,
+                        C501_Start_Date__c = Date.Today(),
+                        C501_End_Date__c = Date.Today(),
+                        C501_IsActive__c = false
+                    );
 
-            insert sh;
-        }
+                    insert sh;
+                }
+            }
 
-        // Create new Service records for Services and Referrals
-        for (String service : referrals) {
+            // Create new Service records for Services and Referrals
+            if (referrals != null) {
+                for (String service : referrals) {
 
-            String cleanService = service
-                .replace('_FORWARDSLASH_', '/')
-                .replace('_', ' ');
-            C501_Service_Household__c sh = new C501_Service_Household__c(
-                Name = 'Information Referral (' + cleanService + ')',
-                C501_Service_Id__c = 'Information Referral' + cleanService + Date.Today().format(),
-                C501_Household__c = hh.id,
-                C501_Program__c = 'Information Referral',
-                C501_Service__c = cleanService,
-                C501_Start_Date__c = Date.Today(),
-                C501_End_Date__c = Date.Today(),
-                C501_IsActive__c = false
-            );
+                    String cleanService = service
+                        .replace('_FORWARDSLASH_', '/')
+                        .replace('_', ' ');
+                    C501_Service_Household__c sh = new C501_Service_Household__c(
+                        Name = 'Information & Referral (' + cleanService + ')',
+                        C501_Service_Id__c = 'Information & Referral' + cleanService + Date.Today().format(),
+                        C501_Household__c = hh.id,
+                        C501_Program__c = 'Information & Referral',
+                        C501_Service__c = cleanService,
+                        C501_Start_Date__c = Date.Today(),
+                        C501_End_Date__c = Date.Today(),
+                        C501_IsActive__c = false
+                    );
 
-            insert sh;
+                    insert sh;
+                }
+            }
+        } catch (Exception ex) {
+            system.debug(ex.getMessage());
         }
     }
 
@@ -384,7 +392,8 @@ public with sharing class IntakeServices {
             [FIND :(query + '* OR ' + halfquery + '*') 
                 RETURNING Contact( 
                     Name, C501_IS_Id_Number__c, MailingStreet,
-                    Account.Name, Account.Id
+                    Account.Name, Account.Id, Email, Birthdate,
+                    C501_Partial_Social_Security_Id__c, Phone
                 WHERE Account.C501_IS_Inactive__c != true 
                 ORDER BY Name)];
 
@@ -426,7 +435,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitNotes) {
+    public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitNotes, String[] services, String[] referrals) {
 
         // get the HH detail
         Account[] hhs =
@@ -450,9 +459,11 @@ public with sharing class IntakeServices {
         }
 
         Intake_Services_Checkin__c fbc = Intake_Services_Checkin__c.getInstance( hhid );
-        c = [select id from Contact where id = :fbc.C501_IS_Visitor__c];
-        if (c.isEmpty()) {
-            fbc.C501_IS_Visitor__c = null;
+        if (fbc != null) {
+            c = [select id from Contact where id = :fbc.C501_IS_Visitor__c];
+            if (!c.isEmpty()) {
+                fbc.C501_IS_Visitor__c = null;
+            }
         }
 
         // log the visit
@@ -468,10 +479,11 @@ public with sharing class IntakeServices {
             C501_IS_Checkout_Weight__c = checkoutWeight,
             C501_IS_Box_Type__c = boxType,
             C501_IS_Notes__c = visitNotes,
-            C501_IS_Visit_Type__c = fbc.C501_IS_Visit_Type__c,
+            C501_IS_Visit_Type__c = (fbc != null) ? fbc.C501_IS_Visit_Type__c : 'Other',
             C501_IS_Visit_Date__c = (fbc != null && fbc.Check_In_Time__c != null) ? fbc.Check_In_Time__c : system.now(),
             C501_IS_Visitor__c = (fbc != null && fbc.C501_IS_Visitor__c != null) ? fbc.C501_IS_Visitor__c : contactid
         );
+
         if (commodityUsage != null && !commodityUsage.isEmpty())
             cv.C501_IS_Commodity_Usage_JSON__c = JSON.serializePretty(commodityUsage);
 
@@ -484,6 +496,54 @@ public with sharing class IntakeServices {
             // remove the client from checkin list
             if (fbc != null) delete fbc;
 
+        } catch (Exception ex) {
+            system.debug(ex.getMessage());
+        }
+
+        try {
+            // Create new Service records for Services and Referrals
+            if (services != null) {
+                for (String service : services) {
+
+                    String cleanService = service
+                        .replace('_FORWARDSLASH_', '/')
+                        .replace('_', ' ');
+                    C501_Service_Household__c sh = new C501_Service_Household__c(
+                        Name = 'Information & Referral (' + cleanService + ')',
+                        C501_Service_Id__c = 'Information & Referral' + cleanService + Date.Today().format(),
+                        C501_Household__c = hh.id,
+                        C501_Program__c = 'Information & Referral',
+                        C501_Service__c = cleanService,
+                        C501_Start_Date__c = Date.Today(),
+                        C501_End_Date__c = Date.Today(),
+                        C501_IsActive__c = false
+                    );
+
+                    insert sh;
+                }
+            }
+
+            // Create new Service records for Services and Referrals
+            if (referrals != null) {
+                for (String service : referrals) {
+
+                    String cleanService = service
+                        .replace('_FORWARDSLASH_', '/')
+                        .replace('_', ' ');
+                    C501_Service_Household__c sh = new C501_Service_Household__c(
+                        Name = 'Information & Referral (' + cleanService + ')',
+                        C501_Service_Id__c = 'Information & Referral' + cleanService + Date.Today().format(),
+                        C501_Household__c = hh.id,
+                        C501_Program__c = 'Information & Referral',
+                        C501_Service__c = cleanService,
+                        C501_Start_Date__c = Date.Today(),
+                        C501_End_Date__c = Date.Today(),
+                        C501_IsActive__c = false
+                    );
+
+                    insert sh;
+                }
+            }
         } catch (Exception ex) {
             system.debug(ex.getMessage());
         }
