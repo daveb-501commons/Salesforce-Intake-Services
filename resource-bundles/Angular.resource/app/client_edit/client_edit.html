@@ -21,6 +21,8 @@
         <div class="panel-btnbar text-center" ng-show="data.household">
             <a class="btn btn-primary" ng-click="saveClient()" ng-disabled="clientForm.$pristine" style="margin-right:6px;">Save
             <i class="fa fa-refresh fa-spin" ng-show="status.savingClient"></i></a>
+            <a class="btn btn-primary" ng-click="saveCheckinClient()" ng-disabled="clientForm.$pristine" style="margin-right:6px;">Save & Check In
+            <i class="fa fa-refresh fa-spin" ng-show="status.savingCheckinClient"></i></a>
             <a class="btn btn-success" ng-click="cancelEdit()">Cancel</a>
         </div>
         <div class="panel-body" ng-show="data.household">
@@ -216,6 +218,8 @@
         <div class="panel-footer text-center" ng-show="data.household">
             <a class="btn btn-primary" ng-click="saveClient()" ng-disabled="clientForm.$pristine" style="margin-right:6px;">Save
             <i class="fa fa-refresh fa-spin" ng-show="status.savingClient"></i></a>
+            <a class="btn btn-primary" ng-click="saveCheckinClient()" ng-disabled="clientForm.$pristine" style="margin-right:6px;">Save & Check In
+            <i class="fa fa-refresh fa-spin" ng-show="status.savingCheckinClient"></i></a>
             <a class="btn btn-success" ng-click="cancelEdit()">Cancel</a>
         </div>
     </div>

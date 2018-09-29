@@ -494,7 +494,7 @@ angular.module('clientController')
       acknowledgeTags: $scope.status.acknowledgeTags
     };
 
-    if ($scope.data.household.tags.length > 0) {
+    if ($scope.data.household.tags != null && $scope.data.household.tags.length > 0) {
       $window.confirm('Tag Alert!  Review tags (' + $scope.data.household.tags.toString() + ') for special handling and service restrictions.');
     }
 

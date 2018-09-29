@@ -107,6 +107,46 @@ angular.module('clientEditController')
       );
     };
 
+    $scope.saveCheckinClient = function() {
+      $scope.status.savingCheckinClient = true;
+      _.assign($scope.data.household, $scope.data.tagsData);
+      fbSaveHouseholdAndMembers($scope.data.household, _.map($scope.data.memberList, 'memberData')).then(
+        function(result){
+          $scope.data.household = result;
+          $scope.data.memberList = [];
+          _.forEach(result.members, function(v) {
+            $scope.data.memberList.push({
+              memberData: _.clone(v)
+            });
+          });
+          $scope.data.tagsData = {
+            id: $scope.data.household.id,
+            tags: $scope.data.household.tags
+          };
+          $alert({
+            title: 'Saved.',
+            type: 'success',
+            duration: 1.5
+          });
+          $timeout(function(){
+            if ($routeParams.action) {
+              $location.url('/' + $routeParams.action + '/' + result.id);
+            } else {
+              $location.url('/client/' + $scope.data.household.id + '/' + result.id);
+            }
+          }, 1500);
+        },
+        function(reason){
+          $scope.status.savingCheckinClient = false;
+          $alert({
+            title: 'Failed to save changes.',
+            content: reason.message,
+            type: 'danger'
+          });
+        }
+      );
+    };
+
     var deleteModal;
     $scope.deleteMember = function(i) {
       if (!!$scope.data.memberList[i].memberData.id) {
