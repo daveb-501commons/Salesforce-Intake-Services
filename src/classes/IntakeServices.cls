@@ -138,7 +138,7 @@ public with sharing class IntakeServices {
         return
             [select C501_Start_Date__c, Id, Name, C501_Case_Worker__c
                 from C501_Service_Household__c
-                where C501_Household__c = :hhid
+                where C501_Household__c = :hhid and (C501_End_Date__c = null or C501_End_Date__c > LAST_N_MONTHS:12)
                 order by C501_Start_Date__c DESC limit 20];
     }
 

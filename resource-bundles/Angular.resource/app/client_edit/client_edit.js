@@ -132,7 +132,7 @@ angular.module('clientEditController')
             if ($routeParams.action) {
               $location.url('/' + $routeParams.action + '/' + result.id);
             } else {
-              $location.url('/client/' + $scope.data.household.id + '/' + result.id);
+              $location.url('/client/' + $scope.data.household.id + '/' + $scope.data.memberList[0].memberData.id);
             }
           }, 1500);
         },
