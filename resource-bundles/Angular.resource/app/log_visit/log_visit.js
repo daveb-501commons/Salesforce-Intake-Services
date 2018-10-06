@@ -116,14 +116,6 @@ angular.module('logVisitController')
         index++;
       });
 
-      // gather the commodity usage for this visit        
-      var comms = {};
-      _.forEach( $scope.data.commodities, function(v) {
-        if (v.ptsUsed > 0) {
-          comms[v.name] = v.ptsUsed;
-        }
-      });
-
       fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, $scope.visitNotes, services, referrals).then(
         function(result){
           $scope.logging = false;

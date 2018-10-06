@@ -23,10 +23,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>C501_IS_Checkout_Weight__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>C501_IS_Notes__c</field>
             </layoutItems>
         </layoutColumns>
