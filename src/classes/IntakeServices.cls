@@ -381,6 +381,9 @@ public with sharing class IntakeServices {
     public static list<ClientHousehold> queryHouseholds( String query){//, Boolean includeInactive ) {
         list<ClientHousehold> hhRet = new list<ClientHousehold>();
 
+        query = query
+            .replace('\\', '\\\\');
+
         // Id Number search: back part of the Id can frequently change so stripe off back half of query to try for match
         String halfquery = query;
         if (halfquery.length() >= 16) {
@@ -392,7 +395,7 @@ public with sharing class IntakeServices {
             [FIND :(query + '* OR ' + halfquery + '*') 
                 RETURNING Contact( 
                     Name, C501_IS_Id_Number__c, MailingStreet,
-                    Account.Name, Account.Id, Email, Birthdate,
+                    Account.Name, Account.Id, Email, FORMAT(Birthdate),
                     C501_Partial_Social_Security_Id__c, Phone
                 WHERE Account.C501_IS_Inactive__c != true 
                 ORDER BY Name)];

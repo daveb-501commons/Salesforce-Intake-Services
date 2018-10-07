@@ -24,9 +24,9 @@ angular.module('clientController', [
 angular.module('clientController')
   .controller('clientController', ['$scope', '$location', '$timeout', '$window', '$routeParams', '$alert', '$q',
     'foundSettings', 'foundHousehold', 'fbHouseholdDetail', 'fbSaveHousehold', 'fbSaveHouseholdMembers',
-    'fbSaveHouseholdAndMembers', 'fbCheckIn', 'fbVisitHistory', 'fbServiceHistory',
+    'fbSaveHouseholdAndMembers', 'fbCheckIn', 'fbVisitHistory', 'fbServiceHistory', 'fbLogVisit',
   function($scope, $location, $timeout, $window, $routeParams, $alert, $q, foundSettings, foundHousehold,
-    fbHouseholdDetail, fbSaveHousehold, fbSaveHouseholdMembers, fbSaveHouseholdAndMembers, fbCheckIn, fbVisitHistory, fbServiceHistory) {
+    fbHouseholdDetail, fbSaveHousehold, fbSaveHouseholdMembers, fbSaveHouseholdAndMembers, fbCheckIn, fbVisitHistory, fbServiceHistory, fbLogVisit) {
 
     $scope.contactid = $routeParams.clientContactId;
 
@@ -320,13 +320,65 @@ angular.module('clientController')
 
     $scope.recordVisit = function() {
 
-      if ($scope.data.visitType = 'Select Option') {
-        $scope.data.visitType = '';
-      }
-
-      $scope.saveAll().then(function() {
-        $location.url('/log_visit/' + $scope.data.household.id + '/' + $scope.contactid);
+      // gather the commodity usage for this visit        
+      var comms = {};
+      _.forEach( $scope.data.commodities, function(v) {
+        if (v.ptsUsed > 0) {
+          comms[v.name] = v.ptsUsed;
+        }
       });
+
+      $scope.logging = true;
+
+      // Get Services and Referrals
+      var index = 0;
+      var keys = Object.keys($scope.data.new_services);
+      var services = [];
+
+      _.forEach($scope.data.new_services, function(v) {
+
+        if (v === true) {
+          services.push(keys[index]);
+        }
+
+        index++;
+      });
+
+      index = 0;
+      keys = Object.keys($scope.data.new_referrals);
+      var referrals = [];
+
+      _.forEach($scope.data.new_referrals, function(v) {
+
+        if (v === true) {
+          referrals.push(keys[index]);
+        }
+
+        index++;
+      });
+
+      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.data.boxType, 0, 0, comms, $scope.data.visitNotes, services, referrals).then(
+        function(result){
+          $scope.logging = false;
+          $window.scrollTo(0,0);
+          $alert({
+            title: 'Visit recorded.',
+            type: 'success',
+            duration: 2
+          });
+          $timeout(function(){
+            $location.url('/');
+          }, 2000);
+        },
+        function(reason){
+          $scope.logging = false;
+          $alert({
+            title: 'Failed to record visit.',
+            content: reason.message,
+            type: 'danger'
+          });
+        }
+      );
     };
 
     $scope.addMember = function() {
