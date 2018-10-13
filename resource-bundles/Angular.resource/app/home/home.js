@@ -9,8 +9,8 @@ angular.module('homeController', [
 ]);
 
 angular.module('homeController')
-  .controller('homeController', ['$scope', '$location', '$timeout', '$interval', 'fbCheckIn', 'fbCheckInList', 'fbCheckInListWithStaff', 'fbHouseholdSearch', 'foundSettings', '$alert',
-  function($scope, $location, $timeout, $interval, fbCheckIn, fbCheckInList, fbCheckInListWithStaff, fbHouseholdSearch, foundSettings, $alert) {
+  .controller('homeController', ['$scope', '$location', '$timeout', '$interval', 'fbCheckIn', 'fbCheckInList', 'fbCheckInListWithStaff', 'fbHouseholdSearch', 'foundSettings', '$alert', 'service', '$rootScope', 'serviceLocation',
+  function($scope, $location, $timeout, $interval, fbCheckIn, fbCheckInList, fbCheckInListWithStaff, fbHouseholdSearch, foundSettings, $alert, serviceLocation) {
 
     $scope.settings = foundSettings;
 
@@ -32,7 +32,7 @@ angular.module('homeController')
       $scope.callingOut = true;
       var comms = {};
 
-      fbCheckIn(hhId, clientId, comms, '', true, visitType, null, null).then(
+      fbCheckIn(hhId, clientId, comms, '', true, visitType, null, null, serviceLocation).then(
         function(result){
           $scope.refresh();
           $timeout(function(){ $scope.callingOut = false; }, 2000);

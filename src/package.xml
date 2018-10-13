@@ -14,6 +14,9 @@
     </types>
     <types>
         <members>IntakeServicesApp</members>
+        <members>IntakeServicesApp_Bellingham</members>
+        <members>IntakeServicesApp_EastWhatcom</members>
+        <members>IntakeServicesApp_Island</members>
         <members>IntakeServicesStats</members>
         <members>JasmineTestRunner</members>
         <name>ApexPage</name>
@@ -76,6 +79,7 @@
         <members>Client_Visit__c.C501_IS_Total_People__c</members>
         <members>Client_Visit__c.C501_IS_Visit_Date__c</members>
         <members>Client_Visit__c.C501_IS_Visit_Type__c</members>
+        <members>Client_Visit__c.C501_IS_Service_Location__c</members>
         <members>Client_Visit__c.C501_IS_Visitor__c</members>
         <members>Contact.C501_IS_Age_Entry_Date__c</members>
         <members>Contact.C501_IS_Age_Group__c</members>
@@ -92,6 +96,7 @@
         <members>Intake_Services_Checkin__c.C501_IS_Commodity_Usage_JSON__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Notes__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Visit_Type__c</members>
+        <members>Intake_Services_Checkin__c.C501_IS_Service_Location__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Visitor__c</members>
         <members>Intake_Services_Checkin__c.C501_With_Staff__c</members>
         <members>Intake_Services_Checkin__c.Check_In_Time_With_Staff__c</members>
@@ -138,6 +143,9 @@
     <types>
         <members>Client_Visit__c</members>
         <members>Intake_Services_App</members>
+        <members>Intake_Services_App_Bellingham</members>
+        <members>Intake_Services_App_EastWhatcom</members>
+        <members>Intake_Services_App_Island</members>
         <members>Intake_Services_Stats</members>
         <name>CustomTab</name>
     </types>

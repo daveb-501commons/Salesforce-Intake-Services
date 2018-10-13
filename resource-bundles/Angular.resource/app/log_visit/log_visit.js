@@ -7,8 +7,8 @@ angular.module('logVisitController', [
   ]);
 
 angular.module('logVisitController')
-  .controller('logVisitController', ['$scope', '$routeParams', '$timeout', '$window', '$location', 'foundHousehold', 'foundSettings', 'fbLogVisit', 'fbCustomLabel', '$alert',
-    function($scope, $routeParams, $timeout, $window, $location, foundHousehold, foundSettings, fbLogVisit, fbCustomLabel, $alert) {
+  .controller('logVisitController', ['$scope', '$routeParams', '$timeout', '$window', '$location', 'foundHousehold', 'foundSettings', 'fbLogVisit', 'fbCustomLabel', '$alert', 'serviceLocation',
+    function($scope, $routeParams, $timeout, $window, $location, foundHousehold, foundSettings, fbLogVisit, fbCustomLabel, $alert, serviceLocation) {
 
     $scope.contactid = $routeParams.clientContactId;
       
@@ -116,7 +116,7 @@ angular.module('logVisitController')
         index++;
       });
 
-      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, $scope.visitNotes, services, referrals).then(
+      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, $scope.visitNotes, services, referrals, serviceLocation).then(
         function(result){
           $scope.logging = false;
           $window.scrollTo(0,0);

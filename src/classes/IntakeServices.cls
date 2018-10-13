@@ -14,6 +14,7 @@ public with sharing class IntakeServices {
         public String name { get; private set; }
         public Decimal pointsRemaining { get; private set; }
         public String visitType { get; private set; }
+        public String serviceLocation { get; private set; }
         public String boxSize { get; private set; }
         public DateTime checkInTime { get; private set; }
         public Boolean checkinNotToday { get; private set; }
@@ -39,6 +40,7 @@ public with sharing class IntakeServices {
             cc.name = IntakeServices.getContactName(fbc.C501_IS_Visitor__c);
             cc.pointsRemaining = fbc.Points_Remaining__c;
             cc.visitType = fbc.C501_IS_Visit_Type__c;
+            cc.serviceLocation = fbc.C501_IS_Service_Location__c;
             cc.boxSize = fbc.Box_Size__c;
             cc.checkInTime = fbc.Check_In_Time__c;
             cc.checkInTimeWithStaff = fbc.Check_In_Time_With_Staff__c;
@@ -256,7 +258,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff, String visitType, String[] services, String[] referrals) {
+    public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff, String visitType, String[] services, String[] referrals, String serviceLocation) {
 
         Intake_Services_Checkin__c fbc = new Intake_Services_Checkin__c();
 
@@ -281,6 +283,7 @@ public with sharing class IntakeServices {
             fbc.Check_In_Time__c = system.now();
             fbc.C501_IS_Visitor__c = contactid;
             fbc.C501_IS_Visit_Type__c = visitType;
+            fbc.C501_IS_Service_Location__c = serviceLocation;
 
             fbc.C501_IS_Notes__c = visitNotes;
             fbc.C501_With_Staff__c = withStaff;
@@ -438,7 +441,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitNotes, String[] services, String[] referrals) {
+    public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitNotes, String[] services, String[] referrals, String serviceLocation) {
 
         // get the HH detail
         Account[] hhs =
@@ -482,7 +485,7 @@ public with sharing class IntakeServices {
             C501_IS_Checkout_Weight__c = checkoutWeight,
             C501_IS_Box_Type__c = boxType,
             C501_IS_Notes__c = visitNotes,
-            C501_IS_Visit_Type__c = (fbc != null) ? fbc.C501_IS_Visit_Type__c : 'Other',
+            C501_IS_Visit_Type__c = serviceLocation,
             C501_IS_Visit_Date__c = (fbc != null && fbc.Check_In_Time__c != null) ? fbc.Check_In_Time__c : system.now(),
             C501_IS_Visitor__c = (fbc != null && fbc.C501_IS_Visitor__c != null) ? fbc.C501_IS_Visitor__c : contactid
         );

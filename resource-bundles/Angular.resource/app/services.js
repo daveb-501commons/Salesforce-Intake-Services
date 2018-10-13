@@ -419,8 +419,8 @@ angular.module('appServices')
 
 angular.module('appServices')
   .factory('fbCheckIn', ['jsRemoting', function(jsRemoting) {
-      return function( hhid, contactid, commodities, notes, withStaff, visitType, services, referrals ) {
-        return jsRemoting.invoke('checkIn', [hhid, contactid, commodities, notes, withStaff, visitType, services, referrals]);
+      return function( hhid, contactid, commodities, notes, withStaff, visitType, services, referrals, serviceLocation ) {
+        return jsRemoting.invoke('checkIn', [hhid, contactid, commodities, notes, withStaff, visitType, services, referrals, serviceLocation]);
       };
   }]);
 
@@ -470,7 +470,7 @@ angular.module('appServices')
 
 angular.module('appServices')
   .factory('fbLogVisit', ['jsRemoting', function(jsRemoting) {
-    return function( hhid, contactid, boxType, checkoutWeight, pointsUsed, commodities, notes, services, referrals ) {
-      return jsRemoting.invoke('logVisit', [hhid, contactid, boxType, checkoutWeight, pointsUsed, commodities, notes, services, referrals]);
+    return function( hhid, contactid, boxType, checkoutWeight, pointsUsed, commodities, notes, services, referrals, serviceLocation ) {
+      return jsRemoting.invoke('logVisit', [hhid, contactid, boxType, checkoutWeight, pointsUsed, commodities, notes, services, referrals, serviceLocation]);
     };
   }]);

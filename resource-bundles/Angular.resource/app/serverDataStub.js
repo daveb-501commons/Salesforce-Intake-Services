@@ -7,6 +7,7 @@
 ** provides base resource path and Visualforce Remoting data to the app
 */
 angular.module('appServerData', [])
+  .constant('serviceLocation', '')
   .constant('basePath', '')
   .constant('controllerName', 'IntakeServices');
 

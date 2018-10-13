@@ -39,6 +39,16 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>C501_IS_Service_Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Service Location</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>C501_IS_Visitor__c</fullName>
         <externalId>false</externalId>
         <label>Vistor</label>

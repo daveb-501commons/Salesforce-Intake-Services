@@ -12,7 +12,7 @@
 
     <html ng-app="intakeServicesApp">
         <head>
-            <title>Intake Services</title>
+            <title>Intake Bellingham</title>
 
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -51,7 +51,7 @@
             <!-- store the resource path and all Visualforce remoting actions for use by Angular -->
             <script>
                 angular.module('appServerData', [])
-                    .constant('service','intake')
+                    .constant('serviceLocation','Bellingham')
                     .constant('basePath', '{!URLFOR($Resource.Angular, "")}'.split('?')[0])
                     .constant('controllerName', 'IntakeServices');
             </script>
@@ -64,7 +64,7 @@
                     <h1 style="margin-bottom: 5px;">
                         <img style="margin: 0 3px 7px 2px;" height="32" width="32"
                             ng-src="{{basePath}}/img/shoppingCart32.png" />
-                        Intake Services
+                        Intake Bellingham
                     </h1>
                 </div>
 

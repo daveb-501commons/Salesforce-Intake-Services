@@ -24,9 +24,9 @@ angular.module('clientController', [
 angular.module('clientController')
   .controller('clientController', ['$scope', '$location', '$timeout', '$window', '$routeParams', '$alert', '$q',
     'foundSettings', 'foundHousehold', 'fbHouseholdDetail', 'fbSaveHousehold', 'fbSaveHouseholdMembers',
-    'fbSaveHouseholdAndMembers', 'fbCheckIn', 'fbVisitHistory', 'fbServiceHistory', 'fbLogVisit',
+    'fbSaveHouseholdAndMembers', 'fbCheckIn', 'fbVisitHistory', 'fbServiceHistory', 'fbLogVisit', 'serviceLocation',
   function($scope, $location, $timeout, $window, $routeParams, $alert, $q, foundSettings, foundHousehold,
-    fbHouseholdDetail, fbSaveHousehold, fbSaveHouseholdMembers, fbSaveHouseholdAndMembers, fbCheckIn, fbVisitHistory, fbServiceHistory, fbLogVisit) {
+    fbHouseholdDetail, fbSaveHousehold, fbSaveHouseholdMembers, fbSaveHouseholdAndMembers, fbCheckIn, fbVisitHistory, fbServiceHistory, fbLogVisit, serviceLocation) {
 
     $scope.contactid = $routeParams.clientContactId;
 
@@ -305,7 +305,7 @@ angular.module('clientController')
       });
 
       $scope.saveAll().then(function() {
-        fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false, $scope.data.visitType, services, referrals);
+        fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false, $scope.data.visitType, services, referrals, serviceLocation);
         $window.scrollTo(0,0);
         $alert({
           title: 'Checked in!',
@@ -357,7 +357,7 @@ angular.module('clientController')
         index++;
       });
 
-      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.data.boxType, 0, 0, comms, $scope.data.visitNotes, services, referrals).then(
+      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.data.boxType, 0, 0, comms, $scope.data.visitNotes, services, referrals, serviceLocation).then(
         function(result){
           $scope.logging = false;
           $window.scrollTo(0,0);
