@@ -254,6 +254,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Client_Visit__c.C501_IS_Service_Location__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Client_Visit__c.C501_IS_Total_People__c</field>
         <readable>true</readable>
@@ -340,6 +345,18 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>IntakeServicesApp_Bellingham</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>IntakeServicesApp_EastWhatcom</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>IntakeServicesApp_Island</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>IntakeServicesStats</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -353,6 +370,18 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>Intake_Services_App</tab>
+        <visibility>Hidden</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Intake_Services_App_Bellingham</tab>
+        <visibility>Hidden</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Intake_Services_App_EastWhatcom</tab>
+        <visibility>Hidden</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Intake_Services_App_Island</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
     <tabVisibilities>

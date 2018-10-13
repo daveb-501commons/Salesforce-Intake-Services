@@ -19,6 +19,10 @@
                 <behavior>Edit</behavior>
                 <field>C501_IS_Visit_Type__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>C501_IS_Service_Location__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

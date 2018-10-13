@@ -76,10 +76,10 @@
         <members>Client_Visit__c.C501_IS_Out_Of_Area__c</members>
         <members>Client_Visit__c.C501_IS_Points_Used__c</members>
         <members>Client_Visit__c.C501_IS_Seniors__c</members>
+        <members>Client_Visit__c.C501_IS_Service_Location__c</members>
         <members>Client_Visit__c.C501_IS_Total_People__c</members>
         <members>Client_Visit__c.C501_IS_Visit_Date__c</members>
         <members>Client_Visit__c.C501_IS_Visit_Type__c</members>
-        <members>Client_Visit__c.C501_IS_Service_Location__c</members>
         <members>Client_Visit__c.C501_IS_Visitor__c</members>
         <members>Contact.C501_IS_Age_Entry_Date__c</members>
         <members>Contact.C501_IS_Age_Group__c</members>
@@ -95,8 +95,8 @@
         <members>Intake_Services_Checkin__c.Box_Size__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Commodity_Usage_JSON__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Notes__c</members>
-        <members>Intake_Services_Checkin__c.C501_IS_Visit_Type__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Service_Location__c</members>
+        <members>Intake_Services_Checkin__c.C501_IS_Visit_Type__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Visitor__c</members>
         <members>Intake_Services_Checkin__c.C501_With_Staff__c</members>
         <members>Intake_Services_Checkin__c.Check_In_Time_With_Staff__c</members>

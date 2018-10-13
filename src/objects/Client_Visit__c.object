@@ -284,6 +284,35 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>C501_IS_Service_Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Service Location</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Bellingham</fullName>
+                    <default>false</default>
+                    <label>Bellingham</label>
+                </value>
+                <value>
+                    <fullName>East Whatcom</fullName>
+                    <default>false</default>
+                    <label>East Whatcom</label>
+                </value>
+                <value>
+                    <fullName>Island</fullName>
+                    <default>false</default>
+                    <label>Island</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
         <fullName>C501_IS_Total_People__c</fullName>
         <externalId>false</externalId>
         <formula>C501_IS_Adults__c + C501_IS_Children__c + C501_IS_Seniors__c + C501_IS_Infants__c</formula>
