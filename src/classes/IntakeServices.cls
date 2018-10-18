@@ -535,7 +535,30 @@ public with sharing class IntakeServices {
         }
 
         try {
-            // Create new Service records for Services and Referrals
+            // Create new Service records for Commodities, Services, and Referrals
+            //
+
+            if (commodityUsage != null && !commodityUsage.isEmpty()) {
+                for (String commodity : commodityUsage.keySet()) {
+
+                    String cleanService = commodity
+                        .replace('_FORWARDSLASH_', '/')
+                        .replace('_', ' ');
+                    C501_Service_Household__c sh = new C501_Service_Household__c(
+                        Name = 'Information & Referral (' + cleanService + ')',
+                        C501_Service_Id__c = 'Information & Referral' + cleanService + Date.Today().format(),
+                        C501_Household__c = hh.id,
+                        C501_Program__c = 'Information & Referral',
+                        C501_Service__c = cleanService,
+                        C501_Start_Date__c = Date.Today(),
+                        C501_End_Date__c = Date.Today(),
+                        C501_IsActive__c = false
+                    );
+
+                    insert sh;
+                }
+            }
+
             if (services != null) {
                 for (String service : services) {
 
@@ -557,7 +580,6 @@ public with sharing class IntakeServices {
                 }
             }
 
-            // Create new Service records for Services and Referrals
             if (referrals != null) {
                 for (String service : referrals) {
 

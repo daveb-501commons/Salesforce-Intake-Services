@@ -146,7 +146,7 @@ public with sharing class IntakeServicesTest {
 		Map<String, Integer> commU = new Map<String, Integer>();
 		commU.put('Meat', 2);
 		commU.put('Bread', 1);
-		Id cVId = IntakeServices.logVisit(household1.Id, contact.Id, 'small', 1.1, 5, commU, 'Other', 'These are notes', new List<String> {'Housing Intake'}, new List<String>{'Childcare'}, 'service location');
+		Id cVId = IntakeServices.logVisit(household1.Id, contact.Id, 'small', 1.1, 5, commU, 'Other', 'These are notes', new List<String> {'Housing Intake'}, new List<String>{'Childcare'}, 'Intake');
 		System.assert(cVId != null);
 
 		List<Client_Visit__c> cV = IntakeServices.getVisitHistory(household1.Id);

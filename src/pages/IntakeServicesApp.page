@@ -51,7 +51,7 @@
             <!-- store the resource path and all Visualforce remoting actions for use by Angular -->
             <script>
                 angular.module('appServerData', [])
-                    .constant('service','intake')
+                    .constant('service','Intake')
                     .constant('basePath', '{!URLFOR($Resource.Angular, "")}'.split('?')[0])
                     .constant('controllerName', 'IntakeServices');
             </script>

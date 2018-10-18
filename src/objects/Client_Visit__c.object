@@ -309,6 +309,11 @@
                     <default>false</default>
                     <label>Island</label>
                 </value>
+                <value>
+                    <fullName>Intake</fullName>
+                    <default>false</default>
+                    <label>Intake</label>
+                </value>
             </valueSetDefinition>
         </valueSet>
     </fields>
