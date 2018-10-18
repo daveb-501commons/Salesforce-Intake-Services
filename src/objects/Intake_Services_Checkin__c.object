@@ -29,9 +29,9 @@
         <type>TextArea</type>
     </fields>
     <fields>
-        <fullName>C501_IS_Visit_Type__c</fullName>
+        <fullName>C501_IS_Service_Location__c</fullName>
         <externalId>false</externalId>
-        <label>Vistor</label>
+        <label>Service Location</label>
         <length>64</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
@@ -39,9 +39,9 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>C501_IS_Service_Location__c</fullName>
+        <fullName>C501_IS_Visit_Type__c</fullName>
         <externalId>false</externalId>
-        <label>Service Location</label>
+        <label>Vistor</label>
         <length>64</length>
         <required>false</required>
         <trackTrending>false</trackTrending>

@@ -464,15 +464,11 @@
         <customTabListAdditionalFields>C501_IS_Visitor__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>C501_IS_Visit_Date__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>C501_IS_Total_People__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>C501_IS_Points_Used__c</customTabListAdditionalFields>
-        <customTabListAdditionalFields>C501_IS_Checkout_Weight__c</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>C501_IS_Visit_Date__c</lookupDialogsAdditionalFields>
         <searchResultsAdditionalFields>C501_IS_Household__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>C501_IS_Visitor__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>C501_IS_Visit_Date__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>C501_IS_Total_People__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>C501_IS_Points_Used__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>C501_IS_Checkout_Weight__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
