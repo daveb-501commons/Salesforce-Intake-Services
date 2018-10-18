@@ -9,7 +9,7 @@ angular.module('homeController', [
 ]);
 
 angular.module('homeController')
-  .controller('homeController', ['$scope', '$location', '$timeout', '$interval', 'fbCheckIn', 'fbCheckInList', 'fbCheckInListWithStaff', 'fbHouseholdSearch', 'foundSettings', '$alert', 'service', '$rootScope', 'serviceLocation',
+  .controller('homeController', ['$scope', '$location', '$timeout', '$interval', 'fbCheckIn', 'fbCheckInList', 'fbCheckInListWithStaff', 'fbHouseholdSearch', 'foundSettings', '$alert', 'serviceLocation',
   function($scope, $location, $timeout, $interval, fbCheckIn, fbCheckInList, fbCheckInListWithStaff, fbHouseholdSearch, foundSettings, $alert, serviceLocation) {
 
     $scope.settings = foundSettings;
@@ -52,7 +52,7 @@ angular.module('homeController')
     $scope.refresh = function() {
       $scope.callingOut = true;
 
-      fbCheckInList.get().then(
+      fbCheckInList.get(serviceLocation).then(
         function(result){
           $scope.checkedInClients = result;
           $timeout(function(){ $scope.callingOut = false; }, 750);
@@ -67,7 +67,7 @@ angular.module('homeController')
         }
       );
 
-      fbCheckInListWithStaff.get().then(
+      fbCheckInListWithStaff.get(serviceLocation).then(
         function(result){
           $scope.checkedInClientsWithStaff = result;
           $timeout(function(){ $scope.callingOut = false; }, 750);

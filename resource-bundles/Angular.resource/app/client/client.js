@@ -305,6 +305,17 @@ angular.module('clientController')
       });
 
       $scope.saveAll().then(function() {
+
+        if ($scope.data.visitType == 'Select Option') {
+          $alert({
+            title: 'Visit Reason field required!',
+            type: 'danger',
+            duration: 5
+          });
+  
+          return;
+        }
+  
         fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false, $scope.data.visitType, services, referrals, serviceLocation);
         $window.scrollTo(0,0);
         $alert({
@@ -357,7 +368,11 @@ angular.module('clientController')
         index++;
       });
 
-      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.data.boxType, 0, 0, comms, $scope.data.visitNotes, services, referrals, serviceLocation).then(
+      if ($scope.data.visitType == 'Select Option') {
+        $scope.data.visitType = '';
+      }
+
+      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.data.boxType, 0, 0, comms, $scope.data.visitType, $scope.data.visitNotes, services, referrals, serviceLocation).then(
         function(result){
           $scope.logging = false;
           $window.scrollTo(0,0);

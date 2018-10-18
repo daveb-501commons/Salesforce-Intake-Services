@@ -91,8 +91,8 @@ angular.module('appServices')
 angular.module('appServices')
   .factory('fbCheckInList', ['jsRemoting', function(jsRemoting) {
     return {
-      get : function() {
-        return jsRemoting.invoke('getCheckedInList');
+      get : function(serviceLocation) {
+        return jsRemoting.invoke('getCheckedInList', serviceLocation);
       }
     };
   }]);
@@ -100,8 +100,8 @@ angular.module('appServices')
 angular.module('appServices')
   .factory('fbCheckInListWithStaff', ['jsRemoting', function(jsRemoting) {
     return {
-      get : function() {
-        return jsRemoting.invoke('getCheckedInListWithStaff');
+      get : function(serviceLocation) {
+        return jsRemoting.invoke('getCheckedInListWithStaff', serviceLocation);
       }
     };
   }]);
@@ -470,7 +470,7 @@ angular.module('appServices')
 
 angular.module('appServices')
   .factory('fbLogVisit', ['jsRemoting', function(jsRemoting) {
-    return function( hhid, contactid, boxType, checkoutWeight, pointsUsed, commodities, notes, services, referrals, serviceLocation ) {
-      return jsRemoting.invoke('logVisit', [hhid, contactid, boxType, checkoutWeight, pointsUsed, commodities, notes, services, referrals, serviceLocation]);
+    return function( hhid, contactid, boxType, checkoutWeight, pointsUsed, commodities, visitType, notes, services, referrals, serviceLocation ) {
+      return jsRemoting.invoke('logVisit', [hhid, contactid, boxType, checkoutWeight, pointsUsed, commodities, visitType, notes, services, referrals, serviceLocation]);
     };
   }]);

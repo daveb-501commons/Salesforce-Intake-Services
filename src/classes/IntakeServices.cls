@@ -22,13 +22,17 @@ public with sharing class IntakeServices {
         public Boolean withStaff { get; private set; }
     }
 
-    public static list<ClientCheckin> getCheckedInListCollection(boolean with_staff) {
+    public static list<ClientCheckin> getCheckedInListCollection(boolean with_staff, String serviceLocation) {
 
         list<ClientCheckin> chkList = new list<ClientCheckin>();
         //    delete fbc;
         //}
 
         for (Intake_Services_Checkin__c fbc : Intake_Services_Checkin__c.getAll().values()) {
+
+            if (fbc.C501_IS_Service_Location__c != serviceLocation) {
+                continue;
+            }
 
             if (fbc.C501_With_Staff__c != with_staff) {
                 continue;
@@ -77,13 +81,13 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static list<ClientCheckin> getCheckedInList() {
-        return getCheckedInListCollection(false);
+    public static list<ClientCheckin> getCheckedInList(String serviceLocation) {
+        return getCheckedInListCollection(false, serviceLocation);
     }
 
     @RemoteAction
-    public static list<ClientCheckin> getCheckedInListWithStaff() {
-        return getCheckedInListCollection(true);
+    public static list<ClientCheckin> getCheckedInListWithStaff(String serviceLocation) {
+        return getCheckedInListCollection(true, serviceLocation);
     }
 
     @RemoteAction
@@ -296,7 +300,31 @@ public with sharing class IntakeServices {
         }
 
         try {
-            // Create new Service records for Services and Referrals
+
+            // Create new Service records for Commodities, Services, and Referrals
+            //
+
+            if (commodityUsage != null && !commodityUsage.isEmpty()) {
+                for (String commodity : commodityUsage.keySet()) {
+
+                    String cleanService = commodity
+                        .replace('_FORWARDSLASH_', '/')
+                        .replace('_', ' ');
+                    C501_Service_Household__c sh = new C501_Service_Household__c(
+                        Name = 'Information & Referral (' + cleanService + ')',
+                        C501_Service_Id__c = 'Information & Referral' + cleanService + Date.Today().format(),
+                        C501_Household__c = hh.id,
+                        C501_Program__c = 'Information & Referral',
+                        C501_Service__c = cleanService,
+                        C501_Start_Date__c = Date.Today(),
+                        C501_End_Date__c = Date.Today(),
+                        C501_IsActive__c = false
+                    );
+
+                    insert sh;
+                }
+            }
+
             if (services != null) {
                 for (String service : services) {
 
@@ -318,7 +346,6 @@ public with sharing class IntakeServices {
                 }
             }
 
-            // Create new Service records for Services and Referrals
             if (referrals != null) {
                 for (String service : referrals) {
 
@@ -441,7 +468,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitNotes, String[] services, String[] referrals, String serviceLocation) {
+    public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitType, String visitNotes, String[] services, String[] referrals, String serviceLocation) {
 
         // get the HH detail
         Account[] hhs =
@@ -485,7 +512,8 @@ public with sharing class IntakeServices {
             C501_IS_Checkout_Weight__c = checkoutWeight,
             C501_IS_Box_Type__c = boxType,
             C501_IS_Notes__c = visitNotes,
-            C501_IS_Visit_Type__c = serviceLocation,
+            C501_IS_Visit_Type__c = (visitType == '' && fbc != null && fbc.C501_IS_Visit_Type__c != null) ? fbc.C501_IS_Visit_Type__c : visitType,
+            C501_IS_Service_Location__c = serviceLocation,
             C501_IS_Visit_Date__c = (fbc != null && fbc.Check_In_Time__c != null) ? fbc.Check_In_Time__c : system.now(),
             C501_IS_Visitor__c = (fbc != null && fbc.C501_IS_Visitor__c != null) ? fbc.C501_IS_Visitor__c : contactid
         );
