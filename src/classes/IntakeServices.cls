@@ -141,10 +141,11 @@ public with sharing class IntakeServices {
 
     @RemoteAction
     public static list<C501_Service_Household__c> getServiceHistory( Id hhid ) {
+        
         return
-            [select C501_Start_Date__c, Id, Name, C501_Case_Worker__c
+            [select Id, Name, C501_Case_Worker__c, C501_Start_Date__c, C501_End_Date__c, C501_IsActive__c
                 from C501_Service_Household__c
-                where C501_Household__c = :hhid and (C501_End_Date__c = null or C501_End_Date__c > LAST_N_MONTHS:12)
+                where C501_Household__c = :hhid
                 order by C501_Start_Date__c DESC limit 20];
     }
 
@@ -312,7 +313,7 @@ public with sharing class IntakeServices {
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
                         Name = 'Information & Referral (' + cleanService + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanService + Date.Today().format(),
+                        C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
                         C501_Service__c = cleanService,
@@ -333,7 +334,7 @@ public with sharing class IntakeServices {
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
                         Name = 'Information & Referral (' + cleanService + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanService + Date.Today().format(),
+                        C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
                         C501_Service__c = cleanService,
@@ -354,7 +355,7 @@ public with sharing class IntakeServices {
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
                         Name = 'Information & Referral (' + cleanService + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanService + Date.Today().format(),
+                        C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
                         C501_Service__c = cleanService,
@@ -546,7 +547,7 @@ public with sharing class IntakeServices {
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
                         Name = 'Information & Referral (' + cleanService + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanService + Date.Today().format(),
+                        C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
                         C501_Service__c = cleanService,
@@ -567,7 +568,7 @@ public with sharing class IntakeServices {
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
                         Name = 'Information & Referral (' + cleanService + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanService + Date.Today().format(),
+                        C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
                         C501_Service__c = cleanService,
@@ -588,7 +589,7 @@ public with sharing class IntakeServices {
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
                         Name = 'Information & Referral (' + cleanService + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanService + Date.Today().format(),
+                        C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
                         C501_Service__c = cleanService,

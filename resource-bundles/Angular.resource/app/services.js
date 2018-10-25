@@ -451,7 +451,10 @@ angular.module('appServices')
         var services = [];
         _.forEach(result, function(result){
           services.push({
-            'date': result.C501_Start_Date__c,
+            // + 12 hours to make sure rounding to correct day since Date parses the value as GMT then converts to Browser Time Zone (Pacific)
+            'startdate': new Date(result.C501_Start_Date__c + (12 * 60 * 60 * 1000)),
+            'enddate': new Date(result.C501_End_Date__c + (12 * 60 * 60 * 1000)),
+            'isactive': result.C501_IsActive__c,
             'name': result.Name,
             'caseworker': result.C501_Case_Worker__c
           });
