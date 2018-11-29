@@ -296,6 +296,7 @@ angular.module('appServices')
             ethnicity: v.C501_Ethnicity__c,
             race: v.C501_Race__c,
             veteran: v.C501_Military_Status__c,
+            inhh: v.C501_Is_In_Household__c,
             email: v.Email,
             phone: v.Phone,
             // v.Birthdate + 12 hours to make sure rounding to correct day since Date parses the value as GMT then converts to Browser Time Zone (Pacific)

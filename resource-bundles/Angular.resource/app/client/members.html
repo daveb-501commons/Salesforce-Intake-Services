@@ -38,7 +38,8 @@
                     <th style="width:12%">Veteran</th>
                     <th style="width:15%">Email</th>
                     <th style="width:15%">Phone</th>
-                    <th  style="width:6%" ng-if="status.editingMembers"></th>
+                    <th style="width:12%">In HH</th>
+                    <th style="width:6%" ng-if="status.editingMembers"></th>
                 </tr>
             </thead>
             <tbody>
@@ -53,6 +54,11 @@
                     <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.veteran}}</td>
                     <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.email}}</td>
                     <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.phone}}</td>
+                    <td style="word-wrap: break-word" ng-if="!status.editingMembers">
+                        <input ng-model="person.memberData.inhh" type="checkbox"
+                        class="form-control input-sm" name="inhh"
+                        ng-maxlength="50" ng-required required>
+                    </td>
 
                     <td ng-if="status.editingMembers">
                         <input ng-model="person.memberDataEditable.firstName" type="text" class="form-control input-sm"
@@ -100,6 +106,11 @@
                     <td ng-if="status.editingMembers">
                         <input ng-model="person.memberData.phone" type="text"
                             class="form-control input-sm" name="phone"
+                            ng-maxlength="50" ng-required required>
+                    </td>
+                    <td ng-if="status.editingMembers">
+                        <input ng-model="person.memberData.inhh" type="checkbox"
+                            class="form-control input-sm" name="inhh"
                             ng-maxlength="50" ng-required required>
                     </td>
 
