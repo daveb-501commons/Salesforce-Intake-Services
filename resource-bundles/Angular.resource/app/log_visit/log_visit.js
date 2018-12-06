@@ -116,7 +116,7 @@ angular.module('logVisitController')
         index++;
       });
 
-      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, '', $scope.visitNotes, services, referrals, serviceLocation).then(
+      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, '', $scope.visitNotes, services, referrals, serviceLocation, $scope.settings.user_email).then(
         function(result){
           $scope.logging = false;
           $window.scrollTo(0,0);

@@ -474,7 +474,7 @@ angular.module('appServices')
 
 angular.module('appServices')
   .factory('fbLogVisit', ['jsRemoting', function(jsRemoting) {
-    return function( hhid, contactid, boxType, checkoutWeight, pointsUsed, commodities, visitType, notes, services, referrals, serviceLocation ) {
-      return jsRemoting.invoke('logVisit', [hhid, contactid, boxType, checkoutWeight, pointsUsed, commodities, visitType, notes, services, referrals, serviceLocation]);
+    return function( hhid, contactid, boxType, checkoutWeight, pointsUsed, commodities, visitType, notes, services, referrals, serviceLocation, createdBy ) {
+      return jsRemoting.invoke('logVisit', [hhid, contactid, boxType, checkoutWeight, pointsUsed, commodities, visitType, notes, services, referrals, serviceLocation, createdBy]);
     };
   }]);

@@ -469,7 +469,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitType, String visitNotes, String[] services, String[] referrals, String serviceLocation) {
+    public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitType, String visitNotes, String[] services, String[] referrals, String serviceLocation, String createdBy) {
 
         // get the HH detail
         Account[] hhs =
@@ -553,7 +553,9 @@ public with sharing class IntakeServices {
                         C501_Service__c = cleanService,
                         C501_Start_Date__c = Date.Today(),
                         C501_End_Date__c = Date.Today(),
-                        C501_IsActive__c = false
+                        C501_IsActive__c = false,
+                        C501_Location__c = serviceLocation,
+                        C501_Created_By__c = createdBy
                     );
 
                     insert sh;

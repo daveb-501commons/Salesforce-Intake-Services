@@ -372,7 +372,7 @@ angular.module('clientController')
         $scope.data.visitType = '';
       }
 
-      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.data.boxType, 0, 0, comms, $scope.data.visitType, $scope.data.visitNotes, services, referrals, serviceLocation).then(
+      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.data.boxType, 0, 0, comms, $scope.data.visitType, $scope.data.visitNotes, services, referrals, serviceLocation, $scope.settings.user_email).then(
         function(result){
           $scope.logging = false;
           $window.scrollTo(0,0);
