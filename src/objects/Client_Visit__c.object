@@ -41,7 +41,16 @@
         <type>Default</type>
     </actionOverrides>
     <allowInChatterGroups>false</allowInChatterGroups>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <compactLayoutAssignment>Compact_Layout</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Compact_Layout</fullName>
+        <fields>C501_IS_Household__c</fields>
+        <fields>C501_IS_Visitor__c</fields>
+        <fields>C501_IS_Visit_Date__c</fields>
+        <fields>C501_IS_Visit_Type__c</fields>
+        <fields>C501_IS_Service_Location__c</fields>
+        <label>Compact Layout</label>
+    </compactLayouts>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
@@ -470,11 +479,14 @@
         <customTabListAdditionalFields>C501_IS_Visitor__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>C501_IS_Visit_Date__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>C501_IS_Total_People__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>C501_IS_Visit_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>C501_IS_Service_Location__c</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>C501_IS_Visit_Date__c</lookupDialogsAdditionalFields>
         <searchResultsAdditionalFields>C501_IS_Household__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>C501_IS_Visitor__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>C501_IS_Visit_Date__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>C501_IS_Total_People__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>C501_IS_Visit_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>C501_IS_Service_Location__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
