@@ -14,6 +14,7 @@ angular.module('logVisitController')
       
     $scope.data = {};
     $scope.data.household = foundHousehold;
+    $scope.data.visitDate = new Date();
 
     $scope.settings = foundSettings;
     $scope.commodities = foundSettings.commodities;
@@ -54,7 +55,7 @@ angular.module('logVisitController')
       Head_Start_FORWARDSLASH_ECEAP: false,
       Healthcare: false,
       Home_Improvement: false,
-      Housing: false,
+      Housing_Pool: false,
       Kinship: false,
       Landlord_Tenant: false,
       Mental_Health: false,
@@ -116,7 +117,12 @@ angular.module('logVisitController')
         index++;
       });
 
-      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, '', $scope.visitNotes, services, referrals, serviceLocation, $scope.settings.user_email).then(
+      var year = $scope.data.visitDate.getFullYear() + "";
+      var month = ($scope.data.visitDate.getMonth() + 1) + "";
+      var day = $scope.data.visitDate.getDate() + "";
+      var safeDate = year + "-" + month + "-" + day
+
+      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, '', safeDate, $scope.visitNotes, services, referrals, serviceLocation, $scope.settings.user_email).then(
         function(result){
           $scope.logging = false;
           $window.scrollTo(0,0);

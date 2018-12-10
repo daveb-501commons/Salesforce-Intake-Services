@@ -49,6 +49,7 @@ angular.module('clientController')
 
     $scope.data.visitNotes = '';
     $scope.data.visitType = 'Select Option';
+    $scope.data.visitDate = new Date();
 
     $scope.data.boxType = foundHousehold.defaultBox;
     if (foundHousehold.commodityAvailability && foundHousehold.commodityAvailability.length > 0) {
@@ -83,7 +84,7 @@ angular.module('clientController')
       Head_Start_FORWARDSLASH_ECEAP: false,
       Healthcare: false,
       Home_Improvement: false,
-      Housing: false,
+      Housing_Pool: false,
       Kinship: false,
       Landlord_Tenant: false,
       Mental_Health: false,
@@ -316,7 +317,12 @@ angular.module('clientController')
           return;
         }
   
-        fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false, $scope.data.visitType, services, referrals, serviceLocation);
+        var year = $scope.data.visitDate.getFullYear() + "";
+        var month = ($scope.data.visitDate.getMonth() + 1) + "";
+        var day = $scope.data.visitDate.getDate() + "";
+        var safeDate = year + "-" + month + "-" + day
+  
+        fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false, $scope.data.visitType, safeDate, services, referrals, serviceLocation);
         $window.scrollTo(0,0);
         $alert({
           title: 'Checked in!',
@@ -372,7 +378,12 @@ angular.module('clientController')
         $scope.data.visitType = '';
       }
 
-      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.data.boxType, 0, 0, comms, $scope.data.visitType, $scope.data.visitNotes, services, referrals, serviceLocation, $scope.settings.user_email).then(
+      var year = $scope.data.visitDate.getFullYear() + "";
+      var month = ($scope.data.visitDate.getMonth() + 1) + "";
+      var day = $scope.data.visitDate.getDate() + "";
+      var safeDate = year + "-" + month + "-" + day
+
+      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.data.boxType, 0, 0, comms, $scope.data.visitType, safeDate, $scope.data.visitNotes, services, referrals, serviceLocation, $scope.settings.user_email).then(
         function(result){
           $scope.logging = false;
           $window.scrollTo(0,0);
