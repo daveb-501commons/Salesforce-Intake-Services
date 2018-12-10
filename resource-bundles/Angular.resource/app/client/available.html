@@ -33,6 +33,18 @@
                                 </td></tr>
                                 <tr><td>
                                     <div class="form-group">
+                                        <input type="checkbox" name="Homeless_Verification_Form_Given_to_Client" ng-model="data.new_services.Homeless_Verification_Form_Given_to_Client"></input>
+                                        <label>Homeless Verification Form Given to Client</label>
+                                    </div>
+                                </td></tr>
+                                <tr><td>
+                                    <div ng-show="serviceLocation == 'Bellingham'" class="form-group">
+                                        <input type="checkbox" name="Housing_Assessment" ng-model="data.new_services.Housing_Assessment"></input>
+                                        <label>Housing Assessment</label>
+                                    </div>
+                                </td></tr>
+                                <tr><td>
+                                    <div class="form-group">
                                         <input type="checkbox" name="Housing_Intake" ng-model="data.new_services.Housing_Intake"></input>
                                         <label>Housing Intake</label>
                                     </div>
@@ -106,8 +118,8 @@
                                 </td></tr>
                                 <tr><td>
                                     <div class="form-group">
-                                        <input type="checkbox" name="Childcare" ng-model="data.new_referrals.Childcare"></input>
-                                        <label>Childcare</label>
+                                        <input type="checkbox" name="Basic_Needs" ng-model="data.new_referrals.Basic_Needs"></input>
+                                        <label>Basic Needs</label>
                                     </div>
                                 </td></tr>
                                 <tr><td>
@@ -130,14 +142,8 @@
                                 </td></tr>
                                 <tr><td>
                                     <div class="form-group">
-                                        <input type="checkbox" name="Early_Head_Start" ng-model="data.new_referrals.Early_Head_Start"></input>
-                                        <label>Early Head Start</label>
-                                    </div>
-                                </td></tr>
-                                <tr><td>
-                                    <div class="form-group">
-                                        <input type="checkbox" name="Emergency_Child_Care_Voucher" ng-model="data.new_referrals.Emergency_Child_Care_Voucher"></input>
-                                        <label>Emergency Child Care Voucher</label>
+                                        <input type="checkbox" name="Early_Learning" ng-model="data.new_referrals.Early_Learning"></input>
+                                        <label>Early Learning</label>
                                     </div>
                                 </td></tr>
                                 <tr><td>
@@ -217,8 +223,8 @@
                                 </td></tr>
                                 <tr><td>
                                     <div class="form-group">
-                                        <input type="checkbox" name="Other_Early_Learning" ng-model="data.new_referrals.Other_Early_Learning"></input>
-                                        <label>Other Early Learning</label>
+                                        <input type="checkbox" name="Other" ng-model="data.new_referrals.Other"></input>
+                                        <label>Other</label>
                                     </div>
                                 </td></tr>
                                 <tr><td>
@@ -231,12 +237,6 @@
                                     <div class="form-group">
                                         <input type="checkbox" name="Other_Utility" ng-model="data.new_referrals.Other_Utility"></input>
                                         <label>Other Utility</label>
-                                    </div>
-                                </td></tr>
-                                <tr><td>
-                                    <div class="form-group">
-                                        <input type="checkbox" name="SEAS" ng-model="data.new_referrals.SEAS"></input>
-                                        <label>SEAS</label>
                                     </div>
                                 </td></tr>
                                 <tr><td>

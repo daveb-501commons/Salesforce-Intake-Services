@@ -35,19 +35,19 @@ angular.module('logVisitController')
       Eviction_Prevention_Screening: false,
       Ferry_Pass: false,
       Health_Plan_Finder: false,
+      Homeless_Verification_Form_Given_to_Client: false,
+      Housing_Assessment: false,
       Housing_Intake: false,
       Landlord_Tenant_Education: false,
       Salvation_Army_Voucher: false
     };
     $scope.data.new_referrals = {
       Adult_Education: false,
-      Adult_Education: false,
-      Childcare: false,
+      Basic_Needs: false,
       Coordinated_Entry: false,
       Domestic_Violence_Services: false,
       DSHS: false,
-      Early_Head_Start: false,
-      Emergency_Child_Care_Voucher: false,
+      Early_Learning: false,
       Employment: false,
       Energy_Assistance: false,
       Financial_Literacy: false,
@@ -59,10 +59,9 @@ angular.module('logVisitController')
       Kinship: false,
       Landlord_Tenant: false,
       Mental_Health: false,
-      Other_Early_Learning: false,
+      Other: false,
       Other_Legal: false,
       Other_Utility: false,
-      SEAS: false,
       Veterans_Services: false,
       Youth_Programs: false
     };

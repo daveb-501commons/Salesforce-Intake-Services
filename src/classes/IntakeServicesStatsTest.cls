@@ -27,7 +27,7 @@ public with sharing class IntakeServicesStatsTest {
 		insert checkin1;
 		
         Map<String, Integer> commU = new Map<String, Integer>();
-        Id cVId = IntakeServices.logVisit(hh.Id, contact.Id, 'small', 1.5, 5, commU, 'Other', '2018-01-01', 'These are notes', new List<String> {'Housing Intake'}, new List<String>{'Childcare'}, 'Location', 'Intake');
+        Id cVId = IntakeServices.logVisit(hh.Id, contact.Id, 'small', 1.5, 5, commU, 'Other', '2018-01-01', 'These are notes', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham', 'Intake');
 
 		ApexPages.CurrentPage().getParameters().put('tfcode','TODAY');
 		IntakeServicesStats fbs = new IntakeServicesStats();
