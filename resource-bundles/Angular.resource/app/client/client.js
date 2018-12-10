@@ -97,6 +97,10 @@ angular.module('clientController')
       Youth_Programs: false
     };
 
+    $scope.validDate = function (date) {
+      return (date == null) ? false : true;
+    };
+
     $scope.data.memberList = [];
     _.forEach(foundHousehold.members, function(v) {
       $scope.data.memberList.push({

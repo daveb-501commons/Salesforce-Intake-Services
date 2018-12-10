@@ -24,8 +24,10 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="service in data.services" >
-                        <td>{{service.startdate | date:'MMMM dd, yyyy' }}</td>
-                        <td>{{service.enddate | date:'MMMM dd, yyyy' }}</td>
+                        <td ng-show="validDate(service.startdate)">{{service.startdate | date:'MMMM dd, yyyy' }}</td>
+                        <td ng-show="!validDate(service.startdate)"></td>
+                        <td ng-show="validDate(service.endDate)">{{service.enddate | date:'MMMM dd, yyyy' }}</td>
+                        <td ng-show="!validDate(service.endDate)"></td>
                         <td ng-show="service.isactiveDisplay" class="text-center">Yes</td>
                         <td ng-show="!service.isactiveDisplay" class="text-center">No</td>
                         <td class="text-center">{{service.name}}</td>
