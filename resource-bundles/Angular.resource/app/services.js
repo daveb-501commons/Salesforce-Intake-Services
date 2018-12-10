@@ -162,6 +162,7 @@ angular.module('appServices')
 
         settings.commodities = [];
         _.forEach(result.commodities, function(c){
+
           settings.commodities.push({
             'name': c.Name,
             'allowOverage': c.Allow_Overage__c,

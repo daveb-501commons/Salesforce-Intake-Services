@@ -14,6 +14,7 @@ angular.module('logVisitController')
       
     $scope.data = {};
     $scope.data.household = foundHousehold;
+    $scope.data.serviceLocation = serviceLocation;
     $scope.data.visitDate = new Date();
 
     $scope.settings = foundSettings;

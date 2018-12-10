@@ -37,6 +37,7 @@ angular.module('clientController')
   
     $scope.data = {};
     $scope.data.household = foundHousehold;
+    $scope.data.serviceLocation = serviceLocation;
 
     $scope.status = {};
     $scope.data.commodities = foundSettings.commodities;

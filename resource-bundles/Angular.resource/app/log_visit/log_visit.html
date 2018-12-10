@@ -183,8 +183,12 @@
                                     <tbody>
                                         <tr ng-repeat="comm in commodities" 
                                             ng-class="{danger: !comm.remaining, warning: (comm.remaining > 0 && comm.remaining < comm.monthlyLimit)}"
-                                            ng-form="commForm">
-                                            
+                                            ng-form="commForm"
+                                            ng-show="
+                                                (data.serviceLocation == 'Bellingham' && (comm.name == 'Bus Pass (Daily)' || comm.name == 'Diapers'))
+                                                || (data.serviceLocation == 'East Whatcom' && (comm.name == 'Bus Pass (Daily)' || comm.name == 'Emergency Food Box'))
+                                                || (data.serviceLocation == 'Island' && (comm.name == 'Dump Pass'))">
+
                                             <td style="vertical-align: middle;">{{comm.name}}</td>
                                             <td class="text-center" style="vertical-align: middle;">{{comm.remaining}}</td>
                                             <td>
