@@ -38,8 +38,8 @@
                                         <label>Given to Client</label>
                                     </div>
                                 </td></tr>
-                                <tr><td>
-                                    <div ng-show="serviceLocation == 'Bellingham'" class="form-group">
+                                <tr ng-show="data.serviceLocation == 'Bellingham'"><td>
+                                    <div class="form-group">
                                         <input type="checkbox" name="Housing_Assessment" ng-model="data.new_services.Housing_Assessment"></input>
                                         <label>Housing Assessment</label>
                                     </div>
@@ -56,10 +56,10 @@
                                         <label>Landlord Tenant Education</label>
                                     </div>
                                 </td></tr>
-                                <tr><td>
+                                <tr ng-show="data.serviceLocation == 'Island'"><td>
                                     <div class="form-group">
                                         <input type="checkbox" name="Salvation_Army_Voucher" ng-model="data.new_services.Salvation_Army_Voucher"></input>
-                                        <label>Salvation Army Voucher (Island Only)</label>
+                                        <label>Salvation Army Voucher</label>
                                     </div>
                                 </td></tr>
                             </table>
