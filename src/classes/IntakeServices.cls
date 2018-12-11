@@ -39,7 +39,7 @@ public with sharing class IntakeServices {
             }
 
             ClientCheckin cc = new ClientCheckin();
-            cc.clientId = fbc.name;
+            cc.clientId = (fbc.C501_IS_Household__c != null) ? fbc.C501_IS_Household__c : fbc.name;
             cc.clientContactId = fbc.C501_IS_Visitor__c;
             cc.name = IntakeServices.getContactName(fbc.C501_IS_Visitor__c);
             cc.pointsRemaining = fbc.Points_Remaining__c;
@@ -108,7 +108,11 @@ public with sharing class IntakeServices {
             hh.C501_IS_Monthly_Points_Available__c = getMonthlyPoints( hh );
 
         // Get any Checkin Commodities Pending
-        Intake_Services_Checkin__c fbc = Intake_Services_Checkin__c.getInstance( hhid );
+        Intake_Services_Checkin__c fbc = null;
+        List<Intake_Services_Checkin__c> intakes = [Select Id, C501_IS_Commodity_Usage_JSON__c, C501_IS_Notes__c  From Intake_Services_Checkin__c where (Name = :hhid or C501_IS_Household__c = :hhid)];
+        if (!intakes.isEmpty()) {
+            fbc = intakes[0];
+        }
         if (fbc != null) {
             hh.C501_IS_Pending_Commodity_Usage_JSON__c = fbc.C501_IS_Commodity_Usage_JSON__c; 
             hh.C501_IS_Pending_Notes__c = fbc.C501_IS_Notes__c; 
@@ -265,22 +269,28 @@ public with sharing class IntakeServices {
     @RemoteAction
     public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff, String visitType, String visitDate, String[] services, String[] referrals, String serviceLocation) {
 
-        Intake_Services_Checkin__c fbc = new Intake_Services_Checkin__c();
+        system.debug('***** IntakeServices::checkIn');
 
         Account hh =
             [select id, Name, C501_IS_Adults__c, C501_IS_Seniors__c, C501_IS_Children__c, C501_IS_Infants__c,
                 (select C501_IS_Points_Used__c from Visits__r where C501_IS_Visit_Date__c = THIS_MONTH)
                 from Account where id = :hhid];
 
-        Intake_Services_Checkin__c intake = Intake_Services_Checkin__c.getInstance( hhid );
-        if (intake != null) {
+        Intake_Services_Checkin__c fbc = new Intake_Services_Checkin__c();
+        List<Intake_Services_Checkin__c> intakes = [Select Id, C501_IS_Commodity_Usage_JSON__c, Points_Remaining__c from Intake_Services_Checkin__c where (Name = :hhid or C501_IS_Household__c = :hhid) and C501_IS_Service_Location__c = :serviceLocation];
+        if (!intakes.isEmpty()) {
+            system.debug('***** IntakeServices::checkIn - update checkin');
+            fbc = intakes[0];
 
-            intake.Check_In_Time_With_Staff__c = system.now();
-            intake.C501_With_Staff__c = withStaff;
+            fbc.Check_In_Time_With_Staff__c = system.now();
+            fbc.C501_With_Staff__c = withStaff;
 
-            update intake;
+            update fbc;
         } else {
-            fbc.name = hhid;
+            system.debug('***** IntakeServices::checkIn - insert checkin');
+
+            fbc.name = hhid + serviceLocation;
+            fbc.C501_IS_Household__c = hhid;
             fbc.Points_Remaining__c = getMonthlyPoints( hh );
             for (Client_Visit__c cv : hh.Visits__r)
                 if (cv.C501_IS_Points_Used__c != null) fbc.Points_Remaining__c -= cv.C501_IS_Points_Used__c;
@@ -308,6 +318,8 @@ public with sharing class IntakeServices {
             if (commodityUsage != null && !commodityUsage.isEmpty()) {
                 for (String commodity : commodityUsage.keySet()) {
 
+                    system.debug('***** IntakeServices::checkIn - insert commodity: ' + commodity);
+
                     String cleanService = commodity
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
@@ -329,6 +341,8 @@ public with sharing class IntakeServices {
             if (services != null) {
                 for (String service : services) {
 
+                    system.debug('***** IntakeServices::checkIn - insert service: ' + service);
+
                     String cleanService = service
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
@@ -349,6 +363,8 @@ public with sharing class IntakeServices {
 
             if (referrals != null) {
                 for (String service : referrals) {
+
+                    system.debug('***** IntakeServices::checkIn - insert referral: ' + service);
 
                     String cleanService = service
                         .replace('_FORWARDSLASH_', '/')
@@ -374,8 +390,8 @@ public with sharing class IntakeServices {
 
     @RemoteAction
     public static void cancelCheckIn( Id hhid ) {
-        Intake_Services_Checkin__c fbc = Intake_Services_Checkin__c.getInstance( hhid );
-        if (fbc != null) delete fbc;
+        List<Intake_Services_Checkin__c> intakes = [Select Id From Intake_Services_Checkin__c where (Name = :hhid or C501_IS_Household__c = :hhid)];
+        if (!intakes.isEmpty()) delete intakes;
     }
 
     @RemoteAction
@@ -402,6 +418,7 @@ public with sharing class IntakeServices {
         public String value;
         public String name;
         public String addr;
+        public Date birthdate;
         //public list<String> tags;
     }
 
@@ -426,7 +443,7 @@ public with sharing class IntakeServices {
             [FIND :(query + '* OR ' + halfquery + '*') 
                 RETURNING Contact( 
                     Name, C501_IS_Id_Number__c, MailingStreet,
-                    Account.Name, Account.Id, Email, FORMAT(Birthdate),
+                    Account.Name, Account.Id, Email, C501_Birthdate_Searchable__c,
                     C501_Partial_Social_Security_Id__c, Phone
                 WHERE Account.C501_IS_Inactive__c != true 
                 ORDER BY Name)];
@@ -492,8 +509,10 @@ public with sharing class IntakeServices {
             contactid = null;
         }
 
-        Intake_Services_Checkin__c fbc = Intake_Services_Checkin__c.getInstance( hhid );
-        if (fbc != null) {
+        Intake_Services_Checkin__c fbc = new Intake_Services_Checkin__c();
+        List<Intake_Services_Checkin__c> intakes = [Select Id , C501_IS_Visitor__c, C501_IS_Visit_Type__c, Check_In_Time__c, C501_IS_Commodity_Usage_JSON__c from Intake_Services_Checkin__c where (Name = :hhid or C501_IS_Household__c = :hhid) and C501_IS_Service_Location__c = :serviceLocation];
+        if (!intakes.isEmpty()) {
+            fbc = intakes[0];
             c = [select id from Contact where id = :fbc.C501_IS_Visitor__c];
             if (!c.isEmpty()) {
                 fbc.C501_IS_Visitor__c = null;

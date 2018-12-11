@@ -21,13 +21,13 @@ public with sharing class IntakeServicesTest {
 
         // Test CheckIn & CheckOut
         IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other', '2018-01-01', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham');
-        System.assert(Intake_Services_Checkin__c.getInstance(cHh.Id) != null);
+        System.assert(Intake_Services_Checkin__c.getInstance(cHh.Id + 'Bellingham') != null);
 
         // Attempt to CheckIn again should not throw error and just update existing record
         IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other', '2018-01-01', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham');
 
         IntakeServices.cancelCheckIn(cHh.Id);
-        System.assert(Intake_Services_Checkin__c.getInstance(cHh.Id) == null);
+        System.assert(Intake_Services_Checkin__c.getInstance(cHh.Id + 'Bellingham') == null);
     }
 
     @isTest

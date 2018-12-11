@@ -439,13 +439,13 @@
     </listViews>
     <listViews>
         <fullName>All1</fullName>
-        <filterScope>Everything</filterScope>
         <columns>NAME</columns>
         <columns>C501_IS_Visitor__c</columns>
         <columns>C501_IS_Household__c</columns>
         <columns>C501_IS_Visit_Date__c</columns>
         <columns>C501_IS_Visit_Type__c</columns>
         <columns>C501_IS_Service_Location__c</columns>
+        <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
     <listViews>
