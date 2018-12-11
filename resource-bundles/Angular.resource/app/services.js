@@ -452,15 +452,20 @@ angular.module('appServices')
       return jsRemoting.invoke('getServiceHistory', hhid, function(result){
         var services = [];
         _.forEach(result, function(result){
-          services.push({
-            // + 12 hours to make sure rounding to correct day since Date parses the value as GMT then converts to Browser Time Zone (Pacific)
-            'startdate': (result.C501_Start_Date__c == null) ? null : new Date(result.C501_Start_Date__c + (12 * 60 * 60 * 1000)),
-            'enddate': (result.C501_End_Date__c == null) ? null : new Date(result.C501_End_Date__c + (12 * 60 * 60 * 1000)),
-            'isactive': result.C501_IsActive__c,
-            'name': result.Name,
-            'caseworker': result.C501_Case_Worker__c
-          });
+          
+          // Filter out Change Requests
+          if (result.Name.indexOf('Change') < 0) {
+            services.push({
+              // + 12 hours to make sure rounding to correct day since Date parses the value as GMT then converts to Browser Time Zone (Pacific)
+              'startdate': (result.C501_Start_Date__c == null) ? null : new Date(result.C501_Start_Date__c + (12 * 60 * 60 * 1000)),
+              'enddate': (result.C501_End_Date__c == null) ? null : new Date(result.C501_End_Date__c + (12 * 60 * 60 * 1000)),
+              'isactive': result.C501_IsActive__c,
+              'name': result.Name,
+              'caseworker': result.C501_Case_Worker__c
+            });
+          }
         });
+
         return services;
       });
     };
