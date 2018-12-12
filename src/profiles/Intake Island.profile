@@ -346,11 +346,11 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>IntakeServicesApp_Bellingham</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>IntakeServicesApp_EastWhatcom</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>IntakeServicesApp_Island</apexPage>
@@ -374,11 +374,11 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>Intake_Services_App_Bellingham</tab>
-        <visibility>DefaultOn</visibility>
+        <visibility>DefaultOff</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>Intake_Services_App_EastWhatcom</tab>
-        <visibility>DefaultOn</visibility>
+        <visibility>DefaultOff</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>Intake_Services_App_Island</tab>

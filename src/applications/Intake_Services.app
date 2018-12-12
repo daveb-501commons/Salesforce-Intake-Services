@@ -16,6 +16,5 @@
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>
     <tabs>standard-report</tabs>
-    <tabs>npsp__Contact_Merge</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>

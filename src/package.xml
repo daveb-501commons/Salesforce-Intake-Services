@@ -162,7 +162,9 @@
         <name>ListView</name>
     </types>
     <types>
-        <members>Admin</members>
+        <members>Intake Bellingham</members>
+        <members>Intake East Whatcom</members>
+        <members>Intake Island</members>
         <members>Intake Services Admin</members>
         <members>Intake Services Standard User</members>
         <name>Profile</name>
