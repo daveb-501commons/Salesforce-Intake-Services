@@ -418,7 +418,6 @@ public with sharing class IntakeServices {
         public String value;
         public String name;
         public String addr;
-        public Date birthdate;
         //public list<String> tags;
     }
 
@@ -440,10 +439,12 @@ public with sharing class IntakeServices {
 
         // Expand to return all Clients for a household
         List<List<SObject>> resultList =
-            [FIND :(query + '* OR ' + halfquery + '*') 
+//            [FIND :(query + '* OR ' + halfquery + '*') 
+            [FIND :(query + '*') 
                 RETURNING Contact( 
                     Name, C501_IS_Id_Number__c, MailingStreet,
-                    Account.Name, Account.Id, Email, C501_Birthdate_Searchable__c,
+                    Account.Name, Account.Id, Email,
+                    C501_IS_Birthdate_Searchable__c, C501_IS_Other_Names_Searchable__c,
                     C501_Partial_Social_Security_Id__c, Phone
                 WHERE Account.C501_IS_Inactive__c != true 
                 ORDER BY Name)];

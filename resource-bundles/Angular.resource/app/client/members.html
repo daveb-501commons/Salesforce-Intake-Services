@@ -28,18 +28,18 @@
         <table class="table table-condensed" style="margin-bottom:12px;table-layout: fixed; width: 100%">
             <thead>
                 <tr>
-                    <th style="width:25%" ng-if="!status.editingMembers">Name</th>
-                    <th style="width:14%" ng-if="status.editingMembers">First</th>
-                    <th style="width:14%" ng-if="status.editingMembers">Last</th>
-                    <th style="width:20%">Birthdate</th>
-                    <th style="width:14%">Gender</th>
-                    <th style="width:12%">Ethnicity</th>
-                    <th style="width:12%">Race</th>
-                    <th style="width:12%">Veteran</th>
-                    <th style="width:15%">Email</th>
-                    <th style="width:15%">Phone</th>
-                    <th style="width:12%">In HH</th>
-                    <th style="width:6%" ng-if="status.editingMembers"></th>
+                    <th style="width:20%" ng-if="!status.editingMembers">Name</th>
+                    <th style="width:10%" ng-if="status.editingMembers">First</th>
+                    <th style="width:10%" ng-if="status.editingMembers">Last</th>
+                    <th style="width:10%">Birthdate</th>
+                    <th style="width:9%">Gender</th>
+                    <th style="width:9%">Ethnicity</th>
+                    <th style="width:9%">Race</th>
+                    <th style="width:9%">Veteran</th>
+                    <th style="width:10%">Email</th>
+                    <th style="width:10%">Phone</th>
+                    <th style="width:9%">In HH</th>
+                    <th style="width:5%" ng-if="status.editingMembers"></th>
                 </tr>
             </thead>
             <tbody>
@@ -54,11 +54,7 @@
                     <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.veteran}}</td>
                     <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.email}}</td>
                     <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.phone}}</td>
-                    <td style="word-wrap: break-word" ng-if="!status.editingMembers">
-                        <input ng-model="person.memberData.inhh" type="checkbox"
-                        class="form-control input-sm" name="inhh"
-                        ng-maxlength="50" ng-required required>
-                    </td>
+                    <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.inhh}}</td>
 
                     <td ng-if="status.editingMembers">
                         <input ng-model="person.memberDataEditable.firstName" type="text" class="form-control input-sm"
@@ -109,9 +105,10 @@
                             ng-maxlength="50" ng-required required>
                     </td>
                     <td ng-if="status.editingMembers">
-                        <input ng-model="person.memberData.inhh" type="checkbox"
-                            class="form-control input-sm" name="inhh"
-                            ng-maxlength="50" ng-required required>
+                        <select ng-model="person.memberData.inhh" class="form-control input-sm"
+                            name="inhh" ng-options="i for i in ['Yes','No']">
+                            <option value="">-</option>
+                        </select>
                     </td>
 
                     <td ng-if="status.editingMembers && data.memberList.length > 1" class="text-right">

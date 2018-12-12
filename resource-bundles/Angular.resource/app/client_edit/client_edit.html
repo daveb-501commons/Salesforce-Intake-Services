@@ -26,7 +26,7 @@
             <a class="btn btn-success" ng-click="cancelEdit()">Cancel</a>
         </div>
         <div class="panel-body" ng-show="data.household">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="panel panel-warning" >
                     <div class="panel-heading">
                         <div class="row">
@@ -39,15 +39,16 @@
                         <table class="table table-condensed" style="margin-bottom:12px;">
                             <thead>
                                 <tr>
-                                    <th style="width:14%">First</th>
-                                    <th style="width:14%">Last</th>
-                                    <th style="width:20%">Birthdate</th>
-                                    <th style="width:14%">Gender</th>
-                                    <th style="width:12%">Ethnicity</th>
-                                    <th style="width:12%">Race</th>
-                                    <th style="width:12%">Veteran</th>
-                                    <th style="width:15%">Email</th>
-                                    <th style="width:15%">Phone</th>
+                                    <th style="width:10%">First</th>
+                                    <th style="width:10%">Last</th>
+                                    <th style="width:13%">Birthdate</th>
+                                    <th style="width:9%">Gender</th>
+                                    <th style="width:9%">Ethnicity</th>
+                                    <th style="width:9%">Race</th>
+                                    <th style="width:9%">Veteran</th>
+                                    <th style="width:11%">Email</th>
+                                    <th style="width:11%">Phone</th>
+                                    <th style="width:9%">In HH</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,7 +103,13 @@
                                             class="form-control input-sm" name="phone"
                                             ng-maxlength="50" ng-required required>
                                     </td>
-
+                                    <td>
+                                        <select ng-model="person.memberData.inhh" class="form-control input-sm"
+                                            name="inhh" ng-options="i for i in ['Yes','No']">
+                                            <option value="">-</option>
+                                        </select>
+                                    </td>
+    
                                     <td class="text-right" ng-show="data.memberList.length > 1">
                                         <button class="btn btn-danger btn-sm"
                                             style="font-size: 12px; padding: 4px 8px;"
@@ -129,17 +136,17 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div class="form-group col-sm-8">
+                        <div class="form-group col-sm-12">
                             <label>Address</label>
                             <input type="text" class="form-control" name="address" placeholder="0000 Main St"
                                 ng-maxlength="50" ng-model="data.household.address"
                                 ng-disabled="data.household.homeless" autofocus="autofocus">
                         </div>
-                        <div class="form-group col-sm-4 text-left">
+                        <div class="form-group col-sm-12 text-left">
                             <input type="checkbox" name="homeless" ng-model="data.household.homeless"></input>&nbsp;
                             <label>Homeless</label>
                         </div>
-                        <div class="form-group col-sm-4 text-left">
+                        <div class="form-group col-sm-12 text-left">
                             <input type="checkbox" name="outofarea" ng-model="data.household.outofarea"></input>&nbsp;
                             <label>Out of Area</label>
                         </div>
@@ -153,7 +160,7 @@
                             <input type="text" class="form-control" name="state" placeholder="US"
                                 ng-maxlength="50" ng-model="data.household.state">
                         </div>
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-12">
                             <label>Zip</label>
                             <input type="text" class="form-control" name="postalCode" placeholder="00000"
                                 ng-maxlength="20" ng-model="data.household.postalCode">
@@ -171,7 +178,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-12">
                 <div class="panel panel-warning" ng-if="settings.tags">
                     <div class="panel-heading">
                         <div class="row">

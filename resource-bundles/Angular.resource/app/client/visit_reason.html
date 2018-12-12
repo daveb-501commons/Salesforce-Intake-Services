@@ -8,20 +8,20 @@
     </div>
     <div class="panel-body">
         <form name="visitForm">
-            <label>
-                Visit Reason: 
+            <label class="col-sm-2 control-label">Visit Reason</label>
+            <div class="col-sm-3">
                 <select ng-model="data.visitType" class="form-control input-sm"
                     name="visitType" 
                     ng-options="g for g in ['Select Option', 'Basic Food Applications', 'Eviction Prevention Screening', 'Ferry Pass', 'Health Plan Finder', 'Housing Intake', 'Landlord Tenant Education', 'Salvation Army Voucher (Island Only)', 'Phone Call', 'Other']">
                 </select>
-            </label>
-            <label>
-                Visit Date: 
+            </div>
+            <label class="col-sm-2 control-label">Visit Date</label>
+            <div class="col-sm-3">
                 <input type="date"
                     class="form-control input-sm"
                     ng-model="data.visitDate"
                     placeholder="M/dd/yyyy" min="2018-01-01" />
-            </label>
+            </div>
         </form>
     </div>
 </div>

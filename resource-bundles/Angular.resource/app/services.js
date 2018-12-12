@@ -233,6 +233,12 @@ angular.module('appServices')
           C501_IS_Gender__c: mobj.gender,
           C501_IS_Age__c: mobj.age,
           birthdate: (mobj.birthdate) ? mobj.birthdate.getTime() : Date.MIN_BIRTHDATE,
+          C501_Ethnicity__c: mobj.ethnicity,
+          C501_Race__c :mobj.race,
+          C501_Military_Status__c :mobj.veteran,
+          C501_Is_In_Household__c :(mobj.inhh == 'No') ? false : true,
+          Email :mobj.email,
+          Phone :mobj.phone,
           C501_IS_Proof_of_Infant__c: mobj.proofOfInfant
         };
         if (mobj.id) sobj.Id = mobj.id;
@@ -297,7 +303,7 @@ angular.module('appServices')
             ethnicity: v.C501_Ethnicity__c,
             race: v.C501_Race__c,
             veteran: v.C501_Military_Status__c,
-            inhh: v.C501_Is_In_Household__c,
+            inhh: (v.C501_Is_In_Household__c == null || !v.C501_Is_In_Household__c) ? 'No' : 'Yes',
             email: v.Email,
             phone: v.Phone,
             // v.Birthdate + 12 hours to make sure rounding to correct day since Date parses the value as GMT then converts to Browser Time Zone (Pacific)

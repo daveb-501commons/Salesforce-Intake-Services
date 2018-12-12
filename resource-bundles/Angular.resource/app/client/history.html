@@ -15,11 +15,11 @@
             <table class="table table-condensed" ng-show="status.queriedServices && data.services.length > 0">
                 <thead>
                     <tr>
-                        <th style="min-width:148px;">Start</th>
-                        <th style="min-width:148px;">End</th>
-                        <th class="text-center" >Active</th>
-                        <th class="text-center" >Service</th>
-                        <th class="text-center" >Case Worker</th>
+                        <th style="width:20%">Start</th>
+                        <th style="width:20%">End</th>
+                        <th style="width:5%" class="text-center" >Active</th>
+                        <th style="width:35%" class="text-center" >Service</th>
+                        <th style="width:20%" class="text-center" >Case Worker</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,12 +53,12 @@
             <table class="table table-condensed" ng-show="status.queriedVisits && data.visits.length > 0">
                 <thead>
                     <tr>
-                        <th style="min-width:148px;">Date</th>
-                        <th class="text-center" >Visitor</th>
-                        <th class="text-center" ng-if="settings.boxes.length > 0">Box Type/Size</th>
-                        <th class="text-center" ng-if="settings.general.trackCheckoutWeight">Checkout Weight</th>
-                        <th class="text-center" ng-if="settings.general.trackPoints">Points Used</th>
-                        <th>Notes</th>
+                        <th style="width:10%">Date</th>
+                        <th style="width:10%" class="text-center" >Visitor</th>
+                        <th style="width:15%" class="text-center" ng-if="settings.boxes.length > 0">Box Type/Size</th>
+                        <th style="width:15%" class="text-center" ng-if="settings.general.trackCheckoutWeight">Checkout Weight</th>
+                        <th style="width:15%" class="text-center" ng-if="settings.general.trackPoints">Points Used</th>
+                        <th style="width:25%">Notes</th>
                     </tr>
                 </thead>
                 <tbody>
