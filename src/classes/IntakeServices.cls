@@ -145,11 +145,28 @@ public with sharing class IntakeServices {
 
     @RemoteAction
     public static list<C501_Service_Household__c> getServiceHistory( Id hhid ) {
-        
+
+        Set<Id> serviceHouseholdIds = new Set<Id>();
+        for (C501_Service_Contact__c serviceContact :[
+            SELECT C501_Service_Household_Id__r.Id
+            FROM C501_Service_Contact__c
+            WHERE C501_Contact__r.AccountId = :hhid]) {
+
+            serviceHouseholdIds.add(serviceContact.C501_Service_Household_Id__r.Id);
+        }
+
+        for (C501_Service_Household__c serviceHousehold :[
+            SELECT Id
+            FROM C501_Service_Household__c
+            WHERE C501_Household__c = :hhid]) {
+
+            serviceHouseholdIds.add(serviceHousehold.Id);
+        }
+
         return
             [select Id, Name, C501_Case_Worker__c, C501_Start_Date__c, C501_End_Date__c, C501_IsActive__c
                 from C501_Service_Household__c
-                where C501_Household__c = :hhid
+                where Id in :serviceHouseholdIds
                 order by C501_Start_Date__c DESC limit 20];
     }
 
