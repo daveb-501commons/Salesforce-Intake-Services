@@ -8,10 +8,6 @@ public with sharing class IntakeServices {
 
     private map<String, String> params = ApexPages.CurrentPage().getParameters();
 
-    private void CreateServiceContacts(Id serviceHouseholdId, Id householdId) {
-
-    }
-
     public Class ClientCheckin {
         public Id clientId { get; private set; }
         public Id clientContactId { get; private set; }
@@ -25,6 +21,140 @@ public with sharing class IntakeServices {
         public DateTime checkInTimeWithStaff { get; private set; }
         public Boolean withStaff { get; private set; }
     }
+
+    //
+    //  Location for optimzation - same Fx in  https://github.com/501Commons/Salesforce-Service-Management/src/C501_TriggerHelper.cls
+    //      Optimization is to have a single function return the query and then walk through the fields in a loop and set the values without explicitly referencing the api name - refer to MMA project
+    //
+    private static void CreateServiceContacts(C501_Service_Household__c serviceHousehold, Id householdId) {
+
+        system.debug('***** IntakeServices::CreateServiceContacts');
+
+        List<Contact> householdContacts = [SELECT 
+					Account.Id, Account.npe01__One2OneContact__c,
+					AccountId, Id, Name,
+					FirstName, LastName, MiddleName, C501_FirstName_Initial__c,
+					Birthdate, C501_IS_Birthdate_Searchable__c, C501_IS_Other_Names_Searchable__c,
+					C501_Partial_Social_Security_Id__c, C501_Order__c,
+					C501_Age__c, C501_Military_Status__c, C501_Disabling_Condition_Special_Needs__c,
+					C501_Developmental_Disability__c, C501_Medicaid__c, C501_Medicare__c,
+					C501_Education_Level__c, C501_Health_Insurance__c, C501_Race__c, C501_Ethnicity__c, Gender__c,
+					C501_Preferred_Language__c, C501_Additional_Languages__c,
+					C501_Work_Status__c, C501_Case_Worker__c, C501_Is_In_Household__c
+				FROM Contact
+				WHERE AccountId = :householdId];
+
+        List<C501_Service_Contact__c> insertServiceContacts = new List<C501_Service_Contact__c>();
+        for (Contact contactRecord :householdContacts) {
+
+            C501_Service_Contact__c sc = new C501_Service_Contact__c(
+                Name = serviceHousehold.Name,
+                C501_Service_Id__c = serviceHousehold.C501_Service_Id__c,
+                C501_Contact__c = contactRecord.Id,
+                C501_Contact_Id__c = 'TEMP: ' + contactRecord.Id,
+                C501_Service_Household_Id__c = serviceHousehold.Id,
+                C501_Trigger_Ignore_Change__c = true
+            );
+            CopyFieldsContact2ServiceContact(contactRecord, sc);
+
+            insertServiceContacts.add(sc);
+        }
+
+        if (!insertServiceContacts.isEmpty()) {
+            insert insertServiceContacts;
+        }
+    }
+
+    //
+    //  Location for optimzation - same Fx in  https://github.com/501Commons/Salesforce-Service-Management/src/C501_TriggerHelper.cls
+    //      Optimization is to have a single function return the query and then walk through the fields in a loop and set the values without explicitly referencing the api name - refer to MMA project
+    //
+	private static void CopyFieldsContact2ServiceContact(Contact c, C501_Service_Contact__c sc) {
+
+        system.debug('***** IntakeServices::CopyFieldsContact2ServiceContact');
+
+        sc.C501_First_Name__c = c.FirstName;
+        sc.C501_FirstName_Initial__c = c.C501_FirstName_Initial__c;
+        sc.C501_Last_Name__c = c.LastName;
+        sc.C501_Middle_Name__c = c.MiddleName;
+        sc.C501_Birthdate__c = c.Birthdate;
+        sc.C501_Is_In_Household__c = c.C501_Is_In_Household__c;
+        sc.C501_Partial_Social_Security_Id__c = c.C501_Partial_Social_Security_Id__c;
+        sc.C501_Order__c = c.C501_Order__c;
+        sc.C501_Age__c = c.C501_Age__c;
+        sc.C501_Military_Status__c = c.C501_Military_Status__c;
+        sc.C501_Disabling_Condition_Special_Needs__c = c.C501_Disabling_Condition_Special_Needs__c;
+        sc.C501_Education_Level__c = c.C501_Education_Level__c;
+        sc.C501_Developmental_Disability__c = c.C501_Developmental_Disability__c;
+        sc.C501_Medicare__c = c.C501_Medicare__c;
+        sc.C501_Medicaid__c = c.C501_Medicaid__c;
+        sc.C501_Health_Insurance__c = c.C501_Health_Insurance__c;
+        sc.C501_Race__c = c.C501_Race__c;
+        sc.C501_Ethnicity__c = c.C501_Ethnicity__c;
+        sc.C501_Gender__c = c.Gender__c;
+        sc.C501_Preferred_Language__c = c.C501_Preferred_Language__c;
+        sc.C501_Additional_Languages__c = c.C501_Additional_Languages__c;
+        sc.C501_Work_Status__c = c.C501_Work_Status__c;
+        sc.C501_Case_Worker__c = c.C501_Case_Worker__c;
+	}
+
+    //
+    //  Location for optimzation - same Fx in  https://github.com/501Commons/Salesforce-Service-Management/src/C501_TriggerHelper.cls
+    //      Optimization is to have a single function return the query and then walk through the fields in a loop and set the values without explicitly referencing the api name - refer to MMA project
+    //
+	private static void CopyFieldsAccount2ServiceAccount(Id hhId, C501_Service_Household__c sh) {
+
+        system.debug('***** IntakeServices::CopyFieldsAccount2ServiceAccount');
+
+		List<Account> households =
+				[SELECT Id, Name, 
+					BillingStreet, BillingCity, BillingState, BillingPostalCode,
+					ShippingStreet, ShippingCity, ShippingState, ShippingPostalCode,
+					C501_SNAP__c, C501_Other_Income__c, C501_Earned_Income__c, C501_Self_Employed__c, C501_Unemployment_Insurance__c, C501_Child_Support__c,
+					C501_Pension__c, C501_Retirement_Income_Social_Security__c, C501_Supplemental_Security_Income__c, C501_Social_Security_Disability_Income__c,
+					C501_TANF__c, C501_WIC__c, C501_Household_Income_Sources__c, C501_Annual_Income__c, C501_Housing__c,
+					C501_VA_Service_Connected_Disability__c, C501_Worker_s_Compensation__c,
+					C501_Household_Size__c, C501_Household_Type__c, Phone, npo02__HouseholdPhone__c,
+					C501_Years_At_Current_Address__c, C501_Current_Address_Move_In_Year__c, C501_Case_Worker__c
+				FROM Account
+                WHERE id = :hhId];
+
+        if (households.isEmpty()) {
+            return;
+        }
+
+        sh.C501_BillingStreet__c = households[0].BillingStreet;
+        sh.C501_BillingCity__c = households[0].BillingCity;
+        sh.C501_BillingState__c = households[0].BillingState;
+        sh.C501_BillingPostalCode__c = households[0].BillingPostalCode;
+        sh.C501_ShippingStreet__c = households[0].ShippingStreet;
+        sh.C501_ShippingCity__c = households[0].ShippingCity;
+        sh.C501_ShippingState__c = households[0].ShippingState;
+        sh.C501_ShippingPostalCode__c = households[0].ShippingPostalCode;
+        sh.C501_Phone__c = households[0].Phone;
+        sh.C501_Other_Phone__c = households[0].npo02__HouseholdPhone__c;
+        sh.C501_SNAP__c = households[0].C501_SNAP__c;
+        sh.C501_Other_Income__c = households[0].C501_Other_Income__c;
+        sh.C501_Earned_Income__c = households[0].C501_Earned_Income__c;
+        sh.C501_Self_Employed__c = households[0].C501_Self_Employed__c;
+        sh.C501_Unemployment_Insurance__c = households[0].C501_Unemployment_Insurance__c;
+        sh.C501_Child_Support__c = households[0].C501_Child_Support__c;
+        sh.C501_Pension__c = households[0].C501_Pension__c;
+        sh.C501_Retirement_Income_Social_Security__c = households[0].C501_Retirement_Income_Social_Security__c;
+        sh.C501_Supplemental_Security_Income__c = households[0].C501_Supplemental_Security_Income__c;
+        sh.C501_Social_Security_Disability_Income__c = households[0].C501_Social_Security_Disability_Income__c;
+        sh.C501_TANF__c = households[0].C501_TANF__c;
+        sh.C501_Household_Income_Sources__c = households[0].C501_Household_Income_Sources__c;
+        sh.C501_Annual_Income__c = households[0].C501_Annual_Income__c;
+        sh.C501_Housing__c = households[0].C501_Housing__c;
+        sh.C501_VA_Service_Connected_Disability__c = households[0].C501_VA_Service_Connected_Disability__c;
+        sh.C501_Worker_s_Compensation__c = households[0].C501_Worker_s_Compensation__c;
+        sh.C501_Household_Size__c = households[0].C501_Household_Size__c;
+        sh.C501_Household_Type__c = households[0].C501_Household_Type__c;
+        sh.C501_Years_At_Current_Address__c = households[0].C501_Years_At_Current_Address__c;
+        sh.C501_Current_Address_Move_In_Year__c = households[0].C501_Current_Address_Move_In_Year__c;
+        sh.C501_Case_Worker__c = households[0].C501_Case_Worker__c;
+	}
 
     public static list<ClientCheckin> getCheckedInListCollection(boolean with_staff, String serviceLocation) {
 
@@ -344,6 +474,7 @@ public with sharing class IntakeServices {
                     String cleanService = commodity
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
+
                     C501_Service_Household__c sh = new C501_Service_Household__c(
                         Name = 'Information & Referral (' + cleanService + ')',
                         C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
@@ -352,13 +483,17 @@ public with sharing class IntakeServices {
                         C501_Service__c = cleanService,
                         C501_Start_Date__c = Date.Today(),
                         C501_End_Date__c = Date.Today(),
-                        C501_IsActive__c = false
+                        C501_IsActive__c = false,
+                        C501_Trigger_Ignore_Change__c = true,
+                        C501_Location__c = serviceLocation
                     );
+
+                    CopyFieldsAccount2ServiceAccount(hh.Id, sh);
 
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh.Id, hhId);
+                    CreateServiceContacts(sh, hhId);
                 }
             }
 
@@ -378,13 +513,17 @@ public with sharing class IntakeServices {
                         C501_Service__c = cleanService,
                         C501_Start_Date__c = Date.Today(),
                         C501_End_Date__c = Date.Today(),
-                        C501_IsActive__c = false
+                        C501_IsActive__c = false,
+                        C501_Trigger_Ignore_Change__c = true,
+                        C501_Location__c = serviceLocation
                     );
+
+                    CopyFieldsAccount2ServiceAccount(hh.Id, sh);
 
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh.Id, hhId);
+                    CreateServiceContacts(sh, hhId);
                 }
             }
 
@@ -404,13 +543,17 @@ public with sharing class IntakeServices {
                         C501_Service__c = cleanService,
                         C501_Start_Date__c = Date.Today(),
                         C501_End_Date__c = Date.Today(),
-                        C501_IsActive__c = false
+                        C501_IsActive__c = false,
+                        C501_Trigger_Ignore_Change__c = true,
+                        C501_Location__c = serviceLocation
                     );
+
+                    CopyFieldsAccount2ServiceAccount(hh.Id, sh);
 
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh.Id, hhId);
+                    CreateServiceContacts(sh, hhId);
                 }
             }
         } catch (Exception ex) {
@@ -604,14 +747,17 @@ public with sharing class IntakeServices {
                         C501_Start_Date__c = Date.valueOf(visitDate),
                         C501_End_Date__c = Date.valueOf(visitDate),
                         C501_IsActive__c = false,
+                        C501_Trigger_Ignore_Change__c = true,
                         C501_Location__c = serviceLocation,
                         C501_Created_By__c = createdBy
                     );
 
+                    CopyFieldsAccount2ServiceAccount(hh.Id, sh);
+
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh.Id, hhId);
+                    CreateServiceContacts(sh, hhId);
                 }
             }
 
@@ -629,13 +775,18 @@ public with sharing class IntakeServices {
                         C501_Service__c = cleanService,
                         C501_Start_Date__c = Date.valueOf(visitDate),
                         C501_End_Date__c = Date.valueOf(visitDate),
-                        C501_IsActive__c = false
+                        C501_IsActive__c = false,
+                        C501_Trigger_Ignore_Change__c = true,
+                        C501_Location__c = serviceLocation,
+                        C501_Created_By__c = createdBy
                     );
+
+                    CopyFieldsAccount2ServiceAccount(hh.Id, sh);
 
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh.Id, hhId);
+                    CreateServiceContacts(sh, hhId);
                 }
             }
 
@@ -653,13 +804,18 @@ public with sharing class IntakeServices {
                         C501_Service__c = cleanService,
                         C501_Start_Date__c = Date.valueOf(visitDate),
                         C501_End_Date__c = Date.valueOf(visitDate),
-                        C501_IsActive__c = false
+                        C501_IsActive__c = false,
+                        C501_Trigger_Ignore_Change__c = true,
+                        C501_Location__c = serviceLocation,
+                        C501_Created_By__c = createdBy
                     );
+
+                    CopyFieldsAccount2ServiceAccount(hh.Id, sh);
 
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh.Id, hhId);
+                    CreateServiceContacts(sh, hhId);
                 }
             }
         } catch (Exception ex) {
