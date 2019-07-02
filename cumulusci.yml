@@ -4,3 +4,4 @@ project:
         name: salesforce-intake-services
     dependencies:
         - github: https://github.com/SalesforceFoundation/Cumulus
+        - github: https://github.com/501Commons/Salesforce-Service-Management        

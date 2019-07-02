@@ -128,10 +128,6 @@
         <name>CustomLabel</name>
     </types>
     <types>
-        <members>CustomLabels</members>
-        <name>CustomLabels</name>
-    </types>
-    <types>
         <members>Client_Visit__c</members>
         <members>Intake_Services_Box_Settings__c</members>
         <members>Intake_Services_Checkin__c</members>

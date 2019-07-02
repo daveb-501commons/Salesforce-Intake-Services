@@ -56,6 +56,12 @@
                                         <label>Landlord Tenant Education</label>
                                     </div>
                                 </td></tr>
+                                <tr ng-show="data.serviceLocation == 'East Whatcom'"><td>
+                                    <div class="form-group">
+                                        <input type="checkbox" name="Notary" ng-model="data.new_services.Notary"></input>
+                                        <label>Notary</label>
+                                    </div>
+                                </td></tr>
                                 <tr ng-show="data.serviceLocation == 'Island'"><td>
                                     <div class="form-group">
                                         <input type="checkbox" name="Salvation_Army_Voucher" ng-model="data.new_services.Salvation_Army_Voucher"></input>

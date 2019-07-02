@@ -69,6 +69,7 @@ angular.module('clientController')
       Homeless_Verification_Form_Given_to_Client: false,
       Housing_Assessment: false,
       Housing_Intake: false,
+      Notary: false,
       Landlord_Tenant_Education: false,
       Salvation_Army_Voucher: false
     };

@@ -401,6 +401,11 @@
                     <label>Landlord Tenant Education</label>
                 </value>
                 <value>
+                    <fullName>Notary</fullName>
+                    <default>false</default>
+                    <label>Notary</label>
+                </value>
+                <value>
                     <fullName>Salvation Army Voucher (Island Only)</fullName>
                     <default>false</default>
                     <label>Salvation Army Voucher (Island Only)</label>

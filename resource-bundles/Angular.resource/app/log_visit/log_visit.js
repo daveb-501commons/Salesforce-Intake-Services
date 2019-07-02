@@ -40,6 +40,7 @@ angular.module('logVisitController')
       Housing_Assessment: false,
       Housing_Intake: false,
       Landlord_Tenant_Education: false,
+      Notary: false,
       Salvation_Army_Voucher: false
     };
     $scope.data.new_referrals = {

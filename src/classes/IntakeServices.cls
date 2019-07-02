@@ -8,6 +8,10 @@ public with sharing class IntakeServices {
 
     private map<String, String> params = ApexPages.CurrentPage().getParameters();
 
+    private void CreateServiceContacts(Id serviceHouseholdId, Id householdId) {
+
+    }
+
     public Class ClientCheckin {
         public Id clientId { get; private set; }
         public Id clientContactId { get; private set; }
@@ -352,6 +356,9 @@ public with sharing class IntakeServices {
                     );
 
                     insert sh;
+
+                    // Create Service Contacts based on the current contacts in the household
+                    CreateServiceContacts(sh.Id, hhId);
                 }
             }
 
@@ -375,6 +382,9 @@ public with sharing class IntakeServices {
                     );
 
                     insert sh;
+
+                    // Create Service Contacts based on the current contacts in the household
+                    CreateServiceContacts(sh.Id, hhId);
                 }
             }
 
@@ -398,6 +408,9 @@ public with sharing class IntakeServices {
                     );
 
                     insert sh;
+
+                    // Create Service Contacts based on the current contacts in the household
+                    CreateServiceContacts(sh.Id, hhId);
                 }
             }
         } catch (Exception ex) {
@@ -596,6 +609,9 @@ public with sharing class IntakeServices {
                     );
 
                     insert sh;
+
+                    // Create Service Contacts based on the current contacts in the household
+                    CreateServiceContacts(sh.Id, hhId);
                 }
             }
 
@@ -617,6 +633,9 @@ public with sharing class IntakeServices {
                     );
 
                     insert sh;
+
+                    // Create Service Contacts based on the current contacts in the household
+                    CreateServiceContacts(sh.Id, hhId);
                 }
             }
 
@@ -638,6 +657,9 @@ public with sharing class IntakeServices {
                     );
 
                     insert sh;
+
+                    // Create Service Contacts based on the current contacts in the household
+                    CreateServiceContacts(sh.Id, hhId);
                 }
             }
         } catch (Exception ex) {
