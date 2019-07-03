@@ -49,10 +49,10 @@ public with sharing class IntakeServices {
 
             C501_Service_Contact__c sc = new C501_Service_Contact__c(
                 Name = serviceHousehold.Name,
+                C501_Service_Household_Id__c = serviceHousehold.Id,
                 C501_Service_Id__c = serviceHousehold.C501_Service_Id__c,
                 C501_Contact__c = contactRecord.Id,
-                C501_Contact_Id__c = 'TEMP: ' + contactRecord.Id,
-                C501_Service_Household_Id__c = serviceHousehold.Id,
+                C501_Contact_Id__c = String.valueOf(contactRecord.Id) + String.valueOf(serviceHousehold.Id),
                 C501_Trigger_Ignore_Change__c = true
             );
             CopyFieldsContact2ServiceContact(contactRecord, sc);
@@ -63,6 +63,39 @@ public with sharing class IntakeServices {
         if (!insertServiceContacts.isEmpty()) {
             insert insertServiceContacts;
         }
+    }
+
+
+    //
+    //  CheckServiceHouseholdRecords - Debug code used to fix legacy Information & Referral to a new structure with Service Contacts
+    //
+    private static void CheckServiceHouseholdRecords() {
+/*
+        system.debug('***** IntakeServices::CheckServiceHouseholdRecords');
+
+        List<C501_Service_Household__c> serviceHouseholds = [SELECT Id, C501_Program__c, Name, C501_Service_Id__c, C501_Household__c FROM C501_Service_Household__c WHERE C501_Program__c = 'Information & Referral' AND CreatedDate = THIS_YEAR];
+        List<String> serviceHouseholdIds = new List<String>();
+        for (C501_Service_Household__c serviceHousehold :serviceHouseholds) {
+            serviceHouseholdIds.add(serviceHousehold.Id);
+        }
+
+        List<C501_Service_Contact__c> serviceContacts = [Select Id, C501_Service_Household_Id__c From C501_Service_Contact__c Where C501_Service_Household_Id__c in :serviceHouseholdIds];
+        Set<String> serviceHouseholdWithContact = new Set<String>();
+        for (C501_Service_Contact__c serviceContact :serviceContacts) {
+            serviceHouseholdWithContact.add(serviceContact.C501_Service_Household_Id__c);
+        }
+
+        for (C501_Service_Household__c serviceHousehold :serviceHouseholds) {
+
+            if (serviceHouseholdWithContact.contains(serviceHousehold.Id)) {
+                system.debug('***** Service Household Has a Contact Name: ' + serviceHousehold.Name + ' Program: ' + serviceHousehold.C501_Program__c);
+                continue;
+            }
+            
+            system.debug('***** Service Household Has No Contacts: ' + serviceHousehold.Name + ' Program: ' + serviceHousehold.C501_Program__c);
+            CreateServiceContacts(serviceHousehold, serviceHousehold.C501_Household__c);
+        }
+*/
     }
 
     //
@@ -556,6 +589,10 @@ public with sharing class IntakeServices {
                     CreateServiceContacts(sh, hhId);
                 }
             }
+
+            // Check to fix any Service Households that don't have any Service Contacts
+            CheckServiceHouseholdRecords();
+
         } catch (Exception ex) {
             system.debug(ex.getMessage());
         }
@@ -818,6 +855,10 @@ public with sharing class IntakeServices {
                     CreateServiceContacts(sh, hhId);
                 }
             }
+
+            // Check to fix any Service Households that don't have any Service Contacts
+            CheckServiceHouseholdRecords();
+
         } catch (Exception ex) {
             system.debug(ex.getMessage());
         }
