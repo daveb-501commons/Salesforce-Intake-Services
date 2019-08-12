@@ -18,6 +18,7 @@ angular.module('clientEditController')
 
     $scope.status = {};
     $scope.commodities = [];
+    $scope.service = [];
 
     $scope.data.ptsRemaining = foundHousehold.currentPointsRemaining;
     $scope.data.ptsMonthly = foundHousehold.monthlyPointsAvailable;

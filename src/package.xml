@@ -101,7 +101,16 @@
         <members>Intake_Services_Checkin__c.Check_In_Time_With_Staff__c</members>
         <members>Intake_Services_Checkin__c.Check_In_Time__c</members>
         <members>Intake_Services_Checkin__c.Points_Remaining__c</members>
+        <members>Intake_Referrals__c.Locations__c</members>
+        <members>Intake_Referrals__c.Column__c</members>
+        <members>Intake_Referrals__c.Sort_Order__c</members>
+        <members>Intake_Referrals__c.Selected__c</members>
+        <members>Intake_Services__c.Locations__c</members>
+        <members>Intake_Services__c.Column__c</members>
+        <members>Intake_Services__c.Sort_Order__c</members>
+        <members>Intake_Services__c.Selected__c</members>
         <members>Intake_Services_Commodity__c.Allow_Overage__c</members>
+        <members>Intake_Services_Commodity__c.Locations__c</members>
         <members>Intake_Services_Commodity__c.Monthly_Limit__c</members>
         <members>Intake_Services_Commodity__c.Sort_Order__c</members>
         <members>Intake_Services_Settings__c.Allow_Box_Size_Override__c</members>
@@ -132,6 +141,8 @@
         <members>Intake_Services_Box_Settings__c</members>
         <members>Intake_Services_Checkin__c</members>
         <members>Intake_Services_Commodity__c</members>
+        <members>Intake_Services__c</members>
+        <members>Intake_Referrals__c</members>
         <members>Intake_Services_Settings__c</members>
         <name>CustomObject</name>
     </types>

@@ -41,6 +41,8 @@ angular.module('clientController')
 
     $scope.status = {};
     $scope.data.commodities = foundSettings.commodities;
+    $scope.data.services = foundSettings.services;
+    $scope.data.referrals = foundSettings.referrals;
 
     if ($scope.settings.general.trackPoints) {
       $scope.data.ptsRemaining = foundHousehold.currentPointsRemaining;
@@ -58,45 +60,8 @@ angular.module('clientController')
     }
     $scope.data.visits = [];
     $scope.status.queriedVisits = false;
-    $scope.data.services = [];
-    $scope.status.queriedServices = false;
-
-    $scope.data.new_services = {
-      Basic_Food_Applications: false,
-      Eviction_Prevention_Screening: false,
-      Ferry_Pass: false,
-      Health_Plan_Finder: false,
-      Homeless_Verification_Form_Given_to_Client: false,
-      Housing_Assessment: false,
-      Housing_Intake: false,
-      Notary: false,
-      Landlord_Tenant_Education: false,
-      Salvation_Army_Voucher: false
-    };
-    $scope.data.new_referrals = {
-      Adult_Education: false,
-      Basic_Needs: false,
-      Coordinated_Entry: false,
-      Domestic_Violence_Services: false,
-      DSHS: false,
-      Early_Learning: false,
-      Employment: false,
-      Energy_Assistance: false,
-      Financial_Literacy: false,
-      Food_Resources: false,
-      Head_Start_FORWARDSLASH_ECEAP: false,
-      Healthcare: false,
-      Home_Improvement: false,
-      Housing_Pool: false,
-      Kinship: false,
-      Landlord_Tenant: false,
-      Mental_Health: false,
-      Other: false,
-      Other_Legal: false,
-      Other_Utility: false,
-      Veterans_Services: false,
-      Youth_Programs: false
-    };
+    $scope.data.serviceshistory = [];
+    $scope.status.queriedServicesHistory = false;
 
     $scope.validDate = function (date) {
       return (date == null) ? false : true;
@@ -276,33 +241,6 @@ angular.module('clientController')
         return;
       }
 
-      // Get Services and Referrals
-      var index = 0;
-      var keys = Object.keys($scope.data.new_services);
-      var services = [];
-
-      _.forEach($scope.data.new_services, function(v) {
-
-        if (v === true) {
-          services.push(keys[index]);
-        }
-
-        index++;
-      });
-
-      index = 0;
-      keys = Object.keys($scope.data.new_referrals);
-      var referrals = [];
-
-      _.forEach($scope.data.new_referrals, function(v) {
-
-        if (v === true) {
-          referrals.push(keys[index]);
-        }
-
-        index++;
-      });
-
       // gather the commodity usage for this visit        
       var comms = {};
       _.forEach( $scope.data.commodities, function(v) {
@@ -328,7 +266,7 @@ angular.module('clientController')
         var day = $scope.data.visitDate.getDate() + "";
         var safeDate = year + "-" + month + "-" + day
   
-        fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false, $scope.data.visitType, safeDate, services, referrals, serviceLocation);
+        fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false, $scope.data.visitType, safeDate, $scope.data.services, $scope.data.referrals, serviceLocation);
         $window.scrollTo(0,0);
         $alert({
           title: 'Checked in!',
@@ -351,34 +289,21 @@ angular.module('clientController')
         }
       });
 
+      var servicesSelected = [];
+      _.forEach( $scope.data.services, function(v) {
+        if (v.selected) {
+          servicesSelected.push(v.name);
+        }
+      });
+
+      var referralsSelected = [];
+      _.forEach( $scope.data.referrals, function(v) {
+        if (v.selected) {
+          referralsSelected.push(v.name);
+        }
+      });
+
       $scope.logging = true;
-
-      // Get Services and Referrals
-      var index = 0;
-      var keys = Object.keys($scope.data.new_services);
-      var services = [];
-
-      _.forEach($scope.data.new_services, function(v) {
-
-        if (v === true) {
-          services.push(keys[index]);
-        }
-
-        index++;
-      });
-
-      index = 0;
-      keys = Object.keys($scope.data.new_referrals);
-      var referrals = [];
-
-      _.forEach($scope.data.new_referrals, function(v) {
-
-        if (v === true) {
-          referrals.push(keys[index]);
-        }
-
-        index++;
-      });
 
       if ($scope.data.visitType == 'Select Option') {
         $scope.data.visitType = '';
@@ -389,7 +314,7 @@ angular.module('clientController')
       var day = $scope.data.visitDate.getDate() + "";
       var safeDate = year + "-" + month + "-" + day
 
-      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.data.boxType, 0, 0, comms, $scope.data.visitType, safeDate, $scope.data.visitNotes, services, referrals, serviceLocation, $scope.settings.user_email).then(
+      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.data.boxType, 0, 0, comms, $scope.data.visitType, safeDate, $scope.data.visitNotes, servicesSelected, referralsSelected, serviceLocation, $scope.settings.user_email).then(
         function(result){
           $scope.logging = false;
           $window.scrollTo(0,0);
@@ -448,11 +373,11 @@ angular.module('clientController')
     };
 
     $scope.queryServices = function() {
-      if (!$scope.status.queriedServices) {
+      if (!$scope.status.queriedServicesHistory) {
         fbServiceHistory($scope.data.household.id).then(
           function(result) {
-            $scope.data.services = result;
-            $scope.status.queriedServices = true;
+            $scope.data.serviceshistory = result;
+            $scope.status.queriedServicesHistory = true;
           },
           function(reason) {
             $alert({
@@ -460,7 +385,7 @@ angular.module('clientController')
               content: reason.message,
               type: 'danger'
             });
-            $scope.status.queriedServices = true;
+            $scope.status.queriedServicesHistory = true;
           }
         );
       }

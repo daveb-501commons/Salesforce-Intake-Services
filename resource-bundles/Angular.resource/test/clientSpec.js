@@ -53,6 +53,14 @@ describe('client', function() {
       
     });
 
+    xit('should set services', function() {
+      
+    });
+
+    xit('should set referrals', function() {
+      
+    });
+
     xit('should report whether there is an infant', function() {
       
     });

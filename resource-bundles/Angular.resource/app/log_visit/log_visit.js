@@ -18,7 +18,10 @@ angular.module('logVisitController')
     $scope.data.visitDate = new Date();
 
     $scope.settings = foundSettings;
+
     $scope.commodities = foundSettings.commodities;
+    $scope.services = foundSettings.services;
+    $scope.referrals = foundSettings.referrals;
 
     $scope.logging = false;
     $scope.addressEdit = false;
@@ -29,49 +32,8 @@ angular.module('logVisitController')
     $scope.ptsMonthly = foundHousehold.monthlyPointsAvailable;
     $scope.ratio =  Math.floor($scope.ptsRemaining * 100 / $scope.ptsMonthly);
     $scope.boxType = foundHousehold.defaultBox;
+
     $scope.commodities = foundHousehold.commodityAvailability;
-
-    $scope.data.new_services = {
-      Basic_Food_Applications: false,
-      Eviction_Prevention_Screening: false,
-      Ferry_Pass: false,
-      Health_Plan_Finder: false,
-      Homeless_Verification_Form_Given_to_Client: false,
-      Housing_Assessment: false,
-      Housing_Intake: false,
-      Landlord_Tenant_Education: false,
-      Notary: false,
-      Salvation_Army_Voucher: false
-    };
-    $scope.data.new_referrals = {
-      Adult_Education: false,
-      Basic_Needs: false,
-      Coordinated_Entry: false,
-      Domestic_Violence_Services: false,
-      DSHS: false,
-      Early_Learning: false,
-      Employment: false,
-      Energy_Assistance: false,
-      Financial_Literacy: false,
-      Food_Resources: false,
-      Head_Start_FORWARDSLASH_ECEAP: false,
-      Healthcare: false,
-      Home_Improvement: false,
-      Housing_Pool: false,
-      Kinship: false,
-      Landlord_Tenant: false,
-      Mental_Health: false,
-      Other: false,
-      Other_Legal: false,
-      Other_Utility: false,
-      Veterans_Services: false,
-      Youth_Programs: false
-    };
-
-    $scope.visitNotes = '';
-    if (foundHousehold.pendingnotes != null && foundHousehold.pendingnotes.length > 0) {
-      $scope.visitNotes = foundHousehold.pendingnotes;
-    }
     
     fbCustomLabel.get( 'C501_IS_Box_Type__c' ).then(
       function(result){
@@ -89,41 +51,29 @@ angular.module('logVisitController')
         }
       });
 
+      var servicesSelected = [];
+      _.forEach( $scope.services, function(v) {
+        if (v.selected) {
+
+          servicesSelected.push(v.name);
+        }
+      });
+
+      var referralsSelected = [];
+      _.forEach( $scope.referrals, function(v) {
+        if (v.selected) {
+          referralsSelected.push(v.name);
+        }
+      });
+
       $scope.logging = true;
-
-      // Get Services and Referrals
-      var index = 0;
-      var keys = Object.keys($scope.data.new_services);
-      var services = [];
-
-      _.forEach($scope.data.new_services, function(v) {
-
-        if (v === true) {
-          services.push(keys[index]);
-        }
-
-        index++;
-      });
-
-      index = 0;
-      keys = Object.keys($scope.data.new_referrals);
-      var referrals = [];
-
-      _.forEach($scope.data.new_referrals, function(v) {
-
-        if (v === true) {
-          referrals.push(keys[index]);
-        }
-
-        index++;
-      });
 
       var year = $scope.data.visitDate.getFullYear() + "";
       var month = ($scope.data.visitDate.getMonth() + 1) + "";
       var day = $scope.data.visitDate.getDate() + "";
       var safeDate = year + "-" + month + "-" + day
 
-      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, '', safeDate, $scope.visitNotes, services, referrals, serviceLocation, $scope.settings.user_email).then(
+      fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.boxType, $scope.checkoutWeight, $scope.ptsUsed, comms, '', safeDate, $scope.visitNotes, servicesSelected, referralsSelected, serviceLocation, $scope.settings.user_email).then(
         function(result){
           $scope.logging = false;
           $window.scrollTo(0,0);

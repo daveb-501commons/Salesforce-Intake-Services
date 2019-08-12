@@ -451,7 +451,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff, String visitType, String visitDate, String[] services, String[] referrals, String serviceLocation) {
+    public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff, String visitType, String visitDate, List<String> services, List<String> referrals, String serviceLocation) {
 
         system.debug('***** IntakeServices::checkIn');
 
@@ -504,16 +504,16 @@ public with sharing class IntakeServices {
 
                     system.debug('***** IntakeServices::checkIn - insert commodity: ' + commodity);
 
-                    String cleanService = commodity
+                    String cleanName = commodity
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
 
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = 'Information & Referral (' + cleanService + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
+                        Name = 'Information & Referral - Commodity: (' + cleanName + ')',
+                        C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
-                        C501_Service__c = cleanService,
+                        C501_Service__c = cleanName,
                         C501_Start_Date__c = Date.Today(),
                         C501_End_Date__c = Date.Today(),
                         C501_IsActive__c = false,
@@ -530,20 +530,20 @@ public with sharing class IntakeServices {
                 }
             }
 
-            if (services != null) {
+            if (services != null && !services.isEmpty()) {
                 for (String service : services) {
 
                     system.debug('***** IntakeServices::checkIn - insert service: ' + service);
 
-                    String cleanService = service
+                    String cleanName = service
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = 'Information & Referral (' + cleanService + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
+                        Name = 'Information & Referral - Service: (' + cleanName + ')',
+                        C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
-                        C501_Service__c = cleanService,
+                        C501_Service__c = cleanName,
                         C501_Start_Date__c = Date.Today(),
                         C501_End_Date__c = Date.Today(),
                         C501_IsActive__c = false,
@@ -560,20 +560,20 @@ public with sharing class IntakeServices {
                 }
             }
 
-            if (referrals != null) {
-                for (String service : referrals) {
+            if (referrals != null && !referrals.isEmpty()) {
+                for (String referral : referrals) {
 
-                    system.debug('***** IntakeServices::checkIn - insert referral: ' + service);
+                    system.debug('***** IntakeServices::checkIn - insert referral: ' + referral);
 
-                    String cleanService = service
+                    String cleanName = referral
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = 'Information & Referral (' + cleanService + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
+                        Name = 'Information & Referral - Referral: (' + cleanName + ')',
+                        C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
-                        C501_Service__c = cleanService,
+                        C501_Service__c = cleanName,
                         C501_Start_Date__c = Date.Today(),
                         C501_End_Date__c = Date.Today(),
                         C501_IsActive__c = false,
@@ -684,6 +684,8 @@ public with sharing class IntakeServices {
     public class AppSettings {
         public Intake_Services_Settings__c general { get; set; }
         public List<Intake_Services_Commodity__c> commodities { get; set; }
+        public List<Intake_Services__c> services { get; set; }
+        public List<Intake_Referrals__c> referrals { get; set; }
         public List<Intake_Services_Box_Settings__c> boxes { get; set; }
     }
 
@@ -692,12 +694,14 @@ public with sharing class IntakeServices {
         AppSettings s = new AppSettings();
         s.general = IntakeServicesSettings.general;
         s.commodities = IntakeServicesSettings.commodities;
+        s.services = IntakeServicesSettings.services;
+        s.referrals = IntakeServicesSettings.referrals;
         s.boxes = IntakeServicesSettings.boxes;
         return s;
     }
 
     @RemoteAction
-    public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitType, String visitDate, String visitNotes, String[] services, String[] referrals, String serviceLocation, String createdBy) {
+    public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitType, String visitDate, String visitNotes, List<String> services, List<String> referrals, String serviceLocation, String createdBy) {
 
         // get the HH detail
         Account[] hhs =
@@ -772,15 +776,15 @@ public with sharing class IntakeServices {
             if (commodityUsage != null && !commodityUsage.isEmpty()) {
                 for (String commodity : commodityUsage.keySet()) {
 
-                    String cleanService = commodity
+                    String cleanName = commodity
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = 'Information & Referral (' + cleanService + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
+                        Name = 'Information & Referral - Commodity: (' + cleanName + ')',
+                        C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
-                        C501_Service__c = cleanService,
+                        C501_Service__c = cleanName,
                         C501_Start_Date__c = Date.valueOf(visitDate),
                         C501_End_Date__c = Date.valueOf(visitDate),
                         C501_IsActive__c = false,
@@ -798,18 +802,20 @@ public with sharing class IntakeServices {
                 }
             }
 
-            if (services != null) {
+            System.debug('*****IntakeServices::logVisit services: ' + services);
+
+            if (services != null && !services.isEmpty()) {
                 for (String service : services) {
 
-                    String cleanService = service
+                    String cleanName = service
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = 'Information & Referral (' + cleanService + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
+                        Name = 'Information & Referral - Service: (' + cleanName + ')',
+                        C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
-                        C501_Service__c = cleanService,
+                        C501_Service__c = cleanName,
                         C501_Start_Date__c = Date.valueOf(visitDate),
                         C501_End_Date__c = Date.valueOf(visitDate),
                         C501_IsActive__c = false,
@@ -827,18 +833,20 @@ public with sharing class IntakeServices {
                 }
             }
 
-            if (referrals != null) {
-                for (String service : referrals) {
+            System.debug('*****IntakeServices::logVisit referrals: ' + referrals);
 
-                    String cleanService = service
+            if (referrals != null && !referrals.isEmpty()) {
+                for (String referral : referrals) {
+
+                    String cleanName = referral
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = 'Information & Referral (' + cleanService + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanService + Datetime.now().format() + hh.id,
+                        Name = 'Information & Referral - Referral: (' + cleanName + ')',
+                        C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
-                        C501_Service__c = cleanService,
+                        C501_Service__c = cleanName,
                         C501_Start_Date__c = Date.valueOf(visitDate),
                         C501_End_Date__c = Date.valueOf(visitDate),
                         C501_IsActive__c = false,

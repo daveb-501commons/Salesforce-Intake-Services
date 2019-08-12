@@ -166,7 +166,30 @@ angular.module('appServices')
           settings.commodities.push({
             'name': c.Name,
             'allowOverage': c.Allow_Overage__c,
+            'locations': c.Locations__c,
             'monthlyLimit': c.Monthly_Limit__c
+          });
+        });
+
+        settings.services = [];
+        _.forEach(result.services, function(c){
+
+          settings.services.push({
+            'name': c.Name,
+            'locations': c.Locations__c,
+            'selected': false,
+            'column': c.Column__c
+          });
+        });
+
+        settings.referrals = [];
+        _.forEach(result.referrals, function(c){
+
+          settings.referrals.push({
+            'name': c.Name,
+            'locations': c.Locations__c,
+            'selected': false,
+            'column': c.Column__c
           });
         });
 

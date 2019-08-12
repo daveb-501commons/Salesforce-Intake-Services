@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <customSettingsType>List</customSettingsType>
-    <description>List of items for which the intake services tracks monthly limits and usage - for example, you get up to 3 boxes of eggs per month.</description>
+    <description>List of items for intake referrals.</description>
     <enableFeeds>false</enableFeeds>
-    <fields>
-        <fullName>Allow_Overage__c</fullName>
-        <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
-        <inlineHelpText>If checked, staff will be alerted when clients use more than the limit, but can choose to overlook the warning.</inlineHelpText>
-        <label>Allow Overage</label>
-        <trackTrending>false</trackTrending>
-        <type>Checkbox</type>
-    </fields>
     <fields>
         <fullName>Locations__c</fullName>
         <description>Comma separated list of locations</description>
@@ -25,9 +16,10 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Monthly_Limit__c</fullName>
+        <fullName>Column__c</fullName>
         <externalId>false</externalId>
-        <label>Monthly Limit</label>
+        <defaultValue>1</defaultValue>
+        <label>Column</label>
         <precision>2</precision>
         <required>false</required>
         <scale>0</scale>
@@ -46,6 +38,15 @@
         <type>Number</type>
         <unique>false</unique>
     </fields>
-    <label>Intake Services Commodity</label>
+    <fields>
+        <fullName>Selected__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Used during the intake process.</inlineHelpText>
+        <label>Selected</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Intake Referrals</label>
     <visibility>Protected</visibility>
 </CustomObject>

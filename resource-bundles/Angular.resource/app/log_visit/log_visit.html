@@ -102,74 +102,24 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-5" ng-if="services">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Services
-                            </div>
-                            <div class="panel-body" ng-show="data.new_services">
-                                <table>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Basic_Food_Applications" ng-model="data.new_services.Basic_Food_Applications"></input>
-                                            <label>Basic Food Applications</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Eviction_Prevention_Screening" ng-model="data.new_services.Eviction_Prevention_Screening"></input>
-                                            <label>Eviction Prevention Screening</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Ferry_Pass" ng-model="data.new_services.Ferry_Pass"></input>
-                                            <label>Ferry Pass</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Health_Plan_Finder" ng-model="data.new_services.Health_Plan_Finder"></input>
-                                            <label>Health Plan Finder</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Homeless_Verification_Form_Given_to_Client" ng-model="data.new_services.Homeless_Verification_Form_Given_to_Client"></input>
-                                            <label>Homeless Verification Form</label>
-                                            <label>Given to Client</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr ng-show="data.serviceLocation == 'Bellingham'"><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Housing_Assessment" ng-model="data.new_services.Housing_Assessment"></input>
-                                            <label>Housing Assessment</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Housing_Intake" ng-model="data.new_services.Housing_Intake"></input>
-                                            <label>Housing Intake</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Landlord_Tenant_Education" ng-model="data.new_services.Landlord_Tenant_Education"></input>
-                                            <label>Landlord Tenant Education</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr ng-show="data.serviceLocation == 'East Whatcom'"><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Notary" ng-model="data.new_services.Notary"></input>
-                                            <label>Notary</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr ng-show="data.serviceLocation == 'Island'"><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Salvation_Army_Voucher" ng-model="data.new_services.Salvation_Army_Voucher"></input>
-                                            <label>Salvation Army Voucher</label>
-                                        </div>
-                                    </td></tr>
+                            <div class="panel-heading">Services</div>
+                            <div class="panel-body" ng-show="data.household">
+                                <table ng-if="services" class="table table-condensed" style="margin-top:6px;">
+                                    <tbody>
+                                        <tr ng-repeat="service in services" 
+                                            ng-form="servicesForm"
+                                            ng-show="service.locations.includes(data.serviceLocation)">
+
+                                            <td>
+                                                <input class="form-control input-sm" type="checkbox" 
+                                                    ng-model="service.selected" name="selected"
+                                                    style="width:50px" ></input>
+                                            </td>
+                                            <td style="word-wrap: break-word">{{service.name}}</td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -190,10 +140,7 @@
                                         <tr ng-repeat="comm in commodities" 
                                             ng-class="{danger: !comm.remaining, warning: (comm.remaining > 0 && comm.remaining < comm.monthlyLimit)}"
                                             ng-form="commForm"
-                                            ng-show="
-                                                (data.serviceLocation == 'Bellingham' && (comm.name == 'Bus Pass (Daily)' || comm.name == 'Diapers'))
-                                                || (data.serviceLocation == 'East Whatcom' && (comm.name == 'Bus Pass (Daily)' || comm.name == 'Emergency Food Box'))
-                                                || (data.serviceLocation == 'Island' && (comm.name == 'Dump Pass' || comm.name == 'Backpack'))">
+                                            ng-show="comm.locations.includes(data.serviceLocation)">
 
                                             <td style="vertical-align: middle;">{{comm.name}}</td>
                                             <td class="text-center" style="vertical-align: middle;">{{comm.remaining}}</td>
@@ -217,156 +164,46 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-5" ng-if="referrals">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Referrals
-                            </div>
-                            <div class="panel-body" ng-show="data.new_referrals">
-                                <table>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Adult_Education" ng-model="data.new_referrals.Adult_Education"></input>
-                                            <label>Adult Education</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Basic_Needs" ng-model="data.new_referrals.Basic_Needs"></input>
-                                            <label>Basic Needs</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Coordinated_Entry" ng-model="data.new_referrals.Coordinated_Entry"></input>
-                                            <label>Coordinated Entry (Island Only)</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Domestic_Violence_Services" ng-model="data.new_referrals.Domestic_Violence_Services"></input>
-                                            <label>Domestic Violence Services</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="DSHS" ng-model="data.new_referrals.DSHS"></input>
-                                            <label>DSHS</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Early_Learning" ng-model="data.new_referrals.Early_Learning"></input>
-                                            <label>Early Learning</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Employment" ng-model="data.new_referrals.Employment"></input>
-                                            <label>Employment</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Energy_Assistance" ng-model="data.new_referrals.Energy_Assistance"></input>
-                                            <label>Energy Assistance</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Financial_Literacy" ng-model="data.new_referrals.Financial_Literacy"></input>
-                                            <label>Financial Literacy</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Food_Resources" ng-model="data.new_referrals.Food_Resources"></input>
-                                            <label>Food Resources</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Head_Start_FORWARDSLASH_ECEAP" ng-model="data.new_referrals.Head_Start_FORWARDSLASH_ECEAP"></input>
-                                            <label>Head Start/ECEAP</label>
-                                        </div>
-                                    </td></tr>
+                            <div class="panel-heading">Referrals</div>
+                            <div class="panel-body" ng-show="data.household">
+                                <table ng-if="referrals" class="table table-condensed" style="margin-top:6px;">
+                                    <tbody>
+                                        <tr ng-repeat="referral in referrals" 
+                                            ng-form="referralsForm"
+                                            ng-show="referral.locations.includes(data.serviceLocation) && referral.column == 1">
+
+                                            <td>
+                                                <input class="form-control input-sm" type="checkbox" 
+                                                    ng-model="service.selected" name="selected"
+                                                    style="width:50px" ></input>
+                                            </td>
+                                            <td style="word-wrap: break-word">{{referral.name}}</td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-5" ng-if="referrals">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Referrals
-                            </div>
-                            <div class="panel-body" ng-show="data.new_referrals">
-                                <table>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Healthcare" ng-model="data.new_referrals.Healthcare"></input>
-                                            <label>Healthcare</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Home_Improvement" ng-model="data.new_referrals.Home_Improvement"></input>
-                                            <label>Home Improvement</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Housing_Pool" ng-model="data.new_referrals.Housing_Pool"></input>
-                                            <label>Housing Pool</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Kinship" ng-model="data.new_referrals.Kinship"></input>
-                                            <label>Kinship</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Landlord_Tenant" ng-model="data.new_referrals.Landlord_Tenant"></input>
-                                            <label>Landlord Tenant</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Mental_Health" ng-model="data.new_referrals.Mental_Health"></input>
-                                            <label>Mental Health</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Other" ng-model="data.new_referrals.Other"></input>
-                                            <label>Other</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Other_Legal" ng-model="data.new_referrals.Other_Legal"></input>
-                                            <label>Other Legal</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Other_Utility" ng-model="data.new_referrals.Other_Utility"></input>
-                                            <label>Other Utility</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Veterans_Services" ng-model="data.new_referrals.veteranServices"></input>
-                                            <label>Veterans Services</label>
-                                        </div>
-                                    </td></tr>
-                                    <tr><td>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="Youth_Programs" ng-model="data.new_referrals.Youth_Programs"></input>
-                                            <label>Youth Programs</label>
-                                        </div>
-                                    </td></tr>
+                            <div class="panel-heading">Referrals</div>
+                            <div class="panel-body" ng-show="data.household">
+                                <table ng-if="referrals" class="table table-condensed" style="margin-top:6px;">
+                                    <tbody>
+                                        <tr ng-repeat="referral in referrals" 
+                                            ng-form="referralsForm"
+                                            ng-show="referral.locations.includes(data.serviceLocation) && referral.column == 2">
+
+                                            <td>
+                                                <input class="form-control input-sm" type="checkbox" 
+                                                    ng-model="service.selected" name="selected"
+                                                    style="width:50px" ></input>
+                                            </td>
+                                            <td style="word-wrap: break-word">{{referral.name}}</td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

@@ -6,13 +6,13 @@
                     Service History <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isFirstOpen, 'glyphicon-chevron-right': !isFirstOpen}"></i>
                 </div>
             </accordion-heading>
-            <span ng-show="!status.queriedServices">
+            <span ng-show="!status.queriedServicesHistory">
                 <i class="fa fa-refresh fa-spin"></i> Loading...
             </span>
-            <span ng-show="status.queriedServices && data.services.length == 0">
+            <span ng-show="status.queriedServicesHistory && data.serviceshistory.length == 0">
                 <em>No services.</em>
             </span>
-            <table class="table table-condensed" ng-show="status.queriedServices && data.services.length > 0">
+            <table class="table table-condensed" ng-show="status.queriedServicesHistory && data.serviceshistory.length > 0">
                 <thead>
                     <tr>
                         <th style="width:20%">Start</th>
@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="service in data.services" >
+                    <tr ng-repeat="service in data.serviceshistory" >
                         <td ng-show="validDate(service.startdate)">{{service.startdate | date:'MMMM dd, yyyy' }}</td>
                         <td ng-show="!validDate(service.startdate)"></td>
                         <td ng-show="validDate(service.enddate)">{{service.enddate | date:'MMMM dd, yyyy' }}</td>

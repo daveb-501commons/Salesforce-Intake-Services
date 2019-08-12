@@ -46,21 +46,75 @@ public with sharing class IntakeServicesSettings {
         get {
             if (commodities == null) {
                 commodities = (!Test.isRunningTest()) ?
-                    [select name, Monthly_Limit__c, Allow_Overage__c from Intake_Services_Commodity__c order by Sort_Order__c, name] :
+                    [select name, Monthly_Limit__c, Allow_Overage__c, Locations__c from Intake_Services_Commodity__c order by Sort_Order__c, name] :
                     new List<Intake_Services_Commodity__c>{
                         new Intake_Services_Commodity__c(
                             Name = 'Meat',
                             Monthly_Limit__c = 5,
                             Sort_Order__c = 0,
-                            Allow_Overage__c = false ),
+                            Allow_Overage__c = false,
+                            Locations__c = 'Seattle' ),
                         new Intake_Services_Commodity__c(
                             Name = 'Bread',
                             Monthly_Limit__c = 3,
                             Sort_Order__c = 1,
-                            Allow_Overage__c = true )
+                            Allow_Overage__c = true,
+                            Locations__c = 'Seattle' )
                     };
             }
+
+            System.debug('*****IntakeServicesSettings::commodities ' + commodities);
             return commodities;
+        }
+        set;
+    }
+
+    public static list<Intake_Services__c> services {
+        get {
+            if (services == null) {
+                services = (!Test.isRunningTest()) ?
+                    [select name, Sort_Order__c, Locations__c, Column__c, Selected__c from Intake_Services__c order by Sort_Order__c, name] :
+                    new List<Intake_Services__c>{
+                        new Intake_Services__c(
+                            Name = 'Foodbank',
+                            Column__c = 1,
+                            Sort_Order__c = 0,
+                            Locations__c = 'Seattle' ),
+                        new Intake_Services__c(
+                            Name = 'Housing',
+                            Column__c = 2,
+                            Sort_Order__c = 1,
+                            Locations__c = 'Seattle' )
+                    };
+            }
+
+            System.debug('*****IntakeServicesSettings::services ' + services);
+            return services;
+        }
+        set;
+    }
+
+    public static list<Intake_Referrals__c> referrals {
+        get {
+            if (referrals == null) {
+                referrals = (!Test.isRunningTest()) ?
+                    [select name, Sort_Order__c, Locations__c, Column__c, Selected__c from Intake_Referrals__c order by Sort_Order__c, name] :
+                    new List<Intake_Referrals__c>{
+                        new Intake_Referrals__c(
+                            Name = 'Dentist',
+                            Column__c = 1,
+                            Sort_Order__c = 0,
+                            Locations__c = 'Seattle' ),
+                        new Intake_Referrals__c(
+                            Name = 'Doctor',
+                            Column__c = 2,
+                            Sort_Order__c = 1,
+                            Locations__c = 'Seattle' )
+                    };
+            }
+
+            System.debug('*****IntakeServicesSettings::referrals ' + referrals);
+            return referrals;
         }
         set;
     }
