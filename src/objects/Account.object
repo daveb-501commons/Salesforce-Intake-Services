@@ -169,16 +169,6 @@
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
-        <fullName>C501_IS_Tag_Notes__c</fullName>
-        <externalId>false</externalId>
-        <label>Tag Notes</label>
-        <length>4096</length>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackHistory>false</trackHistory>
-        <type>LongTextArea</type>
-        <visibleLines>3</visibleLines>
-    </fields>
-    <fields>
         <fullName>C501_IS_Out_Of_Area__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
@@ -303,6 +293,16 @@
         <fullName>C501_IS_Staff_Notes__c</fullName>
         <externalId>false</externalId>
         <label>Staff Notes</label>
+        <length>4096</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>C501_IS_Tag_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Tag Notes</label>
         <length>4096</length>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>

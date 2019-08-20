@@ -155,6 +155,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.C501_IS_Tag_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.C501_IS_Tags__c</field>
         <readable>true</readable>
     </fieldPermissions>

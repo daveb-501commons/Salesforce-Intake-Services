@@ -46,7 +46,6 @@
         <members>Account.C501_IS_Monthly_Points_Available__c</members>
         <members>Account.C501_IS_Most_Recent_Visit__c</members>
         <members>Account.C501_IS_Notes__c</members>
-        <members>Account.C501_IS_Tag_Notes__c</members>
         <members>Account.C501_IS_Out_Of_Area__c</members>
         <members>Account.C501_IS_Pending_Commodity_Usage_JSON__c</members>
         <members>Account.C501_IS_Pending_Notes__c</members>
@@ -55,6 +54,7 @@
         <members>Account.C501_IS_Seniors__c</members>
         <members>Account.C501_IS_Source__c</members>
         <members>Account.C501_IS_Staff_Notes__c</members>
+        <members>Account.C501_IS_Tag_Notes__c</members>
         <members>Account.C501_IS_Tags__c</members>
         <members>Account.C501_IS_Total_Visits__c</members>
         <members>Client_Visit__c.C501_IS_Adults__c</members>
@@ -91,6 +91,10 @@
         <members>Contact.C501_IS_Id_Number__c</members>
         <members>Contact.C501_IS_Id_Type__c</members>
         <members>Contact.C501_IS_Proof_of_Infant__c</members>
+        <members>Intake_Referrals__c.Column__c</members>
+        <members>Intake_Referrals__c.Locations__c</members>
+        <members>Intake_Referrals__c.Selected__c</members>
+        <members>Intake_Referrals__c.Sort_Order__c</members>
         <members>Intake_Services_Box_Settings__c.Minimum_Family_Size__c</members>
         <members>Intake_Services_Checkin__c.Box_Size__c</members>
         <members>Intake_Services_Checkin__c.C501_IS_Commodity_Usage_JSON__c</members>
@@ -102,14 +106,6 @@
         <members>Intake_Services_Checkin__c.Check_In_Time_With_Staff__c</members>
         <members>Intake_Services_Checkin__c.Check_In_Time__c</members>
         <members>Intake_Services_Checkin__c.Points_Remaining__c</members>
-        <members>Intake_Referrals__c.Locations__c</members>
-        <members>Intake_Referrals__c.Column__c</members>
-        <members>Intake_Referrals__c.Sort_Order__c</members>
-        <members>Intake_Referrals__c.Selected__c</members>
-        <members>Intake_Services__c.Locations__c</members>
-        <members>Intake_Services__c.Column__c</members>
-        <members>Intake_Services__c.Sort_Order__c</members>
-        <members>Intake_Services__c.Selected__c</members>
         <members>Intake_Services_Commodity__c.Allow_Overage__c</members>
         <members>Intake_Services_Commodity__c.Locations__c</members>
         <members>Intake_Services_Commodity__c.Monthly_Limit__c</members>
@@ -131,6 +127,10 @@
         <members>Intake_Services_Settings__c.Visit_Frequency_Limit__c</members>
         <members>Intake_Services_Settings__c.Welcome_Alert__c</members>
         <members>Intake_Services_Settings__c.Welcome_Message__c</members>
+        <members>Intake_Services__c.Column__c</members>
+        <members>Intake_Services__c.Locations__c</members>
+        <members>Intake_Services__c.Selected__c</members>
+        <members>Intake_Services__c.Sort_Order__c</members>
         <name>CustomField</name>
     </types>
     <types>
@@ -139,12 +139,12 @@
     </types>
     <types>
         <members>Client_Visit__c</members>
+        <members>Intake_Referrals__c</members>
         <members>Intake_Services_Box_Settings__c</members>
         <members>Intake_Services_Checkin__c</members>
         <members>Intake_Services_Commodity__c</members>
-        <members>Intake_Services__c</members>
-        <members>Intake_Referrals__c</members>
         <members>Intake_Services_Settings__c</members>
+        <members>Intake_Services__c</members>
         <name>CustomObject</name>
     </types>
     <types>

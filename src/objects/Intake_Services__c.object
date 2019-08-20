@@ -4,6 +4,18 @@
     <description>List of items for intake services.</description>
     <enableFeeds>false</enableFeeds>
     <fields>
+        <fullName>Column__c</fullName>
+        <defaultValue>1</defaultValue>
+        <externalId>false</externalId>
+        <label>Column</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Locations__c</fullName>
         <description>Comma separated list of locations</description>
         <externalId>false</externalId>
@@ -16,16 +28,13 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Column__c</fullName>
+        <fullName>Selected__c</fullName>
+        <defaultValue>false</defaultValue>
         <externalId>false</externalId>
-        <defaultValue>1</defaultValue>
-        <label>Column</label>
-        <precision>2</precision>
-        <required>false</required>
-        <scale>0</scale>
+        <inlineHelpText>Used during the intake process.</inlineHelpText>
+        <label>Selected</label>
         <trackTrending>false</trackTrending>
-        <type>Number</type>
-        <unique>false</unique>
+        <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Sort_Order__c</fullName>
@@ -37,15 +46,6 @@
         <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Selected__c</fullName>
-        <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
-        <inlineHelpText>Used during the intake process.</inlineHelpText>
-        <label>Selected</label>
-        <trackTrending>false</trackTrending>
-        <type>Checkbox</type>
     </fields>
     <label>Intake Services</label>
     <visibility>Protected</visibility>
