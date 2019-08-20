@@ -129,7 +129,7 @@ angular.module('clientController')
     };
 
     $scope.somethingIsBeingEdited = function() {
-      return ($scope.status.editingAddress && $scope.status.editingNotes && $scope.status.editingTags && $scope.status.editingMembers);
+      return ($scope.status.editingAddress && $scope.status.editingNotes && $scope.status.editingTagNotes && $scope.status.editingTags && $scope.status.editingMembers);
     };
 
     $scope.saveAll = function() {
@@ -146,6 +146,10 @@ angular.module('clientController')
       if ($scope.status.editingNotes) {
         _.assign($scope.data.allData, $scope.data.notesData);
         $scope.status.savingNotes = true;
+      }
+      if ($scope.status.editingTagNotes) {
+        _.assign($scope.data.allData, $scope.data.tagnotesData);
+        $scope.status.savingTagNotes = true;
       }
       if ($scope.status.editingMembers) {
         $scope.status.savingMembers = true;
@@ -209,12 +213,15 @@ angular.module('clientController')
             $scope.status.editingTags = false;
             $scope.status.savingNotes = false;
             $scope.status.editingNotes = false;
+            $scope.status.savingTagNotes = false;
+            $scope.status.editingTagNotes = false;
             soon.resolve();
           },
           function(reason) {
             $scope.status.savingAddress = false;
             $scope.status.savingTags = false;
             $scope.status.savingNotes = false;
+            $scope.status.savingTagNotes = false;
             $alert({
               title: 'Failed to save changes.',
               content: reason.message,
@@ -486,6 +493,45 @@ angular.module('clientController')
 
     $scope.cancelNotes = function() {
       $scope.status.editingNotes = false;
+    };
+  }]);
+
+  angular.module('clientController')
+  .controller('tagnotesController', ['$scope', 'fbSaveHousehold', '$alert',
+  function($scope, fbSaveHousehold, $alert) {
+
+    $scope.status.editingTagNotes = false;
+    $scope.status.savingTagNotes = false;
+
+    $scope.editTagNotes = function() {
+      $scope.data.tagnotesData = {
+        id: $scope.data.household.id,
+        tagnotes: $scope.data.household.tagnotes
+      };
+      $scope.status.editingTagNotes = true;
+    };
+
+    $scope.saveTagNotes = function() {
+      $scope.status.savingTagNotes = true;
+      fbSaveHousehold($scope.data.tagnotesData).then(
+        function(result){
+          $scope.data.household = result;
+          $scope.status.savingTagNotes = false;
+          $scope.status.editingTagNotes = false;
+        },
+        function(reason){
+          $scope.status.savingTagNotes = false;
+          $alert({
+            title: 'Failed to save changes.',
+            content: reason.message,
+            type: 'danger'
+          });
+        }
+      );
+    };
+
+    $scope.cancelTagNotes = function() {
+      $scope.status.editingTagNotes = false;
     };
   }]);
 

@@ -1,0 +1,33 @@
+<div class="panel" ng-class="{ 'panel-default': !status.editingTagNotes, 'panel-warning': status.editingTagNotes }" 
+    ng-controller="tagnotesController">
+
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-6">
+                Tag Notes
+            </div>
+            <div class="col-sm-6 text-right">
+                <button class="btn btn-success btn-sm panel-button"
+                    ng-click="editTagNotes();" ng-show="!status.editingTagNotes"><i class="fa fa-pencil" style="line-height: 1.3em;"></i></button>
+
+                <button class="btn btn-success btn-sm panel-button"
+                    ng-click="saveTagNotes()" ng-show="status.editingTagNotes" 
+                    ng-disabled="status.savingTagNotes">Save</span><i ng-show="status.savingTagNotes" 
+                    class="fa fa-refresh fa-spin" style="margin-left:6px;"></i></button>
+                
+                <button class="btn btn-sm panel-button"
+                    ng-click="cancelTagNotes();" ng-show="status.editingTagNotes" 
+                    ng-disabled="status.savingTagNotes"><span class="glyphicon glyphicon-remove" style="line-height: 1.3em;"></span></button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" ng-show="data.household.tagnotes || status.editingTagNotes">
+        <div ng-show="!status.editingTagNotes">
+            {{data.household.tagnotes}}
+        </div>
+        <div ng-show="status.editingTagNotes">
+            <textarea class="form-control" name="tagnotes" placeholder="About this client" 
+                style="height:115px;" ng-maxlength="4096" ng-model="data.tagnotesData.tagnotes" />
+        </div>
+    </div>
+</div>

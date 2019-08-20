@@ -273,3 +273,33 @@ describe('client', function() {
     });
   });
 });
+
+describe('tagnotesController', function(){
+  var ctrl, scope;
+
+  beforeEach(inject(function($controller, _$q_) {
+    scope = $rootScope.$new();
+    ctrl = $controller('tagnotesController', {
+      $scope: scope, 
+      fbSaveHousehold: function() { 
+        var deferred = _$q_.defer();
+        deferred.resolve( householdData );
+        return deferred.promise;
+      }
+    });      
+  }));
+
+  it('should edit and save tag notes', function() {
+    expect(scope.status.editingTagNotes).toBe(false);
+    scope.editTagNotes();
+    expect(scope.status.editingTagNotes).toBe(true);
+    expect(scope.data.household.tagnotes).toBeDefined();
+    scope.data.household.tagnotes = 'New tag notes';
+    scope.saveTagNotes();
+    expect(scope.status.savingTagNotes).toBe(true);
+    $rootScope.$apply();
+    expect(scope.status.savingTagNotes).toBe(false);
+    expect(scope.status.editingTagNotes).toBe(false);
+  });
+});
+});

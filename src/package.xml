@@ -46,6 +46,7 @@
         <members>Account.C501_IS_Monthly_Points_Available__c</members>
         <members>Account.C501_IS_Most_Recent_Visit__c</members>
         <members>Account.C501_IS_Notes__c</members>
+        <members>Account.C501_IS_Tag_Notes__c</members>
         <members>Account.C501_IS_Out_Of_Area__c</members>
         <members>Account.C501_IS_Pending_Commodity_Usage_JSON__c</members>
         <members>Account.C501_IS_Pending_Notes__c</members>

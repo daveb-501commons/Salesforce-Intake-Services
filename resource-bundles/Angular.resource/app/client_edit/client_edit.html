@@ -206,6 +206,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="panel panel-warning" ng-controller="tagnotesController">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                Tag Notes
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <textarea class="form-control" name="tagnotes" placeholder="About this client"
+                            style="height:150px;" ng-maxlength="4096" ng-model="data.household.tagnotes">
+                        </textarea>
+                    </div>
+                </div>
                 <div class="panel panel-warning" ng-controller="notesController">
                     <div class="panel-heading">
                         <div class="row">
