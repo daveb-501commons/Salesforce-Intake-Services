@@ -479,7 +479,13 @@ public with sharing class IntakeServices {
             for (Client_Visit__c cv : hh.Visits__r)
                 if (cv.C501_IS_Points_Used__c != null) fbc.Points_Remaining__c -= cv.C501_IS_Points_Used__c;
 
-            fbc.Check_In_Time__c = system.now().addDays(system.today().daysBetween(Date.valueOf(visitDate)));
+            Datetime currentDatetime = Datetime.now();
+            Date currentDate = currentDatetime.date();
+            Date visitDateIncoming = Date.parse(visitDate);
+            Integer dayDifference = currentDate.daysBetween(visitDateIncoming);
+            Datetime visitDatetime = currentDatetime.addDays(dayDifference);
+
+            fbc.Check_In_Time__c = visitDatetime;
             fbc.C501_IS_Visitor__c = contactid;
             fbc.C501_IS_Visit_Type__c = visitType;
             fbc.C501_IS_Service_Location__c = serviceLocation;
@@ -734,6 +740,12 @@ public with sharing class IntakeServices {
             }
         }
 
+        Datetime currentDatetime = Datetime.now();
+        Date currentDate = currentDatetime.date();
+        Date visitDateIncoming = Date.parse(visitDate);
+        Integer dayDifference = currentDate.daysBetween(visitDateIncoming);
+        Datetime visitDatetime = currentDatetime.addDays(dayDifference);
+
         // log the visit
         Client_Visit__c cv = new Client_Visit__c(
             C501_IS_Household__c = hh.Id,
@@ -747,9 +759,9 @@ public with sharing class IntakeServices {
             C501_IS_Checkout_Weight__c = checkoutWeight,
             C501_IS_Box_Type__c = boxType,
             C501_IS_Notes__c = visitNotes,
-            C501_IS_Visit_Type__c = (visitType == '' && fbc != null && fbc.C501_IS_Visit_Type__c != null) ? fbc.C501_IS_Visit_Type__c : visitType,
+            C501_IS_Visit_Type__c = (fbc != null && fbc.C501_IS_Visit_Type__c != null && fbc.C501_IS_Visit_Type__c != '') ? fbc.C501_IS_Visit_Type__c : visitType,
             C501_IS_Service_Location__c = serviceLocation,
-            C501_IS_Visit_Date__c = (fbc != null && fbc.Check_In_Time__c != null) ? fbc.Check_In_Time__c : system.now().addDays(Date.Today().daysBetween(Date.valueOf(visitDate))),
+            C501_IS_Visit_Date__c = (fbc != null && fbc.Check_In_Time__c != null) ? fbc.Check_In_Time__c : visitDatetime,
             C501_IS_Visitor__c = (fbc != null && fbc.C501_IS_Visitor__c != null) ? fbc.C501_IS_Visitor__c : contactid
         );
 
@@ -785,8 +797,8 @@ public with sharing class IntakeServices {
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
                         C501_Service__c = cleanName,
-                        C501_Start_Date__c = Date.valueOf(visitDate),
-                        C501_End_Date__c = Date.valueOf(visitDate),
+                        C501_Start_Date__c = Date.parse(visitDate),
+                        C501_End_Date__c = Date.parse(visitDate),
                         C501_IsActive__c = false,
                         C501_Trigger_Ignore_Change__c = true,
                         C501_Location__c = serviceLocation,
@@ -816,8 +828,8 @@ public with sharing class IntakeServices {
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
                         C501_Service__c = cleanName,
-                        C501_Start_Date__c = Date.valueOf(visitDate),
-                        C501_End_Date__c = Date.valueOf(visitDate),
+                        C501_Start_Date__c = Date.parse(visitDate),
+                        C501_End_Date__c = Date.parse(visitDate),
                         C501_IsActive__c = false,
                         C501_Trigger_Ignore_Change__c = true,
                         C501_Location__c = serviceLocation,
@@ -847,8 +859,8 @@ public with sharing class IntakeServices {
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
                         C501_Service__c = cleanName,
-                        C501_Start_Date__c = Date.valueOf(visitDate),
-                        C501_End_Date__c = Date.valueOf(visitDate),
+                        C501_Start_Date__c = Date.parse(visitDate),
+                        C501_End_Date__c = Date.parse(visitDate),
                         C501_IsActive__c = false,
                         C501_Trigger_Ignore_Change__c = true,
                         C501_Location__c = serviceLocation,

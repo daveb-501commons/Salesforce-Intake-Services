@@ -20,11 +20,11 @@ public with sharing class IntakeServicesTest {
         commU.put('Bread', 1);
 
         // Test CheckIn & CheckOut
-        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other', '2018-01-01', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham');
+        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other', '01/01/2018', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham');
         System.assert(Intake_Services_Checkin__c.getInstance(cHh.Id + 'Bellingham') != null);
 
         // Attempt to CheckIn again should not throw error and just update existing record
-        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other', '2018-01-01', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham');
+        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other', '01/01/2018', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham');
 
         IntakeServices.cancelCheckIn(cHh.Id);
         System.assert(Intake_Services_Checkin__c.getInstance(cHh.Id + 'Bellingham') == null);
@@ -146,7 +146,7 @@ public with sharing class IntakeServicesTest {
 		Map<String, Integer> commU = new Map<String, Integer>();
 		commU.put('Meat', 2);
 		commU.put('Bread', 1);
-		Id cVId = IntakeServices.logVisit(household1.Id, contact.Id, 'small', 1.1, 5, commU, 'Other', '2018-01-01', 'These are notes', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham', 'Intake');
+		Id cVId = IntakeServices.logVisit(household1.Id, contact.Id, 'small', 1.1, 5, commU, 'Other', '01/01/2018', 'These are notes', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham', 'Intake');
 		System.assert(cVId != null);
 
 		List<Client_Visit__c> cV = IntakeServices.getVisitHistory(household1.Id);
