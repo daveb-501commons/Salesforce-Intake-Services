@@ -260,6 +260,7 @@ angular.module('clientController')
         var servicesSelected = [];
         _.forEach( $scope.data.services, function(v) {
           if (v.selected) {
+            v.selected = false;
             servicesSelected.push(v.name);
           }
         });
@@ -267,6 +268,7 @@ angular.module('clientController')
         var referralsSelected = [];
         _.forEach( $scope.data.referrals, function(v) {
           if (v.selected) {
+            v.selected = false;
             referralsSelected.push(v.name);
           }
         });
@@ -278,7 +280,8 @@ angular.module('clientController')
 
         $scope.saveAll().then(function() {
 
-          fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false, $scope.data.visitType, safeDate, servicesSelected, referralsSelected, $scope.data.serviceLocation);
+          fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.visitNotes, false,
+            $scope.data.visitType, safeDate, servicesSelected, referralsSelected, $scope.data.serviceLocation);
           $window.scrollTo(0,0);
           $alert({
             title: 'Checked in!',
@@ -314,6 +317,7 @@ angular.module('clientController')
         var servicesSelected = [];
         _.forEach( $scope.data.services, function(v) {
           if (v.selected) {
+            v.selected = false;
             servicesSelected.push(v.name);
           }
         });
@@ -321,6 +325,7 @@ angular.module('clientController')
         var referralsSelected = [];
         _.forEach( $scope.data.referrals, function(v) {
           if (v.selected) {
+            v.selected = false;
             referralsSelected.push(v.name);
           }
         });
@@ -333,7 +338,8 @@ angular.module('clientController')
         var safeDate = mm + '/' + dd + '/' + yyyy;
 
         fbLogVisit( $scope.data.household.id, $scope.contactid, $scope.data.boxType, 0, 0, comms,
-          $scope.data.visitType, safeDate, $scope.data.visitNotes, servicesSelected, referralsSelected, $scope.data.serviceLocation, $scope.settings.user_email).then(
+          $scope.data.visitType, safeDate, $scope.data.visitNotes, servicesSelected, referralsSelected,
+          $scope.data.serviceLocation, $scope.settings.user_email).then(
           function(result){
             $scope.logging = false;
             $window.scrollTo(0,0);

@@ -58,6 +58,7 @@ angular.module('logVisitController')
         var servicesSelected = [];
         _.forEach( $scope.services, function(v) {
           if (v.selected) {
+            v.selected = false;
             servicesSelected.push(v.name);
           }
         });
@@ -65,6 +66,7 @@ angular.module('logVisitController')
         var referralsSelected = [];
         _.forEach( $scope.referrals, function(v) {
           if (v.selected) {
+            v.selected = false;
             referralsSelected.push(v.name);
           }
         });

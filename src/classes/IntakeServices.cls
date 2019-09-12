@@ -515,7 +515,7 @@ public with sharing class IntakeServices {
                         .replace('_', ' ');
 
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = 'Information & Referral - Commodity: (' + cleanName + ')',
+                        Name = hh.Name + ' (' + cleanName + ')',
                         C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
@@ -545,7 +545,7 @@ public with sharing class IntakeServices {
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = 'Information & Referral - Service: (' + cleanName + ')',
+                        Name = hh.Name + ' (' + cleanName + ')',
                         C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
@@ -575,7 +575,7 @@ public with sharing class IntakeServices {
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = 'Information & Referral - Referral: (' + cleanName + ')',
+                        Name = hh.Name + ' (' + cleanName + ')',
                         C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
@@ -792,7 +792,7 @@ public with sharing class IntakeServices {
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = 'Information & Referral - Commodity: (' + cleanName + ')',
+                        Name = hh.Name + ' (' + cleanName + ')',
                         C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
@@ -823,7 +823,7 @@ public with sharing class IntakeServices {
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = 'Information & Referral - Service: (' + cleanName + ')',
+                        Name = hh.Name + ' (' + cleanName + ')',
                         C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
@@ -854,7 +854,7 @@ public with sharing class IntakeServices {
                         .replace('_FORWARDSLASH_', '/')
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = 'Information & Referral - Referral: (' + cleanName + ')',
+                        Name = hh.Name + ' (' + cleanName + ')',
                         C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
