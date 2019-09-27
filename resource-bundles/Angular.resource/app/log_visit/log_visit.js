@@ -24,8 +24,8 @@ angular.module('logVisitController')
       $scope.settings = foundSettings;
 
       $scope.commodities = foundSettings.commodities;
-      $scope.services = foundSettings.services;
-      $scope.referrals = foundSettings.referrals;
+      $scope.data.services = foundSettings.services;
+      $scope.data.referrals = foundSettings.referrals;
 
       $scope.logging = false;
       $scope.addressEdit = false;
@@ -56,7 +56,7 @@ angular.module('logVisitController')
         });
 
         var servicesSelected = [];
-        _.forEach( $scope.services, function(v) {
+        _.forEach( $scope.data.services, function(v) {
           if (v.selected) {
             v.selected = false;
             servicesSelected.push(v.name);
@@ -64,7 +64,7 @@ angular.module('logVisitController')
         });
 
         var referralsSelected = [];
-        _.forEach( $scope.referrals, function(v) {
+        _.forEach( $scope.data.referrals, function(v) {
           if (v.selected) {
             v.selected = false;
             referralsSelected.push(v.name);

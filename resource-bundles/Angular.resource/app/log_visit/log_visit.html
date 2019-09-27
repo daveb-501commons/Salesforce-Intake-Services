@@ -102,13 +102,13 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-5" ng-if="services">
+                    <div class="col-md-5" ng-if="data.services">
                         <div class="panel panel-default">
                             <div class="panel-heading">Services</div>
                             <div class="panel-body" ng-show="data.household">
-                                <table ng-if="services" class="table table-condensed" style="margin-top:6px;">
+                                <table ng-if="data.services" class="table table-condensed" style="margin-top:6px;">
                                     <tbody>
-                                        <tr ng-repeat="service in services" 
+                                        <tr ng-repeat="service in data.services" 
                                             ng-form="servicesForm"
                                             ng-show="service.locations.includes(data.serviceLocation)">
 
@@ -164,19 +164,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5" ng-if="referrals">
+                    <div class="col-md-5" ng-if="data.referrals">
                         <div class="panel panel-default">
                             <div class="panel-heading">Referrals</div>
                             <div class="panel-body" ng-show="data.household">
-                                <table ng-if="referrals" class="table table-condensed" style="margin-top:6px;">
+                                <table ng-if="data.referrals" class="table table-condensed" style="margin-top:6px;">
                                     <tbody>
-                                        <tr ng-repeat="referral in referrals" 
+                                        <tr ng-repeat="referral in data.referrals" 
                                             ng-form="referralsForm"
                                             ng-show="referral.locations.includes(data.serviceLocation) && referral.column == 1">
 
                                             <td>
                                                 <input class="form-control input-sm" type="checkbox" 
-                                                    ng-model="service.selected" name="selected"
+                                                    ng-model="referral.selected" name="selected"
                                                     style="width:50px" ></input>
                                             </td>
                                             <td style="word-wrap: break-word">{{referral.name}}</td>
@@ -186,19 +186,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5" ng-if="referrals">
+                    <div class="col-md-5" ng-if="data.referrals">
                         <div class="panel panel-default">
                             <div class="panel-heading">Referrals</div>
                             <div class="panel-body" ng-show="data.household">
-                                <table ng-if="referrals" class="table table-condensed" style="margin-top:6px;">
+                                <table ng-if="data.referrals" class="table table-condensed" style="margin-top:6px;">
                                     <tbody>
-                                        <tr ng-repeat="referral in referrals" 
+                                        <tr ng-repeat="referral in data.referrals" 
                                             ng-form="referralsForm"
                                             ng-show="referral.locations.includes(data.serviceLocation) && referral.column == 2">
 
                                             <td>
                                                 <input class="form-control input-sm" type="checkbox" 
-                                                    ng-model="service.selected" name="selected"
+                                                    ng-model="referral.selected" name="selected"
                                                     style="width:50px" ></input>
                                             </td>
                                             <td style="word-wrap: break-word">{{referral.name}}</td>
@@ -209,7 +209,7 @@
                         </div>
                     </div>
                 </div>
-            </div>   
+            </div>
             <div class="panel-footer text-center">
                 <a class="btn btn-success" ng-click="recordVisit();" ng-disabled="logging || (pointsRemaining == 0) || visitForm.$invalid || commForm.$invalid" >
                     Record Visit

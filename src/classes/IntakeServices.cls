@@ -28,7 +28,7 @@ public with sharing class IntakeServices {
     //
     private static void CreateServiceContacts(C501_Service_Household__c serviceHousehold, Id householdId) {
 
-        system.debug('***** IntakeServices::CreateServiceContacts');
+        System.debug(LoggingLevel.DEBUG, '***** IntakeServices::CreateServiceContacts');
 
         List<Contact> householdContacts = [SELECT 
 					Account.Id, Account.npe01__One2OneContact__c,
@@ -71,7 +71,7 @@ public with sharing class IntakeServices {
     //
     private static void CheckServiceHouseholdRecords() {
 /*
-        system.debug('***** IntakeServices::CheckServiceHouseholdRecords');
+        System.debug(LoggingLevel.DEBUG, '***** IntakeServices::CheckServiceHouseholdRecords');
 
         List<C501_Service_Household__c> serviceHouseholds = [SELECT Id, C501_Program__c, Name, C501_Service_Id__c, C501_Household__c FROM C501_Service_Household__c WHERE C501_Program__c = 'Information & Referral' AND CreatedDate = THIS_YEAR];
         List<String> serviceHouseholdIds = new List<String>();
@@ -88,11 +88,11 @@ public with sharing class IntakeServices {
         for (C501_Service_Household__c serviceHousehold :serviceHouseholds) {
 
             if (serviceHouseholdWithContact.contains(serviceHousehold.Id)) {
-                system.debug('***** Service Household Has a Contact Name: ' + serviceHousehold.Name + ' Program: ' + serviceHousehold.C501_Program__c);
+                System.debug(LoggingLevel.DEBUG, '***** Service Household Has a Contact Name: ' + serviceHousehold.Name + ' Program: ' + serviceHousehold.C501_Program__c);
                 continue;
             }
             
-            system.debug('***** Service Household Has No Contacts: ' + serviceHousehold.Name + ' Program: ' + serviceHousehold.C501_Program__c);
+            System.debug(LoggingLevel.DEBUG, '***** Service Household Has No Contacts: ' + serviceHousehold.Name + ' Program: ' + serviceHousehold.C501_Program__c);
             CreateServiceContacts(serviceHousehold, serviceHousehold.C501_Household__c);
         }
 */
@@ -104,7 +104,7 @@ public with sharing class IntakeServices {
     //
 	private static void CopyFieldsContact2ServiceContact(Contact c, C501_Service_Contact__c sc) {
 
-        system.debug('***** IntakeServices::CopyFieldsContact2ServiceContact');
+        System.debug(LoggingLevel.DEBUG, '***** IntakeServices::CopyFieldsContact2ServiceContact');
 
         sc.C501_First_Name__c = c.FirstName;
         sc.C501_FirstName_Initial__c = c.C501_FirstName_Initial__c;
@@ -137,7 +137,7 @@ public with sharing class IntakeServices {
     //
 	private static void CopyFieldsAccount2ServiceAccount(Id hhId, C501_Service_Household__c sh) {
 
-        system.debug('***** IntakeServices::CopyFieldsAccount2ServiceAccount');
+        System.debug(LoggingLevel.DEBUG, '***** IntakeServices::CopyFieldsAccount2ServiceAccount');
 
 		List<Account> households =
 				[SELECT Id, Name, 
@@ -453,7 +453,7 @@ public with sharing class IntakeServices {
     @RemoteAction
     public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff, String visitType, String visitDate, List<String> services, List<String> referrals, String serviceLocation) {
 
-        system.debug('***** IntakeServices::checkIn');
+        System.debug(LoggingLevel.DEBUG, '***** IntakeServices::checkIn');
 
         Account hh =
             [select id, Name, C501_IS_Adults__c, C501_IS_Seniors__c, C501_IS_Children__c, C501_IS_Infants__c,
@@ -463,7 +463,7 @@ public with sharing class IntakeServices {
         Intake_Services_Checkin__c fbc = new Intake_Services_Checkin__c();
         List<Intake_Services_Checkin__c> intakes = [Select Id, C501_IS_Commodity_Usage_JSON__c, Points_Remaining__c from Intake_Services_Checkin__c where (Name = :hhid or C501_IS_Household__c = :hhid) and C501_IS_Service_Location__c = :serviceLocation];
         if (!intakes.isEmpty()) {
-            system.debug('***** IntakeServices::checkIn - update checkin');
+            System.debug(LoggingLevel.DEBUG, '***** IntakeServices::checkIn - update checkin');
             fbc = intakes[0];
 
             fbc.Check_In_Time_With_Staff__c = system.now();
@@ -471,7 +471,7 @@ public with sharing class IntakeServices {
 
             update fbc;
         } else {
-            system.debug('***** IntakeServices::checkIn - insert checkin');
+            System.debug(LoggingLevel.DEBUG, '***** IntakeServices::checkIn - insert checkin');
 
             fbc.name = hhid + serviceLocation;
             fbc.C501_IS_Household__c = hhid;
@@ -508,7 +508,7 @@ public with sharing class IntakeServices {
             if (commodityUsage != null && !commodityUsage.isEmpty()) {
                 for (String commodity : commodityUsage.keySet()) {
 
-                    system.debug('***** IntakeServices::checkIn - insert commodity: ' + commodity);
+                    System.debug(LoggingLevel.DEBUG, '***** IntakeServices::checkIn - insert commodity: ' + commodity);
 
                     String cleanName = commodity
                         .replace('_FORWARDSLASH_', '/')
@@ -539,7 +539,7 @@ public with sharing class IntakeServices {
             if (services != null && !services.isEmpty()) {
                 for (String service : services) {
 
-                    system.debug('***** IntakeServices::checkIn - insert service: ' + service);
+                    System.debug(LoggingLevel.DEBUG, '***** IntakeServices::checkIn - insert service: ' + service);
 
                     String cleanName = service
                         .replace('_FORWARDSLASH_', '/')
@@ -569,7 +569,7 @@ public with sharing class IntakeServices {
             if (referrals != null && !referrals.isEmpty()) {
                 for (String referral : referrals) {
 
-                    system.debug('***** IntakeServices::checkIn - insert referral: ' + referral);
+                    System.debug(LoggingLevel.DEBUG, '***** IntakeServices::checkIn - insert referral: ' + referral);
 
                     String cleanName = referral
                         .replace('_FORWARDSLASH_', '/')
@@ -709,6 +709,8 @@ public with sharing class IntakeServices {
     @RemoteAction
     public static Id logVisit( Id hhId, Id contactId, String boxType, Decimal checkoutWeight, Integer pointsUsed, Map<String, Integer> commodityUsage, String visitType, String visitDate, String visitNotes, List<String> services, List<String> referrals, String serviceLocation, String createdBy) {
 
+        System.debug(LoggingLevel.DEBUG, '*****IntakeServices::logVisit Start - services: ' + services + ' referrals: ' + referrals + ' serviceLocation: ' + serviceLocation + ' createdBy: ' + createdBy);
+
         // get the HH detail
         Account[] hhs =
             [select Id, Name, C501_IS_Adults__c, C501_IS_Children__c, C501_IS_Infants__c, C501_IS_Seniors__c, C501_IS_Homeless__c, C501_IS_Out_Of_Area__c, C501_IS_Inactive__c
@@ -814,7 +816,7 @@ public with sharing class IntakeServices {
                 }
             }
 
-            System.debug('*****IntakeServices::logVisit services: ' + services);
+            System.debug(LoggingLevel.DEBUG, '*****IntakeServices::logVisit services: ' + services);
 
             if (services != null && !services.isEmpty()) {
                 for (String service : services) {
@@ -845,7 +847,7 @@ public with sharing class IntakeServices {
                 }
             }
 
-            System.debug('*****IntakeServices::logVisit referrals: ' + referrals);
+            System.debug(LoggingLevel.DEBUG, '*****IntakeServices::logVisit referrals: ' + referrals);
 
             if (referrals != null && !referrals.isEmpty()) {
                 for (String referral : referrals) {
