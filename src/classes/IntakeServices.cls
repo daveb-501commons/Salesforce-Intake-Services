@@ -12,6 +12,7 @@ public with sharing class IntakeServices {
         public Id clientId { get; private set; }
         public Id clientContactId { get; private set; }
         public String name { get; private set; }
+        public String notes { get; private set; }
         public Decimal pointsRemaining { get; private set; }
         public String visitType { get; private set; }
         public String serviceLocation { get; private set; }
@@ -205,10 +206,13 @@ public with sharing class IntakeServices {
                 continue;
             }
 
+System.debug(fbc);
+
             ClientCheckin cc = new ClientCheckin();
             cc.clientId = (fbc.C501_IS_Household__c != null) ? fbc.C501_IS_Household__c : fbc.name;
             cc.clientContactId = fbc.C501_IS_Visitor__c;
             cc.name = IntakeServices.getContactName(fbc.C501_IS_Visitor__c);
+            cc.notes = !String.isBlank(fbc.C501_IS_Notes__c) && fbc.C501_IS_Notes__c.length() > 64 ? fbc.C501_IS_Notes__c.left(64) + '...' : fbc.C501_IS_Notes__c;
             cc.pointsRemaining = fbc.Points_Remaining__c;
             cc.visitType = fbc.C501_IS_Visit_Type__c;
             cc.serviceLocation = fbc.C501_IS_Service_Location__c;
@@ -491,6 +495,7 @@ public with sharing class IntakeServices {
             fbc.C501_IS_Service_Location__c = serviceLocation;
 
             fbc.C501_IS_Notes__c = visitNotes;
+System.debug('checkin - visitNotes: ' + visitNotes);
             fbc.C501_With_Staff__c = withStaff;
 
             if (commodityUsage != null && !commodityUsage.isEmpty()) {

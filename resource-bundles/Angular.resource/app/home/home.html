@@ -77,6 +77,7 @@
                     <thead>
                         <tr class="text-center" >
                             <th>Name</th>
+                            <th class="text-center">Notes</th>
                             <th class="text-center">Visit Reason</th>
                             <th class="text-center">Check-In Time</th>
                             <th class="text-center">Action</th>
@@ -85,6 +86,7 @@
                     <tbody>
                         <tr ng-repeat="client in checkedInClients">
                             <td class="text-left" style="vertical-align:middle;">{{client.name}}</td>
+                            <td class="text-left" style="vertical-align:left;">{{client.notes}}</td>
                             <td style="vertical-align:middle;">{{client.visitType}}</td>
                             <td style="vertical-align:middle;">{{client.checkInTime | date:'shortTime'}}
                                 <span ng-show="client.checkinNotToday">
@@ -118,6 +120,7 @@
                     <thead>
                         <tr class="text-center" >
                             <th>Name</th>
+                            <th class="text-center">Notes</th>
                             <th class="text-center">Visit Reason</th>
                             <th class="text-center">Check-In Time</th>
                             <th class="text-center">Process Time</th>
@@ -127,6 +130,7 @@
                     <tbody>
                         <tr ng-repeat="client in checkedInClientsWithStaff">
                             <td class="text-left" style="vertical-align:middle;">{{client.name}}</td>
+                            <td class="text-left" style="vertical-align:left;">{{client.notes}}</td>
                             <td style="vertical-align:middle;">{{client.visitType}}</td>
                             <td style="vertical-align:middle;">{{client.checkInTime | date:'shortTime'}}
                                     <span ng-show="client.checkinNotToday">
