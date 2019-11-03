@@ -495,7 +495,6 @@ System.debug(fbc);
             fbc.C501_IS_Service_Location__c = serviceLocation;
 
             fbc.C501_IS_Notes__c = visitNotes;
-System.debug('checkin - visitNotes: ' + visitNotes);
             fbc.C501_With_Staff__c = withStaff;
 
             if (commodityUsage != null && !commodityUsage.isEmpty()) {
