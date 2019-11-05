@@ -137,7 +137,14 @@
                     <tbody>
                         <tr ng-repeat="client in checkedInClientsWithStaff">
                             <td class="text-left" style="vertical-align:middle;">{{client.name}}</td>
-                            <td title="{{client.notes}}" class="text-left" style="vertical-align:left;word-wrap: break-word">{{client.notes}}</td>
+                            <td>
+                                <div class="text-left"
+                                        style="vertical-align:left;word-wrap: break-word"
+                                        tooltip-popup-delay="1000"
+                                        tooltip-placement="top"
+                                        uib-tooltip="{{client.notesfull}}">{{client.notes}}
+                                </div>
+                            </td>
                             <td style="vertical-align:middle;">{{client.visitType}}</td>
                             <td style="vertical-align:middle;">{{client.checkInTime | date:'shortTime'}}
                                     <span ng-show="client.checkinNotToday">
