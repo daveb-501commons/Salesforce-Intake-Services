@@ -280,7 +280,7 @@ angular.module('clientController')
 
         $scope.saveAll().then(function() {
 
-          fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.household.notes, false,
+          fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.household.notes || ' ', false,
             $scope.data.visitType, safeDate, servicesSelected, referralsSelected, $scope.data.serviceLocation);
           $window.scrollTo(0,0);
           $alert({
