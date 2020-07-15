@@ -20,11 +20,11 @@ public with sharing class IntakeServicesTest {
         commU.put('Bread', 1);
 
         // Test CheckIn & CheckOut
-        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other', '01/01/2018', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham');
+        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other', '01/01/2018', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham', 'test@test.com');
         System.assert(Intake_Services_Checkin__c.getInstance(cHh.Id + 'Bellingham') != null);
 
         // Attempt to CheckIn again should not throw error and just update existing record
-        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other', '01/01/2018', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham');
+        IntakeServices.checkIn(cHh.Id, cContact.Id, commU, 'Notes', false, 'Other', '01/01/2018', new List<String> {'Housing Pool'}, new List<String>{'Energy Assistance'}, 'Bellingham', 'test@test.com');
 
         IntakeServices.cancelCheckIn(cHh.Id);
         System.assert(Intake_Services_Checkin__c.getInstance(cHh.Id + 'Bellingham') == null);

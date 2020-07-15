@@ -287,7 +287,7 @@ angular.module('clientController')
         $scope.saveAll().then(function() {
 
           fbCheckIn($scope.data.household.id, $scope.contactid, comms, $scope.data.household.notes || ' ', false,
-            $scope.data.visitType, safeDate, servicesSelected, referralsSelected, $scope.data.serviceLocation);
+            $scope.data.visitType, safeDate, servicesSelected, referralsSelected, $scope.data.serviceLocation, $scope.settings.user_email);
           $window.scrollTo(0,0);
           $alert({
             title: 'Checked in!',

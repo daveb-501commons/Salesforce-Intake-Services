@@ -28,7 +28,7 @@ public with sharing class IntakeServices {
     //  Location for optimzation - same Fx in  https://github.com/501Commons/Salesforce-Service-Management/src/C501_TriggerHelper.cls
     //      Optimization is to have a single function return the query and then walk through the fields in a loop and set the values without explicitly referencing the api name - refer to MMA project
     //
-    private static void CreateServiceContacts(C501_Service_Household__c serviceHousehold, Id householdId, Id contactId) {
+    private static void CreateServiceContacts(C501_Service_Household__c serviceHousehold, Id householdId, Id contactId, String createdBy) {
 
         System.debug(LoggingLevel.DEBUG, '***** IntakeServices::CreateServiceContacts');
 
@@ -62,7 +62,7 @@ public with sharing class IntakeServices {
                 C501_Contact_Id__c = String.valueOf(contactRecord.Id) + String.valueOf(serviceHousehold.Id),
                 C501_Trigger_Ignore_Change__c = true
             );
-            CopyFieldsContact2ServiceContact(contactRecord, sc);
+            CopyFieldsContact2ServiceContact(contactRecord, sc, createdBy);
 
             insertServiceContacts.add(sc);
         }
@@ -100,7 +100,7 @@ public with sharing class IntakeServices {
             }
             
             System.debug(LoggingLevel.DEBUG, '***** Service Household Has No Contacts: ' + serviceHousehold.Name + ' Program: ' + serviceHousehold.C501_Program__c);
-            CreateServiceContacts(serviceHousehold, serviceHousehold.C501_Household__c, null);
+            CreateServiceContacts(serviceHousehold, serviceHousehold.C501_Household__c, null, createdBy);
         }
 */
     }
@@ -109,7 +109,7 @@ public with sharing class IntakeServices {
     //  Location for optimzation - same Fx in  https://github.com/501Commons/Salesforce-Service-Management/src/C501_TriggerHelper.cls
     //      Optimization is to have a single function return the query and then walk through the fields in a loop and set the values without explicitly referencing the api name - refer to MMA project
     //
-	private static void CopyFieldsContact2ServiceContact(Contact c, C501_Service_Contact__c sc) {
+	private static void CopyFieldsContact2ServiceContact(Contact c, C501_Service_Contact__c sc, String createdBy) {
 
         System.debug(LoggingLevel.DEBUG, '***** IntakeServices::CopyFieldsContact2ServiceContact');
 
@@ -135,7 +135,7 @@ public with sharing class IntakeServices {
         sc.C501_Preferred_Language__c = c.C501_Preferred_Language__c;
         sc.C501_Additional_Languages__c = c.C501_Additional_Languages__c;
         sc.C501_Work_Status__c = c.C501_Work_Status__c;
-        sc.C501_Case_Worker__c = c.C501_Case_Worker__c;
+        sc.C501_Case_Worker__c = createdBy;
 	}
 
     //
@@ -193,7 +193,6 @@ public with sharing class IntakeServices {
         sh.C501_Household_Type__c = households[0].C501_Household_Type__c;
         sh.C501_Years_At_Current_Address__c = households[0].C501_Years_At_Current_Address__c;
         sh.C501_Current_Address_Move_In_Year__c = households[0].C501_Current_Address_Move_In_Year__c;
-        sh.C501_Case_Worker__c = households[0].C501_Case_Worker__c;
 	}
 
     public static list<ClientCheckin> getCheckedInListCollection(boolean with_staff, String serviceLocation) {
@@ -320,7 +319,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static list<C501_Service_Household__c> getServiceHistory( Id hhid ) {
+    public static List<C501_Service_Household__c> getServiceHistory( Id hhid ) {
 
         Set<Id> serviceHouseholdIds = new Set<Id>();
         for (C501_Service_Contact__c serviceContact :[
@@ -340,10 +339,10 @@ public with sharing class IntakeServices {
         }
 
         return
-            [select Id, Name, C501_Case_Worker__c, C501_Start_Date__c, C501_End_Date__c, C501_IsActive__c
-                from C501_Service_Household__c
-                where Id in :serviceHouseholdIds
-                order by C501_Start_Date__c DESC limit 20];
+            [SELECT Id, Name, C501_Case_Worker__c, C501_Start_Date__c, C501_End_Date__c, C501_IsActive__c
+                FROM C501_Service_Household__c
+                WHERE Id in :serviceHouseholdIds
+                ORDER BY C501_Start_Date__c DESC];
     }
 
     @RemoteAction
@@ -503,7 +502,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff, String visitType, String visitDate, List<String> services, List<String> referrals, String serviceLocation) {
+    public static void checkIn( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String visitNotes, boolean withStaff, String visitType, String visitDate, List<String> services, List<String> referrals, String serviceLocation, String createdBy) {
 
         System.debug(LoggingLevel.DEBUG, '***** IntakeServices::checkIn');
 
@@ -576,7 +575,9 @@ public with sharing class IntakeServices {
                         C501_End_Date__c = Date.Today(),
                         C501_IsActive__c = false,
                         C501_Trigger_Ignore_Change__c = true,
-                        C501_Location__c = serviceLocation
+                        C501_Location__c = serviceLocation,
+                        C501_Created_By__c = createdBy,
+                        C501_Case_Worker__c = createdBy
                     );
 
                     CopyFieldsAccount2ServiceAccount(hh.Id, sh);
@@ -584,7 +585,7 @@ public with sharing class IntakeServices {
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId, null);
+                    CreateServiceContacts(sh, hhId, null, createdBy);
                 }
             }
 
@@ -606,7 +607,9 @@ public with sharing class IntakeServices {
                         C501_End_Date__c = Date.Today(),
                         C501_IsActive__c = false,
                         C501_Trigger_Ignore_Change__c = true,
-                        C501_Location__c = serviceLocation
+                        C501_Location__c = serviceLocation,
+                        C501_Created_By__c = createdBy,
+                        C501_Case_Worker__c = createdBy
                     );
 
                     CopyFieldsAccount2ServiceAccount(hh.Id, sh);
@@ -614,7 +617,7 @@ public with sharing class IntakeServices {
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId, null);
+                    CreateServiceContacts(sh, hhId, null, createdBy);
                 }
             }
 
@@ -636,7 +639,9 @@ public with sharing class IntakeServices {
                         C501_End_Date__c = Date.Today(),
                         C501_IsActive__c = false,
                         C501_Trigger_Ignore_Change__c = true,
-                        C501_Location__c = serviceLocation
+                        C501_Location__c = serviceLocation,
+                        C501_Created_By__c = createdBy,
+                        C501_Case_Worker__c = createdBy
                     );
 
                     CopyFieldsAccount2ServiceAccount(hh.Id, sh);
@@ -644,7 +649,7 @@ public with sharing class IntakeServices {
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId, null);
+                    CreateServiceContacts(sh, hhId, null, createdBy);
                 }
             }
 
@@ -673,7 +678,7 @@ public with sharing class IntakeServices {
         Account hh = hhs[0];
 
         // Validate Contact references are still valid because between the checkin time and log visit the Contact could have been deleted
-        list<Contact> c = [select id from Contact where id = :contactid];
+        List<Contact> c = [select Id, Name from Contact where Id = :contactid];
         if (c.isEmpty()) {
             contactid = null;
         }
@@ -726,7 +731,7 @@ public with sharing class IntakeServices {
                     }
                     
                     C501_Service_Household__c sh = new C501_Service_Household__c(
-                        Name = hh.Name + ' (' + cleanName + ')',
+                        Name = c[0].Name + ' (' + cleanName + ')',
                         C501_Service_Id__c = 'Individual Commodity ' + cleanName + currentDatetime.format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
@@ -736,15 +741,24 @@ public with sharing class IntakeServices {
                         C501_IsActive__c = false,
                         C501_Trigger_Ignore_Change__c = true,
                         C501_Location__c = serviceLocation,
-                        C501_Created_By__c = createdBy
+                        C501_Created_By__c = createdBy,
+                        C501_Case_Worker__c = createdBy
                     );
+
+                    System.debug(LoggingLevel.DEBUG, '*****Test service household before: ' + sh);
 
                     CopyFieldsAccount2ServiceAccount(hh.Id, sh);
 
                     insert sh;
 
+                    System.debug(LoggingLevel.DEBUG, '*****Test service household after: ' + sh);
+
+                    List<C501_Service_Household__c> shs = [SELECT C501_Case_Worker__c, C501_Created_By__c FROM C501_Service_Household__c WHERE Id = :sh.Id];
+
+                    System.debug(LoggingLevel.DEBUG, '*****Test service household after query: ' + shs);
+
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId, contactId);
+                    CreateServiceContacts(sh, hhId, contactId, createdBy);
                 }
             }
 
@@ -957,7 +971,8 @@ public with sharing class IntakeServices {
                         C501_IsActive__c = false,
                         C501_Trigger_Ignore_Change__c = true,
                         C501_Location__c = serviceLocation,
-                        C501_Created_By__c = createdBy
+                        C501_Created_By__c = createdBy,
+                        C501_Case_Worker__c = createdBy
                     );
 
                     CopyFieldsAccount2ServiceAccount(hh.Id, sh);
@@ -965,7 +980,7 @@ public with sharing class IntakeServices {
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId, null);
+                    CreateServiceContacts(sh, hhId, null, createdBy);
                 }
             }
 
@@ -988,7 +1003,8 @@ public with sharing class IntakeServices {
                         C501_IsActive__c = false,
                         C501_Trigger_Ignore_Change__c = true,
                         C501_Location__c = serviceLocation,
-                        C501_Created_By__c = createdBy
+                        C501_Created_By__c = createdBy,
+                        C501_Case_Worker__c = createdBy
                     );
 
                     CopyFieldsAccount2ServiceAccount(hh.Id, sh);
@@ -996,7 +1012,7 @@ public with sharing class IntakeServices {
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId, null);
+                    CreateServiceContacts(sh, hhId, null, createdBy);
                 }
             }
 
@@ -1019,7 +1035,8 @@ public with sharing class IntakeServices {
                         C501_IsActive__c = false,
                         C501_Trigger_Ignore_Change__c = true,
                         C501_Location__c = serviceLocation,
-                        C501_Created_By__c = createdBy
+                        C501_Created_By__c = createdBy,
+                        C501_Case_Worker__c = createdBy
                     );
 
                     CopyFieldsAccount2ServiceAccount(hh.Id, sh);
@@ -1027,7 +1044,7 @@ public with sharing class IntakeServices {
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId, null);
+                    CreateServiceContacts(sh, hhId, null, createdBy);
                 }
             }
 

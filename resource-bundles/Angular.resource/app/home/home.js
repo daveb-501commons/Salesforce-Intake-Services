@@ -32,7 +32,7 @@ angular.module('homeController')
       $scope.callingOut = true;
       var comms = {};
 
-      fbCheckIn(hhId, clientId, comms, '', true, visitType, null, null, null, serviceLocation).then(
+      fbCheckIn(hhId, clientId, comms, '', true, visitType, null, null, null, serviceLocation, $scope.settings.user_email).then(
         function(result){
           $scope.refresh();
           $timeout(function(){ $scope.callingOut = false; }, 2000);

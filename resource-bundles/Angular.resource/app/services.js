@@ -512,8 +512,8 @@ angular.module('appServices')
 
 angular.module('appServices')
   .factory('fbCheckIn', ['jsRemoting', function(jsRemoting) {
-      return function( hhid, contactid, commodities, notes, withStaff, visitType, visitDate, services, referrals, serviceLocation ) {
-        return jsRemoting.invoke('checkIn', [hhid, contactid, commodities, notes, withStaff, visitType, visitDate, services, referrals, serviceLocation]);
+      return function( hhid, contactid, commodities, notes, withStaff, visitType, visitDate, services, referrals, serviceLocation, createdBy ) {
+        return jsRemoting.invoke('checkIn', [hhid, contactid, commodities, notes, withStaff, visitType, visitDate, services, referrals, serviceLocation, createdBy]);
       };
   }]);
 
