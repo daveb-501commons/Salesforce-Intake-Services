@@ -745,17 +745,9 @@ public with sharing class IntakeServices {
                         C501_Case_Worker__c = createdBy
                     );
 
-                    System.debug(LoggingLevel.DEBUG, '*****Test service household before: ' + sh);
-
                     CopyFieldsAccount2ServiceAccount(hh.Id, sh);
 
                     insert sh;
-
-                    System.debug(LoggingLevel.DEBUG, '*****Test service household after: ' + sh);
-
-                    List<C501_Service_Household__c> shs = [SELECT C501_Case_Worker__c, C501_Created_By__c FROM C501_Service_Household__c WHERE Id = :sh.Id];
-
-                    System.debug(LoggingLevel.DEBUG, '*****Test service household after query: ' + shs);
 
                     // Create Service Contacts based on the current contacts in the household
                     CreateServiceContacts(sh, hhId, contactId, createdBy);
