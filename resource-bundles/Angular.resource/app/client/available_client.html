@@ -1,0 +1,60 @@
+<div class="panel panel-default" ng-controller="memberListController" >
+
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-6">
+                Individual Commodities
+            </div>
+            <div class="col-sm-6 text-right">
+                <button class="btn btn-success btn-sm panel-button"
+                    ng-click="saveMemberCommodities()">Save<i ng-if="status.savingMemberCommodities" class="fa fa-refresh fa-spin" style="margin-left:6px;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-condensed" style="margin-bottom:12px;table-layout: fixed; width: 100%">
+            <thead>
+                <tr>
+                    <th style="width:30%">Name</th>
+                    <th style="width:25%">Item</th>
+                    <th style="width:15%">Available</th>
+                    <th style="width:10%">Monthly Limit</th>
+                    <th style="width:10%">Used Today</th>
+                    <th style="width:10%">Id Number</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr ng-repeat="comm in data.memberCommodities"
+                    ng-class="{danger: !comm.remaining, warning: (comm.remaining > 0 && comm.remaining < comm.monthlyLimit)}"
+                    ng-form="commForm"
+                    ng-show="comm.locations.includes(data.serviceLocation) && comm.individualCommodity">
+
+                    <td style="word-wrap: break-word">{{comm.ownerName}}</td>
+
+                    <td style="word-wrap: break-word">{{comm.name}}</td>
+                    <td class="text-center">{{comm.remaining}}</td>
+                    <td class="text-center">{{comm.monthlyLimit}}</td>
+                    <td>
+                        <div ng-class="{ 'input-group': true, 'input-group-sm': true, 'has-error': commForm.ptsUsed.$invalid }">
+                            <input class="form-control input-sm" type="number" 
+                                ng-model="comm.ptsUsed" min="0" max="{{comm.remaining}}" name="ptsUsed"
+                                required="required" style="width:50px" ></input>
+                            <span ng-show="commForm.ptsUsed.$error.required" class="help-block">Enter a number</span>
+                            <span ng-show="commForm.ptsUsed.$error.min" class="help-block">Cannot be negative</span>
+                            <span ng-show="commForm.ptsUsed.$error.max" class="help-block">Only {{comm.remaining}} available</span>
+                        </div>
+                    </td>
+
+                    <td class="text-center">
+                        <input ng-model="comm.idNumber" type="text" class="form-control input-sm"
+                        name="idNumber" ng-required>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

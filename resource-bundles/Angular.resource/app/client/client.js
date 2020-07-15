@@ -24,10 +24,10 @@ angular.module('clientController', [
 
 angular.module('clientController')
   .controller('clientController', ['$scope', '$location', '$timeout', '$window', '$routeParams', '$alert', '$q',
-    'foundSettings', 'foundHousehold', 'fbHouseholdDetail', 'fbSaveHousehold', 'fbSaveHouseholdMembers',
+    'foundSettings', 'foundHousehold', 'fbSaveHousehold', 'fbSaveHouseholdMembers', 'fbSaveMemberCommodities',
     'fbSaveHouseholdAndMembers', 'fbCheckIn', 'fbVisitHistory', 'fbServiceHistory', 'fbLogVisit', 'serviceLocation',
     function($scope, $location, $timeout, $window, $routeParams, $alert, $q, foundSettings, foundHousehold,
-      fbHouseholdDetail, fbSaveHousehold, fbSaveHouseholdMembers, fbSaveHouseholdAndMembers, fbCheckIn, fbVisitHistory, fbServiceHistory, fbLogVisit, serviceLocation) {
+      fbSaveHousehold, fbSaveHouseholdMembers, fbSaveMemberCommodities, fbSaveHouseholdAndMembers, fbCheckIn, fbVisitHistory, fbServiceHistory, fbLogVisit, serviceLocation) {
 
       $scope.contactid = $routeParams.clientContactId;
 
@@ -59,6 +59,12 @@ angular.module('clientController')
       if (foundHousehold.commodityAvailability && foundHousehold.commodityAvailability.length > 0) {
         $scope.data.commodities = foundHousehold.commodityAvailability;      
       }
+
+      $scope.data.memberCommodities = [];
+      if (foundHousehold.commodityAvailabilityMembers && foundHousehold.commodityAvailabilityMembers.length > 0) {
+        $scope.data.memberCommodities = foundHousehold.commodityAvailabilityMembers;
+      }
+
       $scope.data.visits = [];
       $scope.status.queriedVisits = false;
       $scope.data.serviceshistory = [];
@@ -376,6 +382,41 @@ angular.module('clientController')
     
       $scope.fullView = function () {
         $window.open('/one/one.app#/sObject/' + $scope.data.household.id, '_blank');
+      };
+
+      $scope.saveMemberCommodities = function() {
+
+        $scope.status.savingMemberCommodities = true;
+
+        _.forEach( $scope.data.memberCommodities, function(v) {
+          if (v.ptsUsed > 0) {
+
+            var comms = {};
+            comms[v.name] = v.ptsUsed;
+
+            fbSaveMemberCommodities($scope.data.household.id, v.ownerId, comms, v.idNumber, $scope.data.serviceLocation, $scope.settings.user_email).then(
+              function(result){
+  
+                // Reset values
+                v.ptsUsed = 0;
+                v.idNumber = '';
+  
+                var currentDate = new Date();
+                var refreshUniqueId = String(currentDate.getTime());
+                $location.url('/client/' + $scope.data.household.id + '/' + $scope.contactid + '?id=' + refreshUniqueId);
+              },
+              function(reason){
+                $alert({
+                  title: 'Failed to save changes.',
+                  content: reason.message,
+                  type: 'danger'
+                });
+              }
+            );             
+          }
+        });
+
+        $scope.status.savingMemberCommodities = true;
       };
 
       $scope.queryVisits = function() {

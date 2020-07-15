@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-5" ng-if="data.services">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Services</div>
+                        <div class="panel-heading">Household Services</div>
                         <div class="panel-body" ng-show="data.household">
                             <table ng-if="data.services" class="table table-condensed" style="margin-top:6px;">
                                 <tbody>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-md-7" ng-if="data.commodities">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Commodities</div>
+                        <div class="panel-heading">Household Commodities</div>
                         <div class="panel-body" ng-show="data.household">
                             <table ng-if="data.commodities" class="table table-condensed" style="margin-top:6px;">
                                     <trs>
@@ -40,7 +40,7 @@
                                     <tr ng-repeat="comm in data.commodities"
                                         ng-class="{danger: !comm.remaining, warning: (comm.remaining > 0 && comm.remaining < comm.monthlyLimit)}"
                                         ng-form="commForm"
-                                        ng-show="comm.locations.includes(data.serviceLocation)">
+                                        ng-show="comm.locations.includes(data.serviceLocation) && comm.householdCommodity">
 
                                         <td style="word-wrap: break-word">{{comm.name}}</td>
                                         <td class="text-center">{{comm.remaining}}</td>
@@ -67,7 +67,7 @@
             <div class="row">
                     <div class="col-md-5" ng-if="data.referrals">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Referrals</div>
+                            <div class="panel-heading">Household Referrals</div>
                             <div class="panel-body" ng-show="data.household">
                                 <table ng-if="data.referrals" class="table table-condensed" style="margin-top:6px;">
                                     <tbody>
@@ -89,7 +89,7 @@
                     </div>
                     <div class="col-md-5" ng-if="data.referrals">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Referrals</div>
+                            <div class="panel-heading">Household Referrals</div>
                             <div class="panel-body" ng-show="data.household">
                                 <table ng-if="data.referrals" class="table table-condensed" style="margin-top:6px;">
                                     <tbody>

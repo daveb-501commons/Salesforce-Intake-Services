@@ -1,0 +1,14 @@
+<aura:component implements="lightning:appHomeTemplate" description="Main left column
+ and right region. On a phone, the regions are of equal width">
+    <aura:attribute name="left" type="Aura.Component[]" />
+    <aura:attribute name="right" type="Aura.Component[]" />
+
+    <table>
+        <tr cellpadding = "8" cellspacing = "8" style="vertical-align:top;">  
+            <td width="70%">{!v.left}</td>  
+            <td width="1%"></td>  
+            <td width="29%">{!v.right}</td>  
+        </tr>  
+    </table>  
+    
+</aura:component>

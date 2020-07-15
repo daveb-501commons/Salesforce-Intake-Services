@@ -16,3 +16,4 @@ salesforce-intake-services.sublime-workspace
 .sfdx/
 .vscode/
 test_results*
+temp/

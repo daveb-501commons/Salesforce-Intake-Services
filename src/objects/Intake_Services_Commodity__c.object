@@ -13,6 +13,26 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Household_Commodity__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Commodity will be managed and show in the Household Commodity section on intake</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Commodity will be managed and show in the Household Commodity section on intake</inlineHelpText>
+        <label>Household Commodity</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Individual_Commodity__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Commodity will be managed and show in the Individual Commodity section on intake</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Commodity will be managed and show in the Individual Commodity section on intake</inlineHelpText>
+        <label>Individual Commodity</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Locations__c</fullName>
         <description>Comma separated list of locations</description>
         <externalId>false</externalId>

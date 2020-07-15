@@ -1,0 +1,8 @@
+<design:component label="Two Region Custom App Page Template">
+    <flexipage:template >
+        
+        <flexipage:region name="left" label="Left Region" defaultWidth="MEDIUM" />
+        <flexipage:region name="right" label="Right Region" defaultWidth="MEDIUM" />
+        
+    </flexipage:template>
+</design:component>

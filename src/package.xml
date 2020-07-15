@@ -75,6 +75,7 @@
         <members>Client_Visit__c.C501_IS_Out_Of_Area_Counter__c</members>
         <members>Client_Visit__c.C501_IS_Out_Of_Area__c</members>
         <members>Client_Visit__c.C501_IS_Points_Used__c</members>
+        <members>Client_Visit__c.C501_IS_Related_To_Contact__c</members>
         <members>Client_Visit__c.C501_IS_Seniors__c</members>
         <members>Client_Visit__c.C501_IS_Service_Location__c</members>
         <members>Client_Visit__c.C501_IS_Total_People__c</members>
@@ -84,6 +85,7 @@
         <members>Contact.C501_IS_Age_Entry_Date__c</members>
         <members>Contact.C501_IS_Age_Group__c</members>
         <members>Contact.C501_IS_Age__c</members>
+        <members>Contact.C501_IS_Commodity_Usage_JSON__c</members>
         <members>Contact.C501_IS_External_Created_Date__c</members>
         <members>Contact.C501_IS_External_Household_Id__c</members>
         <members>Contact.C501_IS_External_Id__c</members>
@@ -107,6 +109,8 @@
         <members>Intake_Services_Checkin__c.Check_In_Time__c</members>
         <members>Intake_Services_Checkin__c.Points_Remaining__c</members>
         <members>Intake_Services_Commodity__c.Allow_Overage__c</members>
+        <members>Intake_Services_Commodity__c.Household_Commodity__c</members>
+        <members>Intake_Services_Commodity__c.Individual_Commodity__c</members>
         <members>Intake_Services_Commodity__c.Locations__c</members>
         <members>Intake_Services_Commodity__c.Monthly_Limit__c</members>
         <members>Intake_Services_Commodity__c.Sort_Order__c</members>
@@ -180,6 +184,10 @@
     <types>
         <members>Angular</members>
         <name>StaticResource</name>
+    </types>
+    <types>
+        <members>twoColumn_70_30</members>
+        <name>AuraDefinitionBundle</name>
     </types>
     <version>42.0</version>
 </Package>

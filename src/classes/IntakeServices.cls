@@ -28,7 +28,7 @@ public with sharing class IntakeServices {
     //  Location for optimzation - same Fx in  https://github.com/501Commons/Salesforce-Service-Management/src/C501_TriggerHelper.cls
     //      Optimization is to have a single function return the query and then walk through the fields in a loop and set the values without explicitly referencing the api name - refer to MMA project
     //
-    private static void CreateServiceContacts(C501_Service_Household__c serviceHousehold, Id householdId) {
+    private static void CreateServiceContacts(C501_Service_Household__c serviceHousehold, Id householdId, Id contactId) {
 
         System.debug(LoggingLevel.DEBUG, '***** IntakeServices::CreateServiceContacts');
 
@@ -48,6 +48,11 @@ public with sharing class IntakeServices {
 
         List<C501_Service_Contact__c> insertServiceContacts = new List<C501_Service_Contact__c>();
         for (Contact contactRecord :householdContacts) {
+
+            // Check for Individual Contact Tracking
+            if (!String.isBlank(contactId) && contactRecord.Id <> contactId) {
+                continue;
+            }
 
             C501_Service_Contact__c sc = new C501_Service_Contact__c(
                 Name = serviceHousehold.Name,
@@ -95,7 +100,7 @@ public with sharing class IntakeServices {
             }
             
             System.debug(LoggingLevel.DEBUG, '***** Service Household Has No Contacts: ' + serviceHousehold.Name + ' Program: ' + serviceHousehold.C501_Program__c);
-            CreateServiceContacts(serviceHousehold, serviceHousehold.C501_Household__c);
+            CreateServiceContacts(serviceHousehold, serviceHousehold.C501_Household__c, null);
         }
 */
     }
@@ -272,7 +277,7 @@ public with sharing class IntakeServices {
                 (select Id, Name, FirstName, LastName, C501_IS_Age_Group__c, C501_IS_Age__c, Birthdate, C501_IS_Proof_of_Infant__c, C501_IS_Gender__c, C501_IS_Id_Number__c,
                 C501_Ethnicity__c, C501_Race__c, C501_Military_Status__c, C501_Is_In_Household__c, Email, Phone
                     from Contacts),
-                (select C501_IS_Points_Used__c, C501_IS_Commodity_Usage_JSON__c from Visits__r where C501_IS_Visit_Date__c = THIS_MONTH)
+                (select C501_IS_Points_Used__c, C501_IS_Related_To_Contact__c, C501_IS_Commodity_Usage_JSON__c from Visits__r where C501_IS_Visit_Date__c = THIS_MONTH)
                 from Account where id = :hhid];
 
         if (IntakeServicesSettings.general.Track_Points__c)
@@ -371,6 +376,49 @@ public with sharing class IntakeServices {
 
     @RemoteAction
     public static Account saveHouseholdMembers( Id hhId, list<Contact> clients ) {
+
+        if (clients != null) {
+            list<Contact> clientsToInsert = new list<Contact>();
+            list<Contact> clientsToUpdate = new list<Contact>();
+            set<Id> clientIds = new set<Id>();
+
+            for (Contact client : clients) {
+                if (client.LastName != null) {
+
+                    client.AccountId = hhId;
+
+                    // ToDo - Integrate with NPSP Address Management 
+                    Account hh = getHouseholdDetail( hhId );
+                    client.MailingStreet = hh.BillingStreet;
+                    client.MailingCity = hh.BillingCity;
+                    client.MailingState = hh.BillingState;
+                    client.MailingPostalCode = hh.BillingPostalCode;
+
+                    if (client.Id == null) {
+                        clientsToInsert.add(client.clone());
+                    } else {
+                        clientsToUpdate.add(client);
+                        clientIds.add(client.Id);
+                    }
+                }
+            }
+            
+            list<Contact> clientsToDelete = [select id from Contact where AccountId = : hhId
+                and Id not in :clientIds];
+
+            if (!clientsToDelete.isEmpty())
+                delete clientsToDelete;
+            if (!clientsToUpdate.isEmpty())
+                update clientsToUpdate;
+            if (!clientsToInsert.isEmpty())
+                insert clientsToInsert;
+        }
+
+        return getHouseholdDetail( hhId );
+    }
+
+    @RemoteAction
+    public static Account saveHouseholdMemberCommodities( Id hhId, Id memberId, list<Contact> clients ) {
 
         if (clients != null) {
             list<Contact> clientsToInsert = new list<Contact>();
@@ -520,7 +568,7 @@ public with sharing class IntakeServices {
 
                     C501_Service_Household__c sh = new C501_Service_Household__c(
                         Name = hh.Name + ' (' + cleanName + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
+                        C501_Service_Id__c = 'Household Commodity' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
                         C501_Service__c = cleanName,
@@ -536,7 +584,7 @@ public with sharing class IntakeServices {
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId);
+                    CreateServiceContacts(sh, hhId, null);
                 }
             }
 
@@ -566,7 +614,7 @@ public with sharing class IntakeServices {
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId);
+                    CreateServiceContacts(sh, hhId, null);
                 }
             }
 
@@ -596,9 +644,110 @@ public with sharing class IntakeServices {
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId);
+                    CreateServiceContacts(sh, hhId, null);
                 }
             }
+
+            // Check to fix any Service Households that don't have any Service Contacts
+            CheckServiceHouseholdRecords();
+
+        } catch (Exception ex) {
+            system.debug(ex.getMessage());
+        }
+    }
+
+    @RemoteAction
+    public static void saveMemberCommodities( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String IdNumber, String serviceLocation, String createdBy) {
+
+        System.debug(LoggingLevel.DEBUG, '*****IntakeServices::logVisit Start - commodityUsage: ' + commodityUsage + ' createdBy: ' + createdBy);
+
+        // get the HH detail
+        Account[] hhs =
+            [select Id, Name, C501_IS_Adults__c, C501_IS_Children__c, C501_IS_Infants__c, C501_IS_Seniors__c, C501_IS_Homeless__c, C501_IS_Out_Of_Area__c, C501_IS_Inactive__c
+                from Account where id = :hhid];
+
+        if ( hhs.isEmpty() ) {
+            throw new IntakeServicesException('Household not found.');
+        }
+
+        Account hh = hhs[0];
+
+        // Validate Contact references are still valid because between the checkin time and log visit the Contact could have been deleted
+        list<Contact> c = [select id from Contact where id = :contactid];
+        if (c.isEmpty()) {
+            contactid = null;
+        }
+
+        Datetime currentDatetime = Datetime.now();
+        Date currentDate = currentDatetime.date();
+
+        // log the visit
+        Client_Visit__c cv = new Client_Visit__c(
+            C501_IS_Household__c = hh.Id,
+            C501_IS_Adults__c = hh.C501_IS_Adults__c,
+            C501_IS_Seniors__c = hh.C501_IS_Seniors__c,
+            C501_IS_Children__c = hh.C501_IS_Children__c,
+            C501_IS_Infants__c = hh.C501_IS_Infants__c,
+            C501_IS_Homeless__c = hh.C501_IS_Homeless__c,
+            C501_IS_Out_Of_Area__c = hh.C501_IS_Out_Of_Area__c,
+            C501_IS_Visit_Type__c = 'Other',
+            C501_IS_Service_Location__c = serviceLocation,
+            C501_IS_Visit_Date__c = currentDatetime,
+            C501_IS_Visitor__c = contactid,
+
+            // Set flag for Individual Commondity tracking
+            C501_IS_Related_To_Contact__c = contactid
+        );
+
+        if (commodityUsage != null && !commodityUsage.isEmpty())
+            cv.C501_IS_Commodity_Usage_JSON__c = JSON.serializePretty(commodityUsage);
+
+        try {
+            insert cv;
+        } catch (Exception ex) {
+            system.debug(ex.getMessage());
+        }
+
+        try {
+            // Create new Service records for Commodity
+            //
+
+            System.debug(LoggingLevel.DEBUG, '*****IntakeServices::saveMemberCommodity commodityUsage: ' + commodityUsage);
+
+            if (commodityUsage != null && !commodityUsage.isEmpty()) {
+                for (String commodity : commodityUsage.keySet()) {
+
+                    String cleanName = commodity
+                        .replace('_FORWARDSLASH_', '/')
+                        .replace('_', ' ');
+
+                    if (!String.isBlank(idNumber)) {
+                        cleanName += ' ' + idNumber;
+                    }
+                    
+                    C501_Service_Household__c sh = new C501_Service_Household__c(
+                        Name = hh.Name + ' (' + cleanName + ')',
+                        C501_Service_Id__c = 'Individual Commodity ' + cleanName + currentDatetime.format() + hh.id,
+                        C501_Household__c = hh.id,
+                        C501_Program__c = 'Information & Referral',
+                        C501_Service__c = cleanName,
+                        C501_Start_Date__c = currentDate,
+                        C501_End_Date__c = currentDate,
+                        C501_IsActive__c = false,
+                        C501_Trigger_Ignore_Change__c = true,
+                        C501_Location__c = serviceLocation,
+                        C501_Created_By__c = createdBy
+                    );
+
+                    CopyFieldsAccount2ServiceAccount(hh.Id, sh);
+
+                    insert sh;
+
+                    // Create Service Contacts based on the current contacts in the household
+                    CreateServiceContacts(sh, hhId, contactId);
+                }
+            }
+
 
             // Check to fix any Service Households that don't have any Service Contacts
             CheckServiceHouseholdRecords();
@@ -799,7 +948,7 @@ public with sharing class IntakeServices {
                         .replace('_', ' ');
                     C501_Service_Household__c sh = new C501_Service_Household__c(
                         Name = hh.Name + ' (' + cleanName + ')',
-                        C501_Service_Id__c = 'Information & Referral' + cleanName + Datetime.now().format() + hh.id,
+                        C501_Service_Id__c = 'Household Commodity' + cleanName + Datetime.now().format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
                         C501_Service__c = cleanName,
@@ -816,7 +965,7 @@ public with sharing class IntakeServices {
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId);
+                    CreateServiceContacts(sh, hhId, null);
                 }
             }
 
@@ -847,7 +996,7 @@ public with sharing class IntakeServices {
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId);
+                    CreateServiceContacts(sh, hhId, null);
                 }
             }
 
@@ -878,7 +1027,7 @@ public with sharing class IntakeServices {
                     insert sh;
 
                     // Create Service Contacts based on the current contacts in the household
-                    CreateServiceContacts(sh, hhId);
+                    CreateServiceContacts(sh, hhId, null);
                 }
             }
 

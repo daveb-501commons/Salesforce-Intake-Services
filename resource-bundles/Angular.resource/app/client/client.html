@@ -41,6 +41,7 @@
                 <div ng-include="basePath + '/app/client/history.html'"></div>
                 <div ng-include="basePath + '/app/client/visit_reason.html'"></div>
                 <div ng-include="basePath + '/app/client/available.html'" ng-if="data.commodities || settings.general.trackPoints"></div>
+                <div ng-include="basePath + '/app/client/available_client.html'" ng-if="data.memberCommodities"></div>
                 <div ng-include="basePath + '/app/client/members.html'"></div>
                 <div ng-include="basePath + '/app/client/address.html'"></div>
                 <div ng-include="basePath + '/app/client/notes.html'" ng-if="data.commodities || settings.general.trackPoints"></div>

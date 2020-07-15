@@ -23,6 +23,10 @@
                 <behavior>Edit</behavior>
                 <field>C501_IS_Service_Location__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>C501_IS_Related_To_Contact__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

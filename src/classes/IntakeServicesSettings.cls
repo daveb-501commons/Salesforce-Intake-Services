@@ -46,7 +46,7 @@ public with sharing class IntakeServicesSettings {
         get {
             if (commodities == null) {
                 commodities = (!Test.isRunningTest()) ?
-                    [select name, Monthly_Limit__c, Allow_Overage__c, Locations__c from Intake_Services_Commodity__c order by Sort_Order__c, name] :
+                    [select name, Monthly_Limit__c, Individual_Commodity__c, Household_Commodity__c, Allow_Overage__c, Locations__c from Intake_Services_Commodity__c order by Sort_Order__c, name] :
                     new List<Intake_Services_Commodity__c>{
                         new Intake_Services_Commodity__c(
                             Name = 'Meat',

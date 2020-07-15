@@ -255,6 +255,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Client_Visit__c.C501_IS_Related_To_Contact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Client_Visit__c.C501_IS_Seniors__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -297,6 +302,11 @@
         <editable>false</editable>
         <field>Contact.C501_IS_Age__c</field>
         <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.C501_IS_Commodity_Usage_JSON__c</field>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>

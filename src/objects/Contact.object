@@ -57,6 +57,17 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>C501_IS_Commodity_Usage_JSON__c</fullName>
+        <description>JSON data that records the total usage of commodities in the month of the most recent visit.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>JSON data that records the total usage of commodities in the month of the most recent visit.</inlineHelpText>
+        <label>Commodity Usage JSON</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
         <fullName>C501_IS_External_Created_Date__c</fullName>
         <description>Store the date the external entry was created.</description>
         <externalId>false</externalId>
@@ -77,14 +88,13 @@
     </fields>
     <fields>
         <fullName>C501_IS_External_Id__c</fullName>
-        <caseSensitive>false</caseSensitive>
         <externalId>true</externalId>
         <label>External Id</label>
         <length>20</length>
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
-        <unique>true</unique>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>C501_IS_Gender__c</fullName>

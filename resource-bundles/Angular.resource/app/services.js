@@ -167,7 +167,9 @@ angular.module('appServices')
             'name': c.Name,
             'allowOverage': c.Allow_Overage__c,
             'locations': c.Locations__c,
-            'monthlyLimit': c.Monthly_Limit__c
+            'monthlyLimit': c.Monthly_Limit__c,
+            'individualCommodity': c.Individual_Commodity__c,
+            'householdCommodity': c.Household_Commodity__c
           });
         });
 
@@ -313,46 +315,63 @@ angular.module('appServices')
         if (!client.infants) { client.infants = 0; }
         client.totalMembers = client.adults + client.seniors + client.children + client.infants;
 
+        client.commodityUsageMembers = {};
+
         // build list of members
         client.members = [];
-        _.forEach( result.Contacts, function(v) {
+        _.forEach( result.Contacts, function(c) {
+
+          _.forEach( result.Visits__r, function(visit) {
+
+            if (visit.C501_IS_Commodity_Usage_JSON__c && visit.C501_IS_Related_To_Contact__c == c.Id) {
+              _.forEach(angular.fromJson(visit.C501_IS_Commodity_Usage_JSON__c), function(value, key) {
+                if ( (key + c.Id) in client.commodityUsageMembers) {
+                  client.commodityUsageMembers[key + c.Id] += value;
+                } else {
+                  client.commodityUsageMembers[key + c.Id] = value;
+                }
+              });
+            }
+          });
+  
           client.members.push({
-            id: v.Id,
-            name: v.Name,
-            firstName: v.FirstName,
-            lastName: v.LastName,
-            ageGroup: v.C501_IS_Age_Group__c,
-            Id_Number: v.C501_IS_Id_Number__c,
-            gender: v.C501_IS_Gender__c,
-            age: v.C501_IS_Age__c,
-            ethnicity: v.C501_Ethnicity__c,
-            race: v.C501_Race__c,
-            veteran: v.C501_Military_Status__c,
-            inhh: (v.C501_Is_In_Household__c == null || !v.C501_Is_In_Household__c) ? 'No' : 'Yes',
-            email: v.Email,
-            phone: v.Phone,
-            // v.Birthdate + 12 hours to make sure rounding to correct day since Date parses the value as GMT then converts to Browser Time Zone (Pacific)
-            birthdate: (v.Birthdate) ? new Date(v.Birthdate + (12 * 60 * 60 * 1000)) : Date.MIN_BIRTHDATE,
-            proofOfInfant: v.C501_IS_Proof_of_Infant__c
+            id: c.Id,
+            name: c.Name,
+            firstName: c.FirstName,
+            lastName: c.LastName,
+            ageGroup: c.C501_IS_Age_Group__c,
+            Id_Number: c.C501_IS_Id_Number__c,
+            gender: c.C501_IS_Gender__c,
+            age: c.C501_IS_Age__c,
+            ethnicity: c.C501_Ethnicity__c,
+            race: c.C501_Race__c,
+            veteran: c.C501_Military_Status__c,
+            inhh: (c.C501_Is_In_Household__c == null || !c.C501_Is_In_Household__c) ? 'No' : 'Yes',
+            email: c.Email,
+            phone: c.Phone,
+            // c.Birthdate + 12 hours to make sure rounding to correct day since Date parses the value as GMT then converts to Browser Time Zone (Pacific)
+            birthdate: (c.Birthdate) ? new Date(c.Birthdate + (12 * 60 * 60 * 1000)) : Date.MIN_BIRTHDATE,
+            proofOfInfant: c.C501_IS_Proof_of_Infant__c
           });
         });
 
+        client.commodityUsage = {};
+
         // add up points and commodities used in previous visits this month
         var pointsUsed = 0;
-        client.commodityUsage = {};
         client.visitsThisMonth = (result.Visits__r ? result.Visits__r.length : 0);
-        _.forEach( result.Visits__r, function(v) {
-          if (v.C501_IS_Points_Used__c) {
+        _.forEach( result.Visits__r, function(visit) {
+          if (visit.C501_IS_Points_Used__c) {
             pointsUsed += v.C501_IS_Points_Used__c;
           }
 
           // TODO: try catch? json could be bogus
-          if (v.C501_IS_Commodity_Usage_JSON__c) {
-            _.forEach( angular.fromJson( v.C501_IS_Commodity_Usage_JSON__c ), function(v, k) {
-              if (k in client.commodityUsage) {
-                client.commodityUsage[k] += v;
+          if (visit.C501_IS_Commodity_Usage_JSON__c && (visit.C501_IS_Related_To_Contact__c == null || visit.C501_IS_Related_To_Contact__c == '')) {
+            _.forEach(angular.fromJson(visit.C501_IS_Commodity_Usage_JSON__c), function(value, key) {
+              if (key in client.commodityUsage) {
+                client.commodityUsage[key] += value;
               } else {
-                client.commodityUsage[k] = v;
+                client.commodityUsage[key] = value;
               }
             });
           }
@@ -361,26 +380,59 @@ angular.module('appServices')
         // Check the checkin queue for pending commodities
         client.commodityPending = {};
         if (client.pendingcommodityusage != null) {
-          _.forEach( angular.fromJson( client.pendingcommodityusage ), function(v, k) {
-              client.commodityPending[k] = v;
+          _.forEach( angular.fromJson( client.pendingcommodityusage ), function(value, key) {
+              client.commodityPending[key] = value;
           });
         }
 
         // subtract commodity usage to get the current available commodities
         fbSettings.get().then(
           function(settings){
+
             client.commodityAvailability = [];
-            _.forEach( settings.commodities, function(v) {
-              var comm = v;
-              comm.ptsUsed = 0;
-              if( client.commodityPending && (v.name in client.commodityPending) ) {
-                comm.ptsUsed = client.commodityPending[v.name];
+            _.forEach(settings.commodities, function(commodity) {
+
+              var householdCommodity = _.clone(commodity);
+
+              householdCommodity.ptsUsed = 0;
+              if (client.commodityPending && (householdCommodity.name in client.commodityPending) ) {
+                householdCommodity.ptsUsed = client.commodityPending[householdCommodity.name];
               }
-              comm.remaining = comm.monthlyLimit;
-              if( client.commodityUsage && (v.name in client.commodityUsage) ) {
-                comm.remaining -= client.commodityUsage[v.name];
+
+              householdCommodity.remaining = householdCommodity.monthlyLimit;
+              if (client.commodityUsage && (householdCommodity.name in client.commodityUsage) ) {
+                householdCommodity.remaining -= client.commodityUsage[householdCommodity.name];
               }
-              client.commodityAvailability.push(comm);
+
+              client.commodityAvailability.push(householdCommodity);     
+            });
+
+            client.commodityAvailabilityMembers = [];
+            _.forEach(client.members, function(c) {
+
+              _.forEach(settings.commodities, function(commodity) {
+
+                var memberCommodity = _.clone(commodity);
+  
+                memberCommodity.remaining = memberCommodity.monthlyLimit;
+                if( client.commodityUsageMembers && ( (memberCommodity.name + c.id) in client.commodityUsageMembers) ) {
+                  memberCommodity.remaining -= client.commodityUsageMembers[memberCommodity.name + c.id];
+                }
+
+                client.commodityAvailabilityMembers.push({
+                  'ownerName': c.name,
+                  'ownerId': c.id,
+                  'idNumber': '',
+                  'name': memberCommodity.name,
+                  'allowOverage': memberCommodity.allowOverage,
+                  'locations': memberCommodity.locations,
+                  'monthlyLimit': memberCommodity.monthlyLimit,
+                  'remaining': memberCommodity.remaining,
+                  'ptsUsed': 0,
+                  'individualCommodity': memberCommodity.individualCommodity,
+                  'householdCommodity': memberCommodity.householdCommodity
+                });
+              });               
             });
 
             // TODO: add a box override
@@ -416,6 +468,7 @@ angular.module('appServices')
             }
           }
         );
+
         return client;
       }
     };
@@ -440,6 +493,13 @@ angular.module('appServices')
       var memberList = _.map(members, fbHouseholdDetail.getMemberSObject);
       return jsRemoting.invoke('saveHouseholdMembers', [hhid, memberList], fbHouseholdDetail.translate);
     };
+  }]);
+
+angular.module('appServices')
+  .factory('fbSaveMemberCommodities', ['jsRemoting', function(jsRemoting) {
+      return function( hhid, contactid, comms, idNumber, serviceLocation, createdBy ) {
+        return jsRemoting.invoke('saveMemberCommodities', [hhid, contactid, comms, idNumber, serviceLocation, createdBy]);
+      };
   }]);
 
 angular.module('appServices')
