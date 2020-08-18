@@ -8,9 +8,9 @@
     <formFactors>Large</formFactors>
     <label>Intake Services</label>
     <navType>Standard</navType>
-    <tabs>Intake_Bellingham</tabs>
-    <tabs>Intake_East_Whatcom</tabs>
-    <tabs>Intake_Island</tabs>
+    <tabs>Intake_Services_App_Bellingham</tabs>
+    <tabs>Intake_Services_App_EastWhatcom</tabs>
+    <tabs>Intake_Services_App_Island</tabs>
     <tabs>Client_Visit__c</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>
