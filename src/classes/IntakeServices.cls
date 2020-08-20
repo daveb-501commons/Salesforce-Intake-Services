@@ -42,7 +42,7 @@ public with sharing class IntakeServices {
 					C501_Developmental_Disability__c, C501_Medicaid__c, C501_Medicare__c,
 					C501_Education_Level__c, C501_Health_Insurance__c, C501_Race__c, C501_Ethnicity__c, Gender__c,
 					C501_Preferred_Language__c, C501_Additional_Languages__c,
-					C501_Work_Status__c, C501_Case_Worker__c, C501_Is_In_Household__c
+					C501_Work_Status__c, C501_Case_Worker__c
 				FROM Contact
 				WHERE AccountId = :householdId];
 
@@ -118,7 +118,6 @@ public with sharing class IntakeServices {
         sc.C501_Last_Name__c = c.LastName;
         sc.C501_Middle_Name__c = c.MiddleName;
         sc.C501_Birthdate__c = c.Birthdate;
-        sc.C501_Is_In_Household__c = c.C501_Is_In_Household__c;
         sc.C501_Partial_Social_Security_Id__c = c.C501_Partial_Social_Security_Id__c;
         sc.C501_Order__c = c.C501_Order__c;
         sc.C501_Age__c = c.C501_Age__c;
@@ -274,7 +273,7 @@ public with sharing class IntakeServices {
                 C501_IS_Children__c, C501_IS_Infants__c, C501_IS_Seniors__c, C501_IS_Tags__c,
                 C501_IS_Staff_Notes__c, Phone, C501_IS_Proof_of_Address__c, C501_IS_Proof_of_Address_Date__c,
                 (select Id, Name, FirstName, LastName, C501_IS_Age_Group__c, C501_IS_Age__c, Birthdate, C501_IS_Proof_of_Infant__c, C501_IS_Gender__c, C501_IS_Id_Number__c,
-                C501_Ethnicity__c, C501_Race__c, C501_Military_Status__c, C501_Is_In_Household__c, Email, Phone
+                C501_Ethnicity__c, C501_Race__c, C501_Military_Status__c, Email, Phone
                     from Contacts),
                 (select C501_IS_Points_Used__c, C501_IS_Related_To_Contact__c, C501_IS_Commodity_Usage_JSON__c from Visits__r where C501_IS_Visit_Date__c = THIS_MONTH)
                 from Account where id = :hhid];

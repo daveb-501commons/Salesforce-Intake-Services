@@ -32,13 +32,12 @@
                     <th style="width:10%" ng-if="status.editingMembers">First</th>
                     <th style="width:10%" ng-if="status.editingMembers">Last</th>
                     <th style="width:10%">Birthdate</th>
-                    <th style="width:9%">Gender</th>
-                    <th style="width:9%">Ethnicity</th>
-                    <th style="width:9%">Race</th>
-                    <th style="width:9%">Veteran</th>
-                    <th style="width:10%">Email</th>
-                    <th style="width:10%">Phone</th>
-                    <th style="width:9%">In HH</th>
+                    <th style="width:10%">Gender</th>
+                    <th style="width:10%">Ethnicity</th>
+                    <th style="width:10%">Race</th>
+                    <th style="width:10%">Veteran</th>
+                    <th style="width:12%">Email</th>
+                    <th style="width:13%">Phone</th>
                     <th style="width:5%" ng-if="status.editingMembers"></th>
                 </tr>
             </thead>
@@ -54,7 +53,6 @@
                     <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.veteran}}</td>
                     <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.email}}</td>
                     <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.phone}}</td>
-                    <td style="word-wrap: break-word" ng-if="!status.editingMembers">{{person.memberData.inhh}}</td>
 
                     <td ng-if="status.editingMembers">
                         <input ng-model="person.memberDataEditable.firstName" type="text" class="form-control input-sm"
@@ -103,12 +101,6 @@
                         <input ng-model="person.memberData.phone" type="text"
                             class="form-control input-sm" name="phone"
                             ng-maxlength="50" ng-required required>
-                    </td>
-                    <td ng-if="status.editingMembers">
-                        <select ng-model="person.memberData.inhh" class="form-control input-sm"
-                            name="inhh" ng-options="i for i in ['Yes','No']">
-                            <option value="">-</option>
-                        </select>
                     </td>
 
                     <td ng-if="status.editingMembers && data.memberList.length > 1" class="text-right">

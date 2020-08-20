@@ -42,13 +42,12 @@
                                     <th style="width:10%">First</th>
                                     <th style="width:10%">Last</th>
                                     <th style="width:13%">Birthdate</th>
-                                    <th style="width:9%">Gender</th>
-                                    <th style="width:9%">Ethnicity</th>
-                                    <th style="width:9%">Race</th>
-                                    <th style="width:9%">Veteran</th>
-                                    <th style="width:11%">Email</th>
-                                    <th style="width:11%">Phone</th>
-                                    <th style="width:9%">In HH</th>
+                                    <th style="width:10%">Gender</th>
+                                    <th style="width:10%">Ethnicity</th>
+                                    <th style="width:10%">Race</th>
+                                    <th style="width:10%">Veteran</th>
+                                    <th style="width:13%">Email</th>
+                                    <th style="width:14%">Phone</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,12 +101,6 @@
                                         <input ng-model="person.memberData.phone" type="text"
                                             class="form-control input-sm" name="phone"
                                             ng-maxlength="50" ng-required required>
-                                    </td>
-                                    <td>
-                                        <select ng-model="person.memberData.inhh" class="form-control input-sm"
-                                            name="inhh" ng-options="i for i in ['Yes','No']">
-                                            <option value="">Yes</option>
-                                        </select>
                                     </td>
     
                                     <td class="text-right" ng-show="data.memberList.length > 1">

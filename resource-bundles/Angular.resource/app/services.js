@@ -262,7 +262,6 @@ angular.module('appServices')
           C501_Ethnicity__c: mobj.ethnicity,
           C501_Race__c :mobj.race,
           C501_Military_Status__c :mobj.veteran,
-          C501_Is_In_Household__c :(mobj.inhh == 'No') ? false : true,
           Email :mobj.email,
           Phone :mobj.phone,
           C501_IS_Proof_of_Infant__c: mobj.proofOfInfant
@@ -346,7 +345,6 @@ angular.module('appServices')
             ethnicity: c.C501_Ethnicity__c,
             race: c.C501_Race__c,
             veteran: c.C501_Military_Status__c,
-            inhh: (c.C501_Is_In_Household__c == null || !c.C501_Is_In_Household__c) ? 'No' : 'Yes',
             email: c.Email,
             phone: c.Phone,
             // c.Birthdate + 12 hours to make sure rounding to correct day since Date parses the value as GMT then converts to Browser Time Zone (Pacific)
