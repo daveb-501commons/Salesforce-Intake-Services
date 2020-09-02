@@ -54,6 +54,7 @@ angular.module('clientController')
       $scope.data.visitNotes = '';
       $scope.data.visitType = 'Select Option';
       $scope.data.visitDate = new Date();
+      $scope.data.commodityDate = new Date();
 
       $scope.data.boxType = foundHousehold.defaultBox;
       if (foundHousehold.commodityAvailability && foundHousehold.commodityAvailability.length > 0) {
@@ -388,13 +389,18 @@ angular.module('clientController')
 
         $scope.status.savingMemberCommodities = true;
 
+        var dd = String($scope.data.commodityDate.getDate()).padStart(2, '0');
+        var mm = String($scope.data.commodityDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = $scope.data.commodityDate.getFullYear();
+        var safeDate = mm + '/' + dd + '/' + yyyy;
+
         _.forEach( $scope.data.memberCommodities, function(v) {
           if (v.ptsUsed > 0) {
 
             var comms = {};
             comms[v.name] = v.ptsUsed;
 
-            fbSaveMemberCommodities($scope.data.household.id, v.ownerId, comms, v.idNumber, $scope.data.serviceLocation, $scope.settings.user_email).then(
+            fbSaveMemberCommodities($scope.data.household.id, v.ownerId, comms, safeDate, v.idNumber, $scope.data.serviceLocation, $scope.settings.user_email).then(
               function(result){
   
                 // Reset values

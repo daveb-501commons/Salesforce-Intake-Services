@@ -495,8 +495,8 @@ angular.module('appServices')
 
 angular.module('appServices')
   .factory('fbSaveMemberCommodities', ['jsRemoting', function(jsRemoting) {
-      return function( hhid, contactid, comms, idNumber, serviceLocation, createdBy ) {
-        return jsRemoting.invoke('saveMemberCommodities', [hhid, contactid, comms, idNumber, serviceLocation, createdBy]);
+      return function( hhid, contactid, comms, commodityDate, idNumber, serviceLocation, createdBy ) {
+        return jsRemoting.invoke('saveMemberCommodities', [hhid, contactid, comms, commodityDate, idNumber, serviceLocation, createdBy]);
       };
   }]);
 

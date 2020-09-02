@@ -52,7 +52,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 Individual Commodities
-                            </div>
+                            </div>             
                             <div class="col-sm-6 text-right">
                                 <button class="btn btn-success btn-sm panel-button"
                                     ng-click="saveMemberCommodities()">Save<i ng-if="status.savingMemberCommodities" class="fa fa-refresh fa-spin" style="margin-left:6px;"></i>
@@ -62,6 +62,13 @@
                     </div>
                     
                     <div class="panel-body">
+                        <label class="col-sm-4 control-label">Commodity Date</label>
+                        <div class="col-sm-4">
+                            <input type="date"
+                                class="form-control input-sm"
+                                ng-model="data.commodityDate"
+                                placeholder="M/dd/yyyy" min="2018-01-01" />
+                        </div>
                         <table class="table table-condensed" style="margin-bottom:12px;table-layout: fixed; width: 100%">
                             <thead>
                                 <tr>

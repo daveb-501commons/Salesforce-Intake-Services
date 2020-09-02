@@ -661,7 +661,7 @@ public with sharing class IntakeServices {
     }
 
     @RemoteAction
-    public static void saveMemberCommodities( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String IdNumber, String serviceLocation, String createdBy) {
+    public static void saveMemberCommodities( Id hhid, Id contactid, Map<String, Integer> commodityUsage, String commodityDate, String IdNumber, String serviceLocation, String createdBy) {
 
         System.debug(LoggingLevel.DEBUG, '*****IntakeServices::logVisit Start - commodityUsage: ' + commodityUsage + ' createdBy: ' + createdBy);
 
@@ -682,8 +682,8 @@ public with sharing class IntakeServices {
             contactid = null;
         }
 
-        Datetime currentDatetime = Datetime.now();
-        Date currentDate = currentDatetime.date();
+        Date memberCommodityDate = Date.parse(commodityDate);
+        Datetime memberCommodityDatetime = memberCommodityDate;
 
         // log the visit
         Client_Visit__c cv = new Client_Visit__c(
@@ -696,7 +696,7 @@ public with sharing class IntakeServices {
             C501_IS_Out_Of_Area__c = hh.C501_IS_Out_Of_Area__c,
             C501_IS_Visit_Type__c = 'Other',
             C501_IS_Service_Location__c = serviceLocation,
-            C501_IS_Visit_Date__c = currentDatetime,
+            C501_IS_Visit_Date__c = memberCommodityDatetime,
             C501_IS_Visitor__c = contactid,
 
             // Set flag for Individual Commondity tracking
@@ -731,12 +731,12 @@ public with sharing class IntakeServices {
                     
                     C501_Service_Household__c sh = new C501_Service_Household__c(
                         Name = c[0].Name + ' (' + cleanName + ')',
-                        C501_Service_Id__c = 'Individual Commodity ' + cleanName + currentDatetime.format() + hh.id,
+                        C501_Service_Id__c = 'Individual Commodity ' + cleanName + memberCommodityDatetime.format() + hh.id,
                         C501_Household__c = hh.id,
                         C501_Program__c = 'Information & Referral',
                         C501_Service__c = cleanName,
-                        C501_Start_Date__c = currentDate,
-                        C501_End_Date__c = currentDate,
+                        C501_Start_Date__c = memberCommodityDate,
+                        C501_End_Date__c = memberCommodityDate,
                         C501_IsActive__c = false,
                         C501_Trigger_Ignore_Change__c = true,
                         C501_Location__c = serviceLocation,
