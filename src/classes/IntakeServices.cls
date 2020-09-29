@@ -684,8 +684,8 @@ public with sharing class IntakeServices {
 
         Date memberCommodityDate = Date.parse(commodityDate);
         Datetime memberCommodityDatetime = memberCommodityDate;
-        memberCommodityDatetime = memberCommodityDatetime.addHours(DateTime.now().hour());
-        memberCommodityDatetime = memberCommodityDatetime.addMinutes(DateTime.now().minute());
+        memberCommodityDatetime = memberCommodityDatetime.addHours(DateTime.now().hourGMT());
+        memberCommodityDatetime = memberCommodityDatetime.addMinutes(DateTime.now().minuteGMT());
 
         // log the visit
         Client_Visit__c cv = new Client_Visit__c(
