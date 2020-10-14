@@ -405,9 +405,9 @@
                     <label>Health Plan Finder</label>
                 </value>
                 <value>
-                    <fullName>Housing Intake</fullName>
+                    <fullName>Housing</fullName>
                     <default>false</default>
-                    <label>Housing Intake</label>
+                    <label>Housing</label>
                 </value>
                 <value>
                     <fullName>Landlord Tenant Education</fullName>
